@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://dn73q1c7tasit"]
+
+[ext_resource type="Script" uid="uid://dy0t0sdbw1h2a" path="res://play_area.gd" id="1_4wq66"]
+[ext_resource type="Script" uid="uid://bghaddibpt6f1" path="res://addons/crt/crt.gd" id="1_olvlq"]
+[ext_resource type="Texture2D" uid="uid://dao08vdoajmn2" path="res://temp/space-invaders.png" id="2_c4sgl"]
+[ext_resource type="Script" uid="uid://xu838nvrsxjk" path="res://shooter.gd" id="2_rkmla"]
+[ext_resource type="Script" uid="uid://chwejvr5u3ybd" path="res://match_sprite.gd" id="3_rkmla"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_olvlq"]
+atlas = ExtResource("2_c4sgl")
+region = Rect2(2, 49, 15, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gcgrt"]
+size = Vector2(16, 8)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("1_olvlq")
+resolution = Vector2(561, 480)
+warp_amount = 0.0
+noise_amount = 0.027
+grille_amount = 0.424
+vignette_intensity = 0.157
+aberation_amount = 0.14
+roll_line_amount = 0.0
+
+[node name="PlayArea" type="StaticBody2D" parent="CanvasLayer"]
+collision_mask = 0
+script = ExtResource("1_4wq66")
+width = 561
+height = 480
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CanvasLayer/PlayArea"]
+build_mode = 1
+polygon = PackedVector2Array(0, 0, 561, 0, 561, 480, 0, 480)
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/PlayArea"]
+offset_right = 561.0
+offset_bottom = 480.0
+color = Color(0.0313057, 0.110646, 0.216878, 1)
+
+[node name="Scaling" type="Node2D" parent="CanvasLayer/PlayArea"]
+scale = Vector2(2, 2)
+
+[node name="Shooter" type="CharacterBody2D" parent="CanvasLayer/PlayArea/Scaling"]
+position = Vector2(66, 113)
+collision_layer = 2
+script = ExtResource("2_rkmla")
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/PlayArea/Scaling/Shooter"]
+texture = SubResource("AtlasTexture_olvlq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/PlayArea/Scaling/Shooter"]
+shape = SubResource("RectangleShape2D_gcgrt")
+script = ExtResource("3_rkmla")

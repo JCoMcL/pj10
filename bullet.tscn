@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://cglfd6h0f8dxb"]
+
+[ext_resource type="Script" uid="uid://bl37251hcpvmo" path="res://bullet.gd" id="1_t4vbm"]
+[ext_resource type="Texture2D" uid="uid://dao08vdoajmn2" path="res://temp/space-invaders.png" id="2_2b2rl"]
+[ext_resource type="Script" uid="uid://chwejvr5u3ybd" path="res://match_sprite.gd" id="3_b7duk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gcgrt"]
+atlas = ExtResource("2_2b2rl")
+region = Rect2(41, 21, 3, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_olvlq"]
+size = Vector2(3, 8)
+
+[node name="Bullet" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 5
+script = ExtResource("1_t4vbm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_gcgrt")
+
+[node name="AutoRectangleCollider2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_olvlq")
+script = ExtResource("3_b7duk")
+metadata/_custom_type_script = "uid://chwejvr5u3ybd"
