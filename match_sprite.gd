@@ -15,10 +15,14 @@ var _sprite: Sprite2D:
 func connect_sprite():
 	if not _sprite.frame_changed.is_connected(set_region):
 		_sprite.frame_changed.connect(set_region)
+	if not _sprite.texture_changed.is_connected(set_region):
+		_sprite.texture_changed.connect(set_region)
 
 func disconnect_sprite():
 	if _sprite.frame_changed.is_connected(set_region):
 		_sprite.frame_changed.disconnect(set_region)
+	if _sprite.texture_changed.is_connected(set_region):
+		_sprite.texture_changed.disconnect(set_region)
 
 func set_region():
 	if not (shape is RectangleShape2D):
