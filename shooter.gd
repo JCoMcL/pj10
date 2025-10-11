@@ -7,7 +7,7 @@ func _process(delta):
 @export var acceleration = 6
 @export var speed = 240
 
-@onready var bullet_pool = Utils.Pool.new(preload("res://bullet.tscn"), 8, get_parent())
+@onready var bullet_pool = Pool.new(preload("res://bullet.tscn"), 8, get_parent())
 
 func _physics_process(delta):
 	velocity.x = lerp(velocity.x, direction * speed, acceleration * delta)
