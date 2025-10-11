@@ -1,7 +1,7 @@
 extends Marker2D
 
 @export var enemy: PackedScene
-@onready var pool = Utils.Pool.new(enemy, 100, self)
+@onready var pool = Pool.new(enemy, 100, self)
 
 func delay(secs):
 	await get_tree().create_timer(secs).timeout

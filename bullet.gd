@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export var speed = 20
 var auto_free = false
 
-var pma = Utils.PoolMemberAttributes.new(self)
+var pma = Pool.MemberAttributes.new(self)
 
 signal on_hit()
 

@@ -1,6 +1,8 @@
+@tool
 extends Node
 
 # --- collision ---
+
 var layers: Dictionary[String, int]:
 	get():
 		if ! layers:
@@ -30,60 +32,40 @@ func get_objects_at(where: Vector2, mask=65535, collider_type=AREAS_AND_BODIES, 
 
 	return world.direct_space_state.intersect_point(pq).map(func (d): return d.collider)
 
-# --- pools ---
+# --- rects ---
 
-class PoolMemberAttributes:
-	var _owner_restore_process_mode: Node.ProcessMode
-	var owner: Node:
-		set(n):
-			_owner_restore_process_mode = n.process_mode
-			owner = n
+func union_rect(a: Array[Rect2]) -> Rect2:
+	if not a:
+		return Rect2()
 
-	var active = false:
-		set(b):
-			active = b
-			if "visible" in owner:
-				owner.visible = b
-			if b:
-				owner.process_mode = _owner_restore_process_mode
-			else:
-				_owner_restore_process_mode = owner.process_mode
-				owner.process_mode = Node.PROCESS_MODE_DISABLED
+	var top_left = a[0].position
+	var bottom_right = a[0].end
+	for r in a:
+		top_left.x = r.position.x if r.position.x < top_left.x else top_left.x
+		top_left.y = r.position.y if r.position.y < top_left.y else top_left.y
+		bottom_right.x = r.end.x if r.end.x > bottom_right.x else bottom_right.x
+		bottom_right.y = r.end.y if r.end.y > bottom_right.y else bottom_right.y
 
-	func _init(_owner: Node, default_active = true):
-		owner = _owner
-		active = default_active
+	return Rect2(top_left, bottom_right - top_left)
 
-class Pool:
-	var store = []
-	var counter = 0:
-		set(i):
-			while i >= store.size():
-				i -= store.size()
-			counter = i
-
-	func add(n: Node):
-		if "pma" in n and n.pma is PoolMemberAttributes:
-			n.pma.active = false
-		else:
-			push_warning("Warning, no PoolMemberAttributes in node: %s, active and inactive state must by managed manually" % n)
-		store.append(n)
-	
-	func _init(scn: PackedScene, count: int = 2, parent: Node = null):
-		for i in range(count):
-			var n = scn.instantiate()
-			add(n)
-			if parent:
-				parent.add_child.call_deferred(n)
-
-
-	func next() -> Node:
-		var n = store[counter]
-		if n.pma.active:
-			push_warning("Warning: pool member %s is still active")
-		n.pma.active = true
-		counter += 1
-		return n
+func get_global_rect(n: Node2D) -> Rect2:
+	if n.has_method("get_global_rect"):
+		return n.get_global_rect()
+	if n.has_method("get_rect"):
+		var r = n.get_rect()
+		r.position += n.global_position
+		return r
+	if n is CollisionObject2D:
+		var shape_rects: Array[Rect2]
+		for id in n.get_shape_owners():
+			var offset = n.shape_owner_get_transform(id).origin
+			for i in n.shape_owner_get_shape_count(id):
+				var r = n.shape_owner_get_shape(id, i).get_rect()
+				r.position += offset + n.global_position
+				shape_rects.append(r)
+		return union_rect(shape_rects)
+	push_warning("Warn: get_global_rect: no support for object: %s" % n)
+	return Rect2()
 
 # --- random ---
 
