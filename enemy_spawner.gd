@@ -1,14 +1,14 @@
 extends Marker2D
 
 @export var enemy: PackedScene
-@onready var pool = Pool.new(enemy, 100, self)
+@onready var pool = Pool.new(enemy, 100, Pool.RECYCLE)
 
 func delay(secs):
 	await get_tree().create_timer(secs).timeout
 
 func spawn_rank(count, gap):
 	for i in range(count):
-		pool.next()
+		await pool.next(self)
 		await delay(gap)
 
 func _ready():

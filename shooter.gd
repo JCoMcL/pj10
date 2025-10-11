@@ -7,7 +7,7 @@ func _process(delta):
 @export var acceleration = 6
 @export var speed = 240
 
-@onready var bullet_pool = Pool.new(preload("res://bullet.tscn"), 8, get_parent())
+@onready var bullet_pool = Pool.new(preload("res://bullet.tscn"), 3, Pool.PASS, false)
 
 func _physics_process(delta):
 	velocity.x = lerp(velocity.x, direction * speed, acceleration * delta)
@@ -15,8 +15,9 @@ func _physics_process(delta):
 		velocity = Vector2.ZERO
 
 func shoot():
-	var bullet = bullet_pool.next()
-	bullet.position = position
+	var bullet = await bullet_pool.next(get_parent())
+	if bullet:
+		bullet.global_position = global_position
 
 func _input(ev: InputEvent):
 	if ev.is_action_pressed("fire") or ev.is_action_pressed("up"):

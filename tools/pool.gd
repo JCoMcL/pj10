@@ -1,55 +1,63 @@
 extends Object
 class_name Pool
 
-var store = []
+var store: Array[Node]
 var counter = 0:
 	set(i):
 		while i >= store.size():
 			i -= store.size()
 		counter = i
 
-func add(n: Node):
-	if "pma" in n and n.pma is MemberAttributes:
-		n.pma.active = false
-	else:
-		push_warning("Warning, no MemberAttributes in node: %s, active and inactive state must by managed manually" % n)
-	store.append(n)
+var _verbose: bool
+var _overdraft_behaviour: int
+var _scene: PackedScene
 
-func _init(scn: PackedScene, count: int = 2, parent: Node = null):
+
+enum {EXPAND, WAIT, RECYCLE, PASS}
+
+func warn(s):
+	if _verbose:
+		push_warning("Warning: " + s)
+
+func return_to_pool(n: Node):
+	n.get_parent().remove_child(n)
+
+func add(n: Node) -> Node:
+	assert( "expire" in n and n.expire is Signal)
+	n.expire.connect(return_to_pool.bind(n))
+	store.append(n)
+	return n
+
+func _init(scn: PackedScene, count: int = 2, overdraft_behaviour = EXPAND, verbose=true):
+	_scene=scn
+	_overdraft_behaviour=overdraft_behaviour
+	_verbose=verbose
 	for i in range(count):
 		var n = scn.instantiate()
 		add(n)
-		if parent:
-			parent.add_child.call_deferred(n)
 
-
-func next() -> Node:
+func next(parent: Node) -> Node:
 	var n = store[counter]
-	if n.pma.active:
-		push_warning("Warning: pool member %s is still active")
-	n.pma.active = true
+	if not is_instance_valid(n):
+		warn("Warning: a node has been deleted")
+		store.pop_at(counter)
+		return await next(parent)
+
+	if n.is_inside_tree():
+		warn("Warning: pool member %s is still active. Consider increasing allocation to at least %d" % [n, store.size() + 1])
+		match _overdraft_behaviour:
+			EXPAND:
+				n = add(_scene.instantiate())
+			WAIT:
+				await n.expire
+			RECYCLE:
+				pass
+			PASS:
+				return null
 	counter += 1
+	if parent:
+		if n.is_inside_tree():
+			n.reparent(parent)
+		else:
+			parent.add_child(n)
 	return n
-
-class MemberAttributes:
-	var _owner_restore_process_mode: Node.ProcessMode
-	var owner: Node:
-		set(n):
-			_owner_restore_process_mode = n.process_mode
-			owner = n
-
-	var active = false:
-		set(b):
-			active = b
-			if "visible" in owner:
-				owner.visible = b
-			if b:
-				owner.process_mode = _owner_restore_process_mode
-			else:
-				_owner_restore_process_mode = owner.process_mode
-				owner.process_mode = Node.PROCESS_MODE_DISABLED
-
-	func _init(_owner: Node, default_active = true):
-		owner = _owner
-		active = default_active
-
