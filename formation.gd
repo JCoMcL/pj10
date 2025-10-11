@@ -4,23 +4,23 @@ extends CharacterBody2D
 @export var unit: PackedScene:
 	set(val):
 		unit = val
-		setup()
+		refresh()
 @export_range(1,20) var rank: int = 1:
 	set(val):
 		rank = val
-		setup()
+		refresh()
 @export_range(1,20) var file: int = 1:
 	set(val):
 		file = val
-		setup()
+		refresh()
 @export_range(0, 100) var spacing: float:
 	set(val):
 		spacing = val
-		setup()
+		refresh()
 @export var staggered: bool:
 	set(val):
 		staggered = val
-		setup()
+		refresh()
 
 var units: Array[CharacterBody2D]
 func clean():
@@ -28,6 +28,11 @@ func clean():
 		if is_instance_valid(c):
 			c.queue_free()
 	units = []
+
+
+func refresh():
+	if Engine.is_editor_hint():
+		setup()
 
 func setup():
 	clean()
@@ -46,10 +51,11 @@ func setup():
 
 	var child_rects: Array[Rect2]
 	child_rects.assign(units.map(func(u): return Utils.get_global_rect(u)))
-	var r = Utils.union_rect(child_rects)
-
-
+	var r = Utils.localise_rect(Utils.union_rect(child_rects), self)
 	var shape = RectangleShape2D.new()
 	shape.size = r.size
 	$CollisionShape2D.shape = shape
-	$CollisionShape2D.position = r.size / 2 + r.position - global_position
+	$CollisionShape2D.position = r.size / 2 + r.position
+
+func _ready():
+	setup()

@@ -48,22 +48,30 @@ func union_rect(a: Array[Rect2]) -> Rect2:
 
 	return Rect2(top_left, bottom_right - top_left)
 
+func globalise_rect(r: Rect2, owner: Node2D):
+	r.position += owner.global_position
+	r.size *= owner.global_scale
+	return r
+
+func localise_rect(r: Rect2, owner: Node2D):
+	r.position -= owner.global_position
+	r.size /= owner.global_scale
+	return r
+
 func get_global_rect(n: Node2D) -> Rect2:
 	if n.has_method("get_global_rect"):
 		return n.get_global_rect()
 	if n.has_method("get_rect"):
-		var r = n.get_rect()
-		r.position += n.global_position
-		return r
+		return globalise_rect(n.get_rect(), n)
 	if n is CollisionObject2D:
 		var shape_rects: Array[Rect2]
 		for id in n.get_shape_owners():
 			var offset = n.shape_owner_get_transform(id).origin
 			for i in n.shape_owner_get_shape_count(id):
 				var r = n.shape_owner_get_shape(id, i).get_rect()
-				r.position += offset + n.global_position
+				r.position += offset
 				shape_rects.append(r)
-		return union_rect(shape_rects)
+		return globalise_rect(union_rect(shape_rects), n)
 	push_warning("Warn: get_global_rect: no support for object: %s" % n)
 	return Rect2()
 

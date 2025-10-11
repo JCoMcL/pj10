@@ -12,3 +12,4 @@ unit = ExtResource("2_sawfe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_8yp0a")
+debug_color = Color(0.629635, 0.346481, 1, 0.42)
