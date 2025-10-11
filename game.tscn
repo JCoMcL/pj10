@@ -1,13 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://dn73q1c7tasit"]
 
-[ext_resource type="Script" uid="uid://bghaddibpt6f1" path="res://addons/crt/crt.gd" id="1_e2o6t"]
-[ext_resource type="PackedScene" uid="uid://ctw26uw1fseox" path="res://invaders.tscn" id="2_feb5d"]
+[ext_resource type="Script" uid="uid://bghaddibpt6f1" path="res://addons/crt/crt.gd" id="1_qhkc2"]
+[ext_resource type="PackedScene" uid="uid://ctw26uw1fseox" path="res://space invaders.tscn" id="2_ljnhf"]
 
 [node name="Node2D" type="Node2D"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false
-script = ExtResource("1_e2o6t")
+script = ExtResource("1_qhkc2")
 update_in_editor = false
 resolution = Vector2(561, 480)
 warp_amount = 0.0
@@ -17,4 +17,4 @@ vignette_intensity = 0.157
 aberation_amount = 0.14
 roll_line_amount = 0.0
 
-[node name="PlayArea" parent="CanvasLayer" instance=ExtResource("2_feb5d")]
+[node name="PlayArea" parent="CanvasLayer" instance=ExtResource("2_ljnhf")]

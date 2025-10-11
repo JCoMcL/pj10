@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bl37251hcpvmo" path="res://bullet.gd" id="1_t4vbm"]
 [ext_resource type="Texture2D" uid="uid://dao08vdoajmn2" path="res://temp/space-invaders.png" id="2_2b2rl"]
-[ext_resource type="Script" uid="uid://chwejvr5u3ybd" path="res://match_sprite.gd" id="3_b7duk"]
+[ext_resource type="Script" uid="uid://chwejvr5u3ybd" path="res://tools/match_sprite.gd" id="3_b7duk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gcgrt"]
 atlas = ExtResource("2_2b2rl")

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dy0t0sdbw1h2a" path="res://play_area.gd" id="1_4wq66"]
 [ext_resource type="Texture2D" uid="uid://dao08vdoajmn2" path="res://temp/space-invaders.png" id="2_c4sgl"]
 [ext_resource type="Script" uid="uid://xu838nvrsxjk" path="res://shooter.gd" id="2_rkmla"]
-[ext_resource type="Script" uid="uid://chwejvr5u3ybd" path="res://match_sprite.gd" id="3_rkmla"]
+[ext_resource type="Script" uid="uid://chwejvr5u3ybd" path="res://tools/match_sprite.gd" id="3_rkmla"]
 [ext_resource type="Script" uid="uid://dmjvmdhrsh2i2" path="res://enemy_spawner.gd" id="5_olvlq"]
 [ext_resource type="PackedScene" uid="uid://banuf2pusp5v7" path="res://invader.tscn" id="6_gcgrt"]
 
