@@ -25,6 +25,8 @@ func return_to_pool(n: Node):
 func add(n: Node) -> Node:
 	assert( "expire" in n and n.expire is Signal)
 	n.expire.connect(return_to_pool.bind(n))
+	if "auto_expire" in n and n.auto_expire is bool:
+		n.auto_expire = false
 	store.append(n)
 	return n
 

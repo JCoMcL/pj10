@@ -31,6 +31,11 @@ func get_objects_at(where: Vector2, mask=65535, collider_type=AREAS_AND_BODIES, 
 		world=get_viewport().get_world_2d()
 
 	return world.direct_space_state.intersect_point(pq).map(func (d): return d.collider)
+# --- coordinates ---
+
+func viewport_to_world(v: Vector2, relative_to: Node = self):
+	var vp = relative_to.get_viewport()
+	return vp.global_canvas_transform.affine_inverse() * vp.canvas_transform.affine_inverse() * v
 
 # --- rects ---
 
@@ -49,12 +54,14 @@ func union_rect(a: Array[Rect2]) -> Rect2:
 	return Rect2(top_left, bottom_right - top_left)
 
 func globalise_rect(r: Rect2, owner: Node2D):
+	r.position *= owner.global_scale
 	r.position += owner.global_position
 	r.size *= owner.global_scale
 	return r
 
 func localise_rect(r: Rect2, owner: Node2D):
 	r.position -= owner.global_position
+	r.position /= owner.global_scale
 	r.size /= owner.global_scale
 	return r
 
@@ -75,6 +82,8 @@ func get_global_rect(n: Node2D) -> Rect2:
 	push_warning("Warn: get_global_rect: no support for object: %s" % n)
 	return Rect2()
 
+func get_local_rect(n: Node2D) -> Rect2:
+	return localise_rect(get_global_rect(n), n)
 # --- random ---
 
 var rng = RandomNumberGenerator.new()

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://banuf2pusp5v7"]
 
-[ext_resource type="Script" uid="uid://khuuqn83eivc" path="res://invader.gd" id="1_66p4y"]
+[ext_resource type="Script" uid="uid://khuuqn83eivc" path="res://unit.gd" id="1_66p4y"]
 [ext_resource type="Texture2D" uid="uid://dao08vdoajmn2" path="res://temp/space-invaders.png" id="2_uji37"]
 [ext_resource type="Script" uid="uid://chwejvr5u3ybd" path="res://tools/match_sprite.gd" id="3_cs7wy"]
 

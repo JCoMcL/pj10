@@ -1,11 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://ctw26uw1fseox"]
+[gd_scene load_steps=13 format=3 uid="uid://ctw26uw1fseox"]
 
 [ext_resource type="Script" uid="uid://dy0t0sdbw1h2a" path="res://play_area.gd" id="1_4wq66"]
 [ext_resource type="Texture2D" uid="uid://dao08vdoajmn2" path="res://temp/space-invaders.png" id="2_c4sgl"]
 [ext_resource type="Script" uid="uid://xu838nvrsxjk" path="res://shooter.gd" id="2_rkmla"]
 [ext_resource type="Script" uid="uid://chwejvr5u3ybd" path="res://tools/match_sprite.gd" id="3_rkmla"]
-[ext_resource type="Script" uid="uid://dmjvmdhrsh2i2" path="res://enemy_spawner.gd" id="5_olvlq"]
-[ext_resource type="PackedScene" uid="uid://banuf2pusp5v7" path="res://invader.tscn" id="6_gcgrt"]
+[ext_resource type="PackedScene" uid="uid://frgn5arqlo5j" path="res://formation.tscn" id="5_gpy7k"]
+[ext_resource type="Script" uid="uid://cmiuvttyi2m6m" path="res://zapper.gd" id="6_5q67r"]
+[ext_resource type="PackedScene" uid="uid://banuf2pusp5v7" path="res://invader.tscn" id="6_30aba"]
+[ext_resource type="Script" uid="uid://kbo7yeuuwhwa" path="res://units/behaviours/behaviour.gd" id="6_mhy5g"]
+[ext_resource type="Script" uid="uid://ksdfgesjdr6c" path="res://units/behaviours/sidewinder.gd" id="7_30aba"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_olvlq"]
 atlas = ExtResource("2_c4sgl")
@@ -13,6 +16,12 @@ region = Rect2(2, 49, 15, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gcgrt"]
 size = Vector2(15, 8)
+
+[sub_resource type="Resource" id="Resource_ika48"]
+script = ExtResource("7_30aba")
+speed = 100
+turn_speed = 10
+metadata/_custom_type_script = "uid://ksdfgesjdr6c"
 
 [node name="PlayArea" type="StaticBody2D"]
 collision_mask = 0
@@ -44,7 +53,13 @@ texture = SubResource("AtlasTexture_olvlq")
 shape = SubResource("RectangleShape2D_gcgrt")
 script = ExtResource("3_rkmla")
 
-[node name="EnemySpawner" type="Marker2D" parent="Scaling"]
-position = Vector2(26.5, 22)
-script = ExtResource("5_olvlq")
-enemy = ExtResource("6_gcgrt")
+[node name="Formation" parent="Scaling" instance=ExtResource("5_gpy7k")]
+position = Vector2(15.5, 14)
+unit = ExtResource("6_30aba")
+rank = 11
+file = 5
+spacing = 5.0
+behaviours = Array[ExtResource("6_mhy5g")]([SubResource("Resource_ika48")])
+
+[node name="Zapper" type="Node2D" parent="."]
+script = ExtResource("6_5q67r")

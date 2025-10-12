@@ -1,15 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://frgn5arqlo5j"]
+[gd_scene load_steps=3 format=3 uid="uid://frgn5arqlo5j"]
 
 [ext_resource type="Script" uid="uid://dhvlt1gogjheh" path="res://formation.gd" id="1_8yp0a"]
-[ext_resource type="PackedScene" uid="uid://banuf2pusp5v7" path="res://invader.tscn" id="2_sawfe"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8yp0a"]
-size = Vector2(13, 8)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2hj8i"]
+size = Vector2(0, 0)
 
 [node name="Formation" type="CharacterBody2D"]
+collision_layer = 0
 script = ExtResource("1_8yp0a")
-unit = ExtResource("2_sawfe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_8yp0a")
-debug_color = Color(0.629635, 0.346481, 1, 0.42)
+shape = SubResource("RectangleShape2D_2hj8i")
+
+[node name="Container" type="Node2D" parent="."]
