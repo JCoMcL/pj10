@@ -54,11 +54,11 @@ func get_component(path: NodePath, type: Variant) -> Node:
 			parent = get_node(NodePath(path.get_name(path.get_name_count() - 2)))
 
 		parent.add_child(out)
-		
+
 	elif typeof(out) != typeof(type):
 		out.free()
 		return get_component(path, type)
-	
+
 	out.owner = get_tree().edited_scene_root if viewable else null
 	return out
 
@@ -74,6 +74,9 @@ func get_wall_collider(d: int) -> CollisionShape2D:
 func get_background() -> ColorRect:
 	return get_component("Background", ColorRect)
 
+func get_foreground() -> Control:
+	return get_component("Foreground", Control)
+
 func set_region(w,h):
 	var end = Vector2(w,h)
 	var center = end / 2
@@ -82,10 +85,14 @@ func set_region(w,h):
 	shape.shape = RectangleShape2D.new()
 	shape.shape.size = end
 	shape.position = center
-	
+
 	var background = get_background()
 	background.size = end
 	background.z_index = -1
+
+	var foreground = get_foreground()
+	foreground.size = end
+	foreground.z_index = 1
 
 	var active_walls = [ceiling, true, left_wall, right_wall]
 	for direction in Direction.each:
@@ -102,8 +109,8 @@ func setup_region():
 	set_region(width, height)
 
 func _on_body_exited(body: Node2D):
-	if body.has_method("on_exit_play_area"):
-		body.on_exit_play_area()
+	if body.has_method("_on_exit_play_area"):
+		body._on_exit_play_area()
 
 var _set_up = false
 func _ready():

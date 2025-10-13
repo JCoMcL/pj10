@@ -1,8 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://cglfd6h0f8dxb"]
+[gd_scene load_steps=9 format=3 uid="uid://cglfd6h0f8dxb"]
 
-[ext_resource type="Script" uid="uid://bl37251hcpvmo" path="res://bullet.gd" id="1_t4vbm"]
+[ext_resource type="Script" uid="uid://khuuqn83eivc" path="res://unit.gd" id="1_2b2rl"]
 [ext_resource type="Texture2D" uid="uid://dao08vdoajmn2" path="res://temp/space-invaders.png" id="2_2b2rl"]
+[ext_resource type="Script" uid="uid://kbo7yeuuwhwa" path="res://units/behaviours/behaviour.gd" id="2_b7duk"]
 [ext_resource type="Script" uid="uid://chwejvr5u3ybd" path="res://tools/match_sprite.gd" id="3_b7duk"]
+[ext_resource type="Script" uid="uid://5vc4lge53ga2" path="res://units/behaviours/bullet_behaviour.gd" id="3_t2bd8"]
+
+[sub_resource type="Resource" id="Resource_h0pa3"]
+script = ExtResource("3_t2bd8")
+speed = 240
+metadata/_custom_type_script = "uid://5vc4lge53ga2"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gcgrt"]
 atlas = ExtResource("2_2b2rl")
@@ -12,9 +19,11 @@ region = Rect2(41, 21, 3, 8)
 size = Vector2(3, 8)
 
 [node name="Bullet" type="CharacterBody2D"]
-collision_layer = 142
+collision_layer = 6
 collision_mask = 21
-script = ExtResource("1_t4vbm")
+script = ExtResource("1_2b2rl")
+behaviours = Array[ExtResource("2_b7duk")]([SubResource("Resource_h0pa3")])
+expire_outside_play_area = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_gcgrt")
