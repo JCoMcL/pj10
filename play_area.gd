@@ -101,7 +101,16 @@ func set_region(w,h):
 func setup_region():
 	set_region(width, height)
 
+func _on_body_exited(body: Node2D):
+	if body.has_method("on_exit_play_area"):
+		body.on_exit_play_area()
+
 var _set_up = false
 func _ready():
 	setup_region()
 	_set_up = true
+	collision_layer = Utils.layers["PlayArea"]
+	collision_mask = Utils.combined_layers(["Friendly", "Enemy"])
+	monitoring = true
+	if not Engine.is_editor_hint():
+		body_exited.connect(_on_body_exited)

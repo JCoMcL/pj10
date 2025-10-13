@@ -3,4 +3,6 @@
 [ext_resource type="Script" uid="uid://dy0t0sdbw1h2a" path="res://play_area.gd" id="1_cpvpb"]
 
 [node name="PlayArea" type="Area2D"]
+collision_layer = 16
+collision_mask = 6
 script = ExtResource("1_cpvpb")

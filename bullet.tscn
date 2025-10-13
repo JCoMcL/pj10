@@ -12,8 +12,8 @@ region = Rect2(41, 21, 3, 8)
 size = Vector2(3, 8)
 
 [node name="Bullet" type="CharacterBody2D"]
-collision_layer = 0
-collision_mask = 5
+collision_layer = 142
+collision_mask = 21
 script = ExtResource("1_t4vbm")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
