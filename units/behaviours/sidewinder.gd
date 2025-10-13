@@ -18,4 +18,8 @@ func _process(c: CharacterBody2D, delta: float):
 	if c.move_and_collide(direction * speed * test_margin, true):
 		target_direction = Vector2(-direction.x, 0).normalized()
 
+	var expected_position = c.position + direction * speed * delta
 	c.move_and_collide(direction * speed * delta)
+	if c.position.distance_squared_to(expected_position) > 10:
+		print("whoospie :#")
+		c.position = expected_position
