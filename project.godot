@@ -22,7 +22,7 @@ Direction="*res://tools/direction.gd"
 
 [display]
 
-window/size/viewport_width=561
+window/size/viewport_width=512
 window/size/viewport_height=480
 window/size/resizable=false
 

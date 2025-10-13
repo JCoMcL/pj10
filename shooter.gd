@@ -1,8 +1,7 @@
 extends CharacterBody2D
 
 var direction: float
-func _process(delta):
-	direction = Input.get_axis("left", "right")
+
 
 @export var acceleration = 6
 @export var speed = 240
@@ -24,4 +23,23 @@ func _input(ev: InputEvent):
 		shoot()
 
 func _ready():
-	move_and_collide(Vector2.DOWN * 1000)
+	print(move_and_collide(Vector2.DOWN * 1000))
+
+var frame_accum = 0.0
+func _process(delta):
+	direction = Input.get_axis("left", "right")
+	var atlas = $Sprite2D.texture as HandyAtlas
+	if direction == 0:
+		atlas.set_xy(0,0)
+	else:
+		if is_zero_approx(velocity.x):
+			atlas.set_xy(1,0)
+		else:
+			const WALK_FRAME_START = 2
+			const WALK_FRAMES = 4
+			const frame_threshold = 40
+			frame_accum += delta * abs(velocity.x)
+			if frame_accum > frame_threshold:
+				frame_accum -= frame_threshold
+				atlas.cycle_x(1, WALK_FRAME_START, WALK_FRAME_START + WALK_FRAMES -1)
+		$Sprite2D.flip_h = (direction < 0)

@@ -13,11 +13,19 @@ var material: ShaderMaterial
 		else:
 			visible = false
 
+@export var match_play_area_resolution = true
+
 # Base resolution for pixel-perfect effects
 @export var resolution: Vector2 = Vector2(320.0, 180.0):
 	set(value):
 		resolution = value
 		_set_shader_param("resolution", resolution)
+	get():
+		if match_play_area_resolution and get_child_count():
+			var c = get_child(0)
+			if c is PlayArea:
+				return Vector2(c.width, c.height)
+		return resolution
 
 # Scanline effect
 @export_range(0.0, 1.0) var scan_line_amount: float = 1.0:

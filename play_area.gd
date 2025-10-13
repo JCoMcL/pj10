@@ -1,28 +1,48 @@
 @tool
 extends Area2D
+class_name PlayArea
 
-@export_range(0, 1000) var width = 100:
+@export_range(0, 2000) var width = 200:
 	set(w):
 		width = w
-		setup_region.call_deferred()
+		refresh()
 
-@export_range(0, 1000) var height = 100:
+@export_range(0, 2000) var height = 100:
 	set(h):
 		height = h
-		setup_region.call_deferred()
+		refresh()
 
+@export var ceiling = true:
+	set(b):
+		if not b and has_node("UpWall"):
+			$UpWall.free()
+		ceiling = b
+		refresh()
+@export var left_wall = true:
+	set(b):
+		if not b and has_node("LeftWall"):
+			$LeftWall.free()
+		left_wall = b
+		refresh()
+@export var right_wall = true:
+	set(b):
+		if not b and has_node("RightWall"):
+			$RightWall.free()
+		right_wall = b
+		refresh()
+
+## Expose components for viewing and editing.
+## May cause strange bugs if left on
 @export var viewable: bool = false:
 	set(b):
 		viewable = b
 		refresh()
-		
-@export_tool_button("Clean") var f = func():
-	for c in get_children():
-		c.free()
-	refresh()
 
 func refresh():
-	setup_region.call_deferred()
+	if not _set_up:
+		return
+	if Engine.is_editor_hint():
+		setup_region.call_deferred()
 
 func get_component(path: NodePath, type: Variant) -> Node:
 	var out = get_node_or_null(path)
@@ -67,17 +87,21 @@ func set_region(w,h):
 	background.size = end
 	background.z_index = -1
 
+	var active_walls = [ceiling, true, left_wall, right_wall]
 	for direction in Direction.each:
-		var wall = get_wall(direction)
-		wall.position = Direction.to_vec(direction) * center + center
-		var wall_collider = get_wall_collider(direction)
-		wall_collider.shape = WorldBoundaryShape2D.new()
-		wall_collider.rotation = Direction.to_radians(direction) - (PI /2)
-		wall_collider.one_way_collision = true
-		wall_collider.one_way_collision_margin = 10
+		if active_walls[direction]:
+			var wall = get_wall(direction)
+			wall.position = Direction.to_vec(direction) * center + center
+			var wall_collider = get_wall_collider(direction)
+			wall_collider.shape = WorldBoundaryShape2D.new()
+			wall_collider.rotation = Direction.to_radians(direction) - (PI /2)
+			wall_collider.one_way_collision = true
+			wall_collider.one_way_collision_margin = 50
 
 func setup_region():
 	set_region(width, height)
 
+var _set_up = false
 func _ready():
 	setup_region()
+	_set_up = true

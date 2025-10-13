@@ -1,59 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://3fiusufwt2vp"]
+[gd_scene load_steps=2 format=3 uid="uid://3fiusufwt2vp"]
 
 [ext_resource type="Script" uid="uid://dy0t0sdbw1h2a" path="res://play_area.gd" id="1_cpvpb"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cpvpb"]
-size = Vector2(101, 100)
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_63gna"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_vkdyd"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_frxyd"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1opyf"]
-
 [node name="PlayArea" type="Area2D"]
 script = ExtResource("1_cpvpb")
-width = 101
-viewable = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(50.5, 50)
-shape = SubResource("RectangleShape2D_cpvpb")
-
-[node name="Background" type="ColorRect" parent="."]
-offset_right = 101.0
-offset_bottom = 100.0
-color = Color(0, 0, 0, 1)
-
-[node name="UpWall" type="StaticBody2D" parent="."]
-position = Vector2(50.5, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="UpWall"]
-rotation = -3.14159
-shape = SubResource("WorldBoundaryShape2D_63gna")
-one_way_collision = true
-
-[node name="DownWall" type="StaticBody2D" parent="."]
-position = Vector2(50.5, 100)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DownWall"]
-shape = SubResource("WorldBoundaryShape2D_vkdyd")
-one_way_collision = true
-
-[node name="LeftWall" type="StaticBody2D" parent="."]
-position = Vector2(0, 50)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
-rotation = 1.5708
-shape = SubResource("WorldBoundaryShape2D_frxyd")
-one_way_collision = true
-
-[node name="RightWall" type="StaticBody2D" parent="."]
-position = Vector2(101, 50)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
-rotation = -1.5708
-shape = SubResource("WorldBoundaryShape2D_1opyf")
-one_way_collision = true
