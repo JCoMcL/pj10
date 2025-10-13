@@ -25,8 +25,8 @@ size = Vector2(32, 32)
 
 [sub_resource type="Resource" id="Resource_ika48"]
 script = ExtResource("7_30aba")
-speed = 280
-turn_speed = 10
+speed = 50
+turn_speed = 5
 metadata/_custom_type_script = "uid://ksdfgesjdr6c"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bernp"]

@@ -10,7 +10,9 @@ signal expire
 
 var alive = true
 func _expire():
-	assert(alive)
+	if not alive:
+		print("Warning: %s: double expire" % self)
+		return
 	alive = false
 	if auto_free:
 		queue_free()
@@ -25,6 +27,10 @@ func _on_exit_play_area():
 
 func _enter_tree() -> void:
 	alive = true
+
+func handle_collision(c: Node2D):
+	for b in behaviours:
+		b._handle_collision(c, self)
 
 func _physics_process(delta: float) -> void:
 	if not Engine.is_editor_hint():

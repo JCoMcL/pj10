@@ -1,13 +1,7 @@
-class_name BulletBehaviour
-extends Behaviour
+class_name Bullet
+extends Deadly
 
 @export var speed = 240
 
-func _process(c: CharacterBody2D, delta: float):
-	var hit = c.move_and_collide(Vector2.UP * speed * delta)
-	if hit:
-		var struck_object = hit.get_collider()
-		if struck_object.has_method("_hit"):
-			struck_object._hit()
-		c._expire()
-
+func _process(u: Unit, delta: float):
+	move_and_collide(u, Vector2.UP * speed * delta)

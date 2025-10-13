@@ -8,7 +8,8 @@
 
 [sub_resource type="Resource" id="Resource_h0pa3"]
 script = ExtResource("3_t2bd8")
-speed = 240
+speed = 480
+also_die = true
 metadata/_custom_type_script = "uid://5vc4lge53ga2"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gcgrt"]
