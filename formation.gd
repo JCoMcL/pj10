@@ -65,10 +65,6 @@ func set_bounds():
 	$CollisionShape2D.shape = shape
 	$CollisionShape2D.position = r.size / 2 + r.position
 
-func _expire():
-	super()
-	print("you win!")
-
 func setup():
 	if is_setup:
 		return

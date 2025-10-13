@@ -1,7 +1,6 @@
-extends CharacterBody2D
+extends Unit
 
 var direction: float
-
 
 @export var acceleration = 6
 @export var speed = 240
@@ -9,6 +8,7 @@ var direction: float
 @onready var bullet_pool = Pool.new(preload("res://bullet.tscn"), 3, Pool.PASS, true, false)
 
 func _physics_process(delta):
+	super(delta)
 	velocity.x = lerp(velocity.x, direction * speed, acceleration * delta)
 	if move_and_collide(velocity * delta):
 		velocity = Vector2.ZERO
@@ -23,7 +23,7 @@ func _input(ev: InputEvent):
 		shoot()
 
 func _ready():
-	print(move_and_collide(Vector2.DOWN * 1000))
+	move_and_collide(Vector2.DOWN * 1000)
 
 var frame_accum = 0.0
 func _process(delta):
