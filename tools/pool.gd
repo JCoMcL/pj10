@@ -11,7 +11,7 @@ var counter = 0:
 var _verbose: bool
 var _overdraft_behaviour: int
 var _scene: PackedScene
-
+var _default_search = 0
 
 enum {EXPAND, WAIT, RECYCLE, PASS}
 
@@ -30,22 +30,26 @@ func add(n: Node) -> Node:
 	store.append(n)
 	return n
 
-func _init(scn: PackedScene, count: int = 2, overdraft_behaviour = EXPAND, verbose=true):
+func _init(scn: PackedScene, count: int = 2, overdraft_behaviour = EXPAND, use_search=true, verbose=true):
 	_scene=scn
 	_overdraft_behaviour=overdraft_behaviour
 	_verbose=verbose
 	for i in range(count):
 		var n = scn.instantiate()
 		add(n)
+	_default_search = store.size() if use_search else 0
 
-func next(parent: Node) -> Node:
+func next(parent: Node, search=_default_search) -> Node:
 	var n = store[counter]
 	if not is_instance_valid(n):
 		warn("Warning: a node has been deleted")
 		store.pop_at(counter)
 		return await next(parent)
+	counter += 1
 
 	if n.is_inside_tree():
+		if search > 0:
+			return await next(parent, search-1)
 		warn("Warning: pool member %s is still active. Consider increasing allocation to at least %d" % [n, store.size() + 1])
 		match _overdraft_behaviour:
 			EXPAND:
@@ -56,7 +60,7 @@ func next(parent: Node) -> Node:
 				pass
 			PASS:
 				return null
-	counter += 1
+
 	if parent:
 		if n.is_inside_tree():
 			n.reparent(parent)
