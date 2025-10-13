@@ -37,7 +37,11 @@ func _process(delta):
 		else:
 			const WALK_FRAME_START = 2
 			const WALK_FRAMES = 4
-			const frame_threshold = 40
+			const frame_threshold = 30
+
+			# make sure w are on one of the walk frames
+			atlas.cycle_x(0, WALK_FRAME_START, WALK_FRAME_START + WALK_FRAMES -1)
+
 			frame_accum += delta * abs(velocity.x)
 			if frame_accum > frame_threshold:
 				frame_accum -= frame_threshold
