@@ -26,12 +26,18 @@ var _to_remove: Unit # helps us avoid race conditions
 func get_units() -> Array[Unit]:
 	var out: Array[Unit]
 	for c in $Container.get_children():
-		if c is Unit and c != _to_remove:
+		if c is Unit and c.alive and c != _to_remove:
 			out.append(c)
 	return out
 
+var unit_count = 0
 func on_unit_expire(u: Unit):
 	_to_remove = u
+	unit_count -= 1
+	if unit_count == 0:
+		return _expire()
+	if unit_count < 5:
+		assert(get_units().size() == unit_count)
 	set_bounds()
 
 func clean():
@@ -59,6 +65,10 @@ func set_bounds():
 	$CollisionShape2D.shape = shape
 	$CollisionShape2D.position = r.size / 2 + r.position
 
+func _expire():
+	super()
+	print("you win!")
+
 func setup():
 	if is_setup:
 		return
@@ -76,6 +86,7 @@ func setup():
 					(i + (((j % 2) / 2.0) if staggered else 0.0)) * (unit_bounds.x + spacing),
 					j * (unit_bounds.y + spacing)
 				)
+				unit_count += 1
 
 	set_bounds()
 	is_setup = true
