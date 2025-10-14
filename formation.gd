@@ -91,3 +91,10 @@ func _ready():
 	super()
 	if not is_setup:
 		setup()
+
+func _get_configuration_warnings() -> PackedStringArray:
+	var warnings: PackedStringArray
+	if not has_node("Container"):
+		warnings.append("Missing child node 'Container'. Add a Node2D/Container named 'Container'.")
+
+	return warnings
