@@ -32,7 +32,6 @@ func _cycle(i, start, end):
 	while i > end:
 		i -= interval
 	return i
-		
+
 func cycle_x(x, start_x, end_x):
 	set_xy(_cycle(get_xy().x + x, start_x, end_x), null)
-	

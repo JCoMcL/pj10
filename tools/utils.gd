@@ -84,6 +84,18 @@ func get_global_rect(n: Node2D) -> Rect2:
 
 func get_local_rect(n: Node2D) -> Rect2:
 	return localise_rect(get_global_rect(n), n)
+
+# --- nodes ---
+
+func get_ancestry(n: Node) -> Array[Node]:
+	var out: Array[Node]
+	var current = n
+	while current:
+		out.append(current)
+		current = current.get_parent()
+	out.reverse()
+	return out
+
 # --- random ---
 
 var rng = RandomNumberGenerator.new()

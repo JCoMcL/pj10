@@ -8,11 +8,18 @@ class_name Shoota
 
 @onready var bullet_pool = Pool.new(ammo, 3, Pool.PASS, true, false)
 
+func find_first_node_not_under_unit() -> Node:
+	var ancestry = Utils.get_ancestry(self)
+	var candidate: Node
+	for n in ancestry:
+		if n is Unit:
+			return candidate
+		candidate = n
+	return candidate
+
 func shoot(direction:Vector2, parent:Node=null, mask:int=-1) -> bool:
 	if not parent:
-		parent = get_parent()
-		while parent is Unit:
-			parent = parent.get_parent()
+		parent = find_first_node_not_under_unit() # yes it really is that complicated
 
 	if mask == -1:
 		mask = Utils.combined_layers(["World", "Friendly", "Enemy"]) & ~get_parent().collision_layer

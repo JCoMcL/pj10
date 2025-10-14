@@ -22,6 +22,11 @@ extends Unit
 		staggered = val
 		refresh()
 
+@export var debug_draw = false:
+	set(b):
+		debug_draw = b
+		queue_redraw()
+
 var _to_remove: Unit # helps us avoid race conditions
 func get_units() -> Array[Unit]:
 	var out: Array[Unit]
@@ -32,6 +37,7 @@ func get_units() -> Array[Unit]:
 
 var unit_count = 0
 func on_unit_expire(u: Unit):
+	queue_redraw()
 	_to_remove = u
 	unit_count -= 1
 	if unit_count == 0:
@@ -91,6 +97,10 @@ func _ready():
 	super()
 	if not is_setup:
 		setup()
+
+func _draw():
+	if debug_draw:
+		draw_rect(Utils.get_local_rect(self), Color("b479ff6b"))
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray

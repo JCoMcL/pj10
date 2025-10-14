@@ -47,11 +47,11 @@ position = Vector2(142.5, 94)
 
 [node name="Formation" parent="Scaling" instance=ExtResource("5_gpy7k")]
 position = Vector2(17.5, -25)
-collision_layer = 32
 unit = ExtResource("6_30aba")
 rank = 12
 file = 5
 spacing = 5.0
+debug_draw = true
 behaviours = Array[ExtResource("6_mhy5g")]([SubResource("Resource_ika48")])
 
 [node name="Zapper" type="Node2D" parent="."]
