@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://b2efm8sqqk3yh" path="res://units/behaviours/test_collision.gd" id="4_kn2dv"]
 [ext_resource type="Script" uid="uid://civxpexunlqfi" path="res://units/behaviours/bomber.gd" id="5_viqlk"]
 [ext_resource type="Script" uid="uid://ce7e3p4ngb0rc" path="res://shoota.gd" id="8_jliwm"]
-[ext_resource type="PackedScene" uid="uid://cglfd6h0f8dxb" path="res://bullet.tscn" id="9_j351s"]
+[ext_resource type="PackedScene" uid="uid://cglfd6h0f8dxb" path="res://units/bullet.tscn" id="9_j351s"]
 
 [sub_resource type="Resource" id="Resource_sdb1l"]
 script = ExtResource("5_viqlk")

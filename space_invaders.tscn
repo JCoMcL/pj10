@@ -1,0 +1,123 @@
+[gd_scene load_steps=15 format=3 uid="uid://civ3r62diebkh"]
+
+[ext_resource type="Script" uid="uid://hmnb8xcddo0d" path="res://game.gd" id="1_2u8fv"]
+[ext_resource type="Script" uid="uid://dy0t0sdbw1h2a" path="res://play_area.gd" id="2_2u8fv"]
+[ext_resource type="PackedScene" uid="uid://frgn5arqlo5j" path="res://units/formation.tscn" id="3_cp612"]
+[ext_resource type="Theme" uid="uid://bnc4gesw2cmsb" path="res://theme.tres" id="3_hu1xn"]
+[ext_resource type="Script" uid="uid://c1xo8svguvebh" path="res://status_label.gd" id="4_ep106"]
+[ext_resource type="PackedScene" uid="uid://banuf2pusp5v7" path="res://invader.tscn" id="4_xm2ot"]
+[ext_resource type="Script" uid="uid://kbo7yeuuwhwa" path="res://units/behaviours/behaviour.gd" id="5_hu1xn"]
+[ext_resource type="Script" uid="uid://ksdfgesjdr6c" path="res://units/behaviours/sidewinder.gd" id="6_ep106"]
+[ext_resource type="PackedScene" uid="uid://do4kgcgelx4o2" path="res://units/player_character.tscn" id="7_xm2ot"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ep106"]
+size = Vector2(512, 480)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_hm1og"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_150to"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_hgni5"]
+
+[sub_resource type="Resource" id="Resource_hm1og"]
+script = ExtResource("6_ep106")
+speed = 40
+turn_speed = 5
+metadata/_custom_type_script = "uid://ksdfgesjdr6c"
+
+[node name="Game" type="Node2D" node_paths=PackedStringArray("new_entity_region")]
+script = ExtResource("1_2u8fv")
+new_entity_region = NodePath("Scaling")
+metadata/_custom_type_script = "uid://hmnb8xcddo0d"
+
+[node name="PlayArea" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 32
+script = ExtResource("2_2u8fv")
+width = 512
+height = 480
+ceiling = false
+viewable = true
+metadata/_custom_type_script = "uid://dy0t0sdbw1h2a"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea"]
+visible = false
+position = Vector2(256, 240)
+shape = SubResource("RectangleShape2D_ep106")
+
+[node name="Background" type="ColorRect" parent="PlayArea"]
+z_index = -1
+offset_right = 512.0
+offset_bottom = 480.0
+color = Color(0.0292591, 0.0436052, 0.100111, 1)
+
+[node name="Foreground" type="Control" parent="PlayArea"]
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_right = 512.0
+offset_bottom = 480.0
+
+[node name="Label" type="Label" parent="PlayArea/Foreground"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -11.5
+offset_right = 0.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_hu1xn")
+theme_override_font_sizes/font_size = 24
+text = "Test"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_ep106")
+
+[node name="DownWall" type="StaticBody2D" parent="PlayArea"]
+position = Vector2(256, 480)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/DownWall"]
+shape = SubResource("WorldBoundaryShape2D_hm1og")
+one_way_collision = true
+one_way_collision_margin = 50.0
+
+[node name="LeftWall" type="StaticBody2D" parent="PlayArea"]
+position = Vector2(0, 240)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/LeftWall"]
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_150to")
+one_way_collision = true
+one_way_collision_margin = 50.0
+
+[node name="RightWall" type="StaticBody2D" parent="PlayArea"]
+position = Vector2(512, 240)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/RightWall"]
+rotation = -1.5708
+shape = SubResource("WorldBoundaryShape2D_hgni5")
+one_way_collision = true
+one_way_collision_margin = 50.0
+
+[node name="Scaling" type="Node2D" parent="."]
+scale = Vector2(2, 2)
+
+[node name="Formation" parent="Scaling" instance=ExtResource("3_cp612")]
+position = Vector2(16, -23)
+unit = ExtResource("4_xm2ot")
+rank = 12
+file = 5
+spacing = 2.381
+debug_draw = true
+behaviours = Array[ExtResource("5_hu1xn")]([SubResource("Resource_hm1og")])
+
+[node name="PlayerCharacter" parent="Scaling" instance=ExtResource("7_xm2ot")]
+position = Vector2(97.5, 162)
+
+[connection signal="expire" from="Scaling/Formation" to="." method="_win"]
+[connection signal="expire" from="Scaling/PlayerCharacter" to="." method="_lose"]

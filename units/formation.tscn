@@ -1,15 +1,15 @@
 [gd_scene load_steps=3 format=3 uid="uid://frgn5arqlo5j"]
 
-[ext_resource type="Script" uid="uid://dhvlt1gogjheh" path="res://formation.gd" id="1_8yp0a"]
+[ext_resource type="Script" uid="uid://dhvlt1gogjheh" path="res://units/formation.gd" id="1_5j1cj"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2hj8i"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xb87w"]
 size = Vector2(0, 0)
 
 [node name="Formation" type="CharacterBody2D"]
 collision_layer = 0
-script = ExtResource("1_8yp0a")
+script = ExtResource("1_5j1cj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_2hj8i")
+shape = SubResource("RectangleShape2D_xb87w")
 
 [node name="Container" type="Node2D" parent="."]

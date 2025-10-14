@@ -22,7 +22,7 @@ var material: ShaderMaterial
 		_set_shader_param("resolution", resolution)
 	get():
 		if match_play_area_resolution and get_child_count():
-			var c = get_child(0)
+			var c = get_child(0).get_child(0)
 			if c is PlayArea:
 				return Vector2(c.width, c.height)
 		return resolution

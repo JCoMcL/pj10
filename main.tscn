@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dn73q1c7tasit"]
 
 [ext_resource type="Script" uid="uid://bghaddibpt6f1" path="res://addons/crt/crt.gd" id="1_0xm2m"]
-[ext_resource type="PackedScene" uid="uid://ctw26uw1fseox" path="res://space invaders.tscn" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://civ3r62diebkh" path="res://space_invaders.tscn" id="2_h2yge"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -20,5 +20,4 @@ vignette_intensity = 0.436
 aberation_amount = 0.482
 roll_line_amount = 0.0
 
-[node name="PlayArea" parent="CanvasLayer" instance=ExtResource("2_h2yge")]
-viewable = false
+[node name="SpaceInvaders" parent="CanvasLayer" instance=ExtResource("2_h2yge")]
