@@ -85,6 +85,7 @@ func set_region(w,h):
 	shape.shape = RectangleShape2D.new()
 	shape.shape.size = end
 	shape.position = center
+	shape.visible = false
 
 	var background = get_background()
 	background.size = end
@@ -117,7 +118,7 @@ func _ready():
 	setup_region()
 	_set_up = true
 	collision_layer = Utils.layers["PlayArea"]
-	collision_mask = Utils.combined_layers(["Friendly", "Enemy"])
+	collision_mask = Utils.layers["AreaBounded"]
 	monitoring = true
 	if not Engine.is_editor_hint():
 		body_exited.connect(_on_body_exited)

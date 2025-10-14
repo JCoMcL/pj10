@@ -1,10 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://ctw26uw1fseox"]
+[gd_scene load_steps=17 format=3 uid="uid://ctw26uw1fseox"]
 
 [ext_resource type="Script" uid="uid://dy0t0sdbw1h2a" path="res://play_area.gd" id="1_4wq66"]
-[ext_resource type="Script" uid="uid://xu838nvrsxjk" path="res://player.gd" id="2_rkmla"]
-[ext_resource type="Texture2D" uid="uid://poqg1d5e838j" path="res://Invaders/dummy.png" id="3_m0htb"]
-[ext_resource type="Script" uid="uid://chwejvr5u3ybd" path="res://tools/match_sprite.gd" id="3_rkmla"]
-[ext_resource type="Script" uid="uid://uwfp0rlcq3cy" path="res://tools/handy_atlas.gd" id="4_m0htb"]
+[ext_resource type="PackedScene" uid="uid://do4kgcgelx4o2" path="res://player_character.tscn" id="2_ika48"]
 [ext_resource type="PackedScene" uid="uid://frgn5arqlo5j" path="res://formation.tscn" id="5_gpy7k"]
 [ext_resource type="Script" uid="uid://cmiuvttyi2m6m" path="res://tools/zapper.gd" id="6_5q67r"]
 [ext_resource type="PackedScene" uid="uid://banuf2pusp5v7" path="res://invader.tscn" id="6_30aba"]
@@ -14,29 +11,20 @@
 [ext_resource type="FontFile" uid="uid://bwh0u7qf15a5x" path="res://fonts/PressStart2P-Regular.ttf" id="12_4rox2"]
 [ext_resource type="Script" uid="uid://c1xo8svguvebh" path="res://status_label.gd" id="13_bernp"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4rox2"]
-atlas = ExtResource("3_m0htb")
-region = Rect2(0, 0, 32, 32)
-script = ExtResource("4_m0htb")
-metadata/_custom_type_script = "uid://uwfp0rlcq3cy"
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gcgrt"]
-size = Vector2(32, 32)
-
 [sub_resource type="Resource" id="Resource_ika48"]
 script = ExtResource("7_30aba")
-speed = 50
+speed = 40
 turn_speed = 5
 metadata/_custom_type_script = "uid://ksdfgesjdr6c"
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bernp"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ika48"]
 size = Vector2(512, 480)
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ihn1x"]
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_m0htb"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8j4jp"]
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_4rox2"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_a8gqn"]
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bernp"]
 
 [sub_resource type="Theme" id="Theme_vpa2g"]
 default_font = ExtResource("12_4rox2")
@@ -44,7 +32,7 @@ default_font_size = 24
 
 [node name="PlayArea" type="Area2D"]
 collision_layer = 16
-collision_mask = 6
+collision_mask = 32
 script = ExtResource("1_4wq66")
 width = 512
 height = 480
@@ -54,33 +42,25 @@ viewable = true
 [node name="Scaling" type="Node2D" parent="."]
 scale = Vector2(2, 2)
 
-[node name="PlayerCharacter" type="CharacterBody2D" parent="Scaling"]
+[node name="PlayerCharacter" parent="Scaling" instance=ExtResource("2_ika48")]
 position = Vector2(142.5, 94)
-collision_layer = 2
-script = ExtResource("2_rkmla")
-
-[node name="Sprite2D" type="Sprite2D" parent="Scaling/PlayerCharacter"]
-texture = SubResource("AtlasTexture_4rox2")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Scaling/PlayerCharacter"]
-shape = SubResource("RectangleShape2D_gcgrt")
-script = ExtResource("3_rkmla")
 
 [node name="Formation" parent="Scaling" instance=ExtResource("5_gpy7k")]
 position = Vector2(17.5, -25)
+collision_layer = 32
 unit = ExtResource("6_30aba")
 rank = 12
-file = 3
+file = 5
 spacing = 5.0
 behaviours = Array[ExtResource("6_mhy5g")]([SubResource("Resource_ika48")])
-expire_outside_play_area = null
 
 [node name="Zapper" type="Node2D" parent="."]
 script = ExtResource("6_5q67r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(256, 240)
-shape = SubResource("RectangleShape2D_bernp")
+shape = SubResource("RectangleShape2D_ika48")
 
 [node name="Background" type="ColorRect" parent="."]
 z_index = -1
@@ -92,7 +72,7 @@ color = Color(0, 0, 0, 1)
 position = Vector2(256, 480)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DownWall"]
-shape = SubResource("WorldBoundaryShape2D_ihn1x")
+shape = SubResource("WorldBoundaryShape2D_m0htb")
 one_way_collision = true
 one_way_collision_margin = 50.0
 
@@ -101,7 +81,7 @@ position = Vector2(0, 240)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
 rotation = 1.5708
-shape = SubResource("WorldBoundaryShape2D_8j4jp")
+shape = SubResource("WorldBoundaryShape2D_4rox2")
 one_way_collision = true
 one_way_collision_margin = 50.0
 
@@ -110,7 +90,7 @@ position = Vector2(512, 240)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
 rotation = -1.5708
-shape = SubResource("WorldBoundaryShape2D_a8gqn")
+shape = SubResource("WorldBoundaryShape2D_bernp")
 one_way_collision = true
 one_way_collision_margin = 50.0
 

@@ -88,5 +88,6 @@ func setup():
 	is_setup = true
 
 func _ready():
+	super()
 	if not is_setup:
 		setup()

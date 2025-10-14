@@ -53,16 +53,16 @@ func union_rect(a: Array[Rect2]) -> Rect2:
 
 	return Rect2(top_left, bottom_right - top_left)
 
-func globalise_rect(r: Rect2, owner: Node2D):
-	r.position *= owner.global_scale
-	r.position += owner.global_position
-	r.size *= owner.global_scale
+func globalise_rect(r: Rect2, rect_owner: Node2D):
+	r.position *= rect_owner.global_scale
+	r.position += rect_owner.global_position
+	r.size *= rect_owner.global_scale
 	return r
 
-func localise_rect(r: Rect2, owner: Node2D):
-	r.position -= owner.global_position
-	r.position /= owner.global_scale
-	r.size /= owner.global_scale
+func localise_rect(r: Rect2, rect_owner: Node2D):
+	r.position -= rect_owner.global_position
+	r.position /= rect_owner.global_scale
+	r.size /= rect_owner.global_scale
 	return r
 
 func get_global_rect(n: Node2D) -> Rect2:

@@ -9,5 +9,8 @@ func move_and_collide(u: Unit, motion: Vector2):
 	if k and k.get_collider():
 		u.handle_collision(k.get_collider())
 
+func _initialize(u: Unit):
+	pass
+
 func _process(u: Unit, delta: float):
 	pass

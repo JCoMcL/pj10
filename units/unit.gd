@@ -4,7 +4,15 @@ extends CharacterBody2D
 
 @export var behaviours: Array[Behaviour]
 @export var auto_free = true
-@export var expire_outside_play_area = false
+@export var expire_outside_play_area = false:
+	set(b):
+		expire_outside_play_area = b
+		if b:
+			collision_layer |= Utils.layers["AreaBounded"]
+		else:
+			collision_layer &= ~Utils.layers["AreaBounded"]
+
+var direction: Vector2
 
 signal expire
 
@@ -22,7 +30,8 @@ func _hit():
 	_expire()
 
 func _on_exit_play_area():
-	if expire_outside_play_area and alive:
+	assert(expire_outside_play_area)
+	if alive:
 		_expire()
 
 func _enter_tree() -> void:
@@ -36,3 +45,9 @@ func _physics_process(delta: float) -> void:
 	if not Engine.is_editor_hint():
 		for b in behaviours:
 			b._process(self, delta)
+
+func _ready():
+	expire_outside_play_area = expire_outside_play_area
+	if not Engine.is_editor_hint():
+		for b in behaviours:
+			b._initialize(self)

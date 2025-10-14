@@ -1,0 +1,32 @@
+[gd_scene load_steps=8 format=3 uid="uid://do4kgcgelx4o2"]
+
+[ext_resource type="Script" uid="uid://xu838nvrsxjk" path="res://player.gd" id="1_0hvvw"]
+[ext_resource type="Texture2D" uid="uid://poqg1d5e838j" path="res://Invaders/dummy.png" id="2_6qc1w"]
+[ext_resource type="Script" uid="uid://uwfp0rlcq3cy" path="res://tools/handy_atlas.gd" id="3_uuvki"]
+[ext_resource type="Script" uid="uid://ce7e3p4ngb0rc" path="res://shoota.gd" id="4_6qc1w"]
+[ext_resource type="PackedScene" uid="uid://cglfd6h0f8dxb" path="res://bullet.tscn" id="5_uuvki"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4rox2"]
+atlas = ExtResource("2_6qc1w")
+region = Rect2(0, 0, 32, 32)
+script = ExtResource("3_uuvki")
+metadata/_custom_type_script = "uid://uwfp0rlcq3cy"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_04jrr"]
+size = Vector2(12, 28)
+
+[node name="PlayerCharacter" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_0hvvw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_4rox2")
+
+[node name="Shoota" type="Node2D" parent="."]
+script = ExtResource("4_6qc1w")
+ammo = ExtResource("5_uuvki")
+metadata/_custom_type_script = "uid://ce7e3p4ngb0rc"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_04jrr")
