@@ -1,9 +1,6 @@
 class_name TestCollision
 extends Behaviour
 
-func get_physics(c: PhysicsBody2D) -> PhysicsDirectSpaceState2D:
-	return PhysicsServer2D.space_get_direct_state(c.get_world_2d().space)
-
 func get_collision_shapes(c: CollisionObject2D) -> Array[CollisionShape2D]:
 	var out: Array[CollisionShape2D]
 	for child in c.get_children():
