@@ -1,9 +1,13 @@
 class_name Sidewinder
 extends Behaviour
 
-@export var speed = 100
-@export var turn_speed = 10
+@export var speed = 100 # pixels per second
+@export var turn_speed = 10 #radians per second
 var target_direction = Vector2.RIGHT
+
+func turn_radius() -> float:
+	var omega: float = float(max(turn_speed, 0.001))
+	return (speed / omega)
 
 func _initialize(u: Unit):
 	super(u)
@@ -19,8 +23,7 @@ func _process(u: Unit, delta: float):
 	else:
 		u.direction = target_direction
 
-	var test_margin = 0.4
-	if u.move_and_collide(u.direction * speed * test_margin, true):
+	if u.move_and_collide(u.direction * (turn_radius() * 1.5), true):
 		target_direction = Vector2(-u.direction.x, 0).normalized()
 
 	var expected_position = u.position + u.direction * speed * delta
