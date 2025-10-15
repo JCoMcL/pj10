@@ -30,5 +30,6 @@ func shoot(direction:Vector2, parent:Node=null, mask:int=-1) -> bool:
 		bullet.collision_mask = mask
 		bullet.global_position = global_position
 		bullet.direction = direction.normalized()
+		bullet._ready()
 		return true
 	return false

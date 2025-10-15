@@ -2,6 +2,7 @@ extends Unit
 
 @export var acceleration = 6
 @export var speed = 240
+@export var auto_ground = true
 
 func _physics_process(delta):
 	super(delta)
@@ -14,7 +15,8 @@ func _input(ev: InputEvent):
 		$Shoota.shoot(Vector2.UP)
 
 func _ready():
-	move_and_collide(Vector2.DOWN * 1000)
+	if auto_ground and can_process():
+		move_and_collide(Vector2.DOWN * 1000)
 
 var frame_accum = 0.0
 func _process(delta):

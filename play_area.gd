@@ -2,14 +2,19 @@
 extends Area2D
 class_name PlayArea
 
-@export_range(0, 2000) var width = 200:
+@export_range(0, 2000) var width = 512:
 	set(w):
 		width = w
 		refresh()
 
-@export_range(0, 2000) var height = 100:
+@export_range(0, 2000) var height = 480:
 	set(h):
 		height = h
+		refresh()
+
+@export_range(0, 480) var top_padding = 24:
+	set(p):
+		top_padding = min(p, height-24)
 		refresh()
 
 @export var ceiling = true:
@@ -77,29 +82,41 @@ func get_background() -> ColorRect:
 func get_foreground() -> Control:
 	return get_component("Foreground", Control)
 
+func get_header() -> Control:
+	return get_component("Header", Control)
+
 func set_region(w,h):
 	var end = Vector2(w,h)
 	var center = end / 2
+	var end_pad = Vector2(0, top_padding)
+	var center_pad = end_pad / 2
+
+	var header = get_header()
+	header.size = Vector2(w,top_padding)
+	header.position = Vector2.ZERO
+	header.z_index = 1
 
 	var shape = get_inner_shape()
 	shape.shape = RectangleShape2D.new()
-	shape.shape.size = end
-	shape.position = center
-	shape.visible = false
+	shape.shape.size = end - end_pad
+	shape.position = center + center_pad
+	shape.visible = true
 
 	var background = get_background()
-	background.size = end
+	background.size = end - end_pad
 	background.z_index = -1
+	background.position.y = top_padding
 
 	var foreground = get_foreground()
-	foreground.size = end
+	foreground.size = end - end_pad
 	foreground.z_index = 1
+	foreground.position.y = top_padding
 
 	var active_walls = [ceiling, true, left_wall, right_wall]
 	for direction in Direction.each:
 		if active_walls[direction]:
 			var wall = get_wall(direction)
-			wall.position = Direction.to_vec(direction) * center + center
+			wall.position = Direction.to_vec(direction) * (center - center_pad) + center + center_pad
 			var wall_collider = get_wall_collider(direction)
 			wall_collider.shape = WorldBoundaryShape2D.new()
 			wall_collider.rotation = Direction.to_radians(direction) - (PI /2)

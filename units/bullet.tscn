@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://cglfd6h0f8dxb"]
 
-[ext_resource type="Script" uid="uid://khuuqn83eivc" path="res://units/unit.gd" id="1_2b2rl"]
+[ext_resource type="Script" uid="uid://bfggqidxv4qmv" path="res://units/bullet.gd" id="1_ebidq"]
 [ext_resource type="Texture2D" uid="uid://dao08vdoajmn2" path="res://temp/space-invaders.png" id="2_2b2rl"]
 [ext_resource type="Script" uid="uid://kbo7yeuuwhwa" path="res://units/behaviours/behaviour.gd" id="2_b7duk"]
 [ext_resource type="Script" uid="uid://chwejvr5u3ybd" path="res://tools/match_sprite.gd" id="3_b7duk"]
@@ -27,7 +27,7 @@ size = Vector2(3, 8)
 [node name="Bullet" type="CharacterBody2D"]
 collision_layer = 32
 collision_mask = 21
-script = ExtResource("1_2b2rl")
+script = ExtResource("1_ebidq")
 behaviours = Array[ExtResource("2_b7duk")]([SubResource("Resource_h0pa3"), SubResource("Resource_6ol1o")])
 expire_outside_play_area = true
 

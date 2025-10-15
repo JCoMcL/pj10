@@ -19,6 +19,13 @@ func combined_layers(layer_names: Array[String]):
 		out |= layers[s]
 	return out
 
+func seperate_layers(i: int) -> Array[String]:
+	var out: Array[String]
+	for k in layers.keys():
+		if i & layers[k]:
+			out.append(k)
+	return out
+
 enum {AREAS, BODIES, AREAS_AND_BODIES}
 func get_objects_at(where: Vector2, mask=65535, collider_type=AREAS_AND_BODIES, world: World2D=null):
 	var pq := PhysicsPointQueryParameters2D.new()
@@ -31,6 +38,7 @@ func get_objects_at(where: Vector2, mask=65535, collider_type=AREAS_AND_BODIES, 
 		world=get_viewport().get_world_2d()
 
 	return world.direct_space_state.intersect_point(pq).map(func (d): return d.collider)
+
 # --- coordinates ---
 
 func viewport_to_world(v: Vector2, relative_to: Node = self):

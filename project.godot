@@ -30,6 +30,13 @@ window/size/viewport_width=512
 window/size/viewport_height=480
 window/size/resizable=false
 
+[file_customization]
+
+folder_colors={
+"res://ui/": "green",
+"res://units/": "blue"
+}
+
 [input]
 
 up={
