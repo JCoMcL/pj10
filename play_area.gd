@@ -130,6 +130,10 @@ func _on_body_exited(body: Node2D):
 	if body.has_method("_on_exit_play_area"):
 		body._on_exit_play_area()
 
+func _on_body_entered(body: Node2D):
+	if body.has_method("_on_enter_play_area"):
+		body._on_enter_play_area()
+
 var _set_up = false
 func _ready():
 	setup_region()
@@ -139,3 +143,4 @@ func _ready():
 	monitoring = true
 	if not Engine.is_editor_hint():
 		body_exited.connect(_on_body_exited)
+		body_entered.connect(_on_body_entered)

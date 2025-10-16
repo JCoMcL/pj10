@@ -5,13 +5,25 @@ extends CharacterBody2D
 @export var behaviours: Array[Behaviour]
 @export var auto_free = true
 @export var points_worth = 0
-@export var expire_outside_play_area = false:
+@export var expire_outside_play_area = false
+
+var monitoring_play_area = false:
 	set(b):
-		expire_outside_play_area = b
+		monitoring_play_area = b
 		if b:
 			collision_layer |= Utils.layers["AreaBounded"]
 		else:
 			collision_layer &= ~Utils.layers["AreaBounded"]
+var inside_play_area: bool
+
+func _on_enter_play_area():
+	inside_play_area = true
+
+func _on_exit_play_area():
+	inside_play_area = false
+	assert(monitoring_play_area)
+	if alive and expire_outside_play_area:
+		_expire()
 
 static func get_sprite(instance: Unit) -> Sprite2D:
 	for c in instance.get_children():
@@ -38,11 +50,6 @@ func _expire():
 func _hit():
 	_expire()
 
-func _on_exit_play_area():
-	assert(expire_outside_play_area)
-	if alive:
-		_expire()
-
 func _enter_tree() -> void:
 	alive = true
 
@@ -53,13 +60,15 @@ func handle_collision(c: Node2D):
 func _physics_process(delta: float) -> void:
 	if not Engine.is_editor_hint():
 		for b in behaviours:
-			b._process(self, delta)
+			if inside_play_area or not b.play_area_bounded:
+				b._process(self, delta)
 
 func _ready():
-	expire_outside_play_area = expire_outside_play_area
+	monitoring_play_area = monitoring_play_area or expire_outside_play_area
 	if not Engine.is_editor_hint():
 		for b in behaviours:
 			b._initialize(self)
+			monitoring_play_area = monitoring_play_area or b.play_area_bounded
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray
