@@ -1,4 +1,5 @@
 extends Unit
+class_name Player
 
 @export var acceleration = 6
 @export var speed = 240
@@ -7,39 +8,59 @@ extends Unit
 func _physics_process(delta):
 	super(delta)
 	velocity.x = lerp(velocity.x, direction.x * speed, acceleration * delta)
-	if move_and_collide(velocity * delta):
-		velocity = Vector2.ZERO
+	velocity += get_gravity()
+	move_and_slide()
 
 func _input(ev: InputEvent):
 	if ev.is_action_pressed("fire") or ev.is_action_pressed("up"):
 		$Shoota.shoot(Vector2.UP)
 
+func wakeup():
+	super()
+	if auto_ground:
+		print(move_and_collide(Vector2.DOWN * 1000))
+
 func _ready():
-	if auto_ground and can_process():
-		move_and_collide(Vector2.DOWN * 1000)
+	if can_process():
+		Game.get_game(self).set_active_player(self)
+
+func _expire():
+	super()
+	velocity = Vector2(
+		500 * (1 if get_sprite(self).flip_h else -1),
+		-200
+	)
 
 var frame_accum = 0.0
 func _process(delta):
-	direction.x = Input.get_axis("left", "right")
-	var atlas = $Sprite2D.texture as HandyAtlas
-	if direction.x == 0:
-		atlas.set_xy(0,0)
-	else:
-		if is_zero_approx(velocity.x):
-			atlas.set_xy(1,0)
+	var sprite = get_sprite(self)
+	var atlas = sprite.texture as HandyAtlas
+	if alive:
+		direction.x = Input.get_axis("left", "right")
+		if direction.x == 0:
+			atlas.set_xy(0,0)
 		else:
-			const WALK_FRAME_START = 2
-			const WALK_FRAMES = 4
-			const frame_threshold = 30
+			if is_zero_approx(velocity.x):
+				atlas.set_xy(1,0)
+			else:
+				const WALK_FRAME_START = 2
+				const WALK_FRAMES = 4
+				const frame_threshold = 30
 
-			# make sure w are on one of the walk frames
-			atlas.cycle_x(0, WALK_FRAME_START, WALK_FRAME_START + WALK_FRAMES -1)
+				# make sure w are on one of the walk frames
+				atlas.cycle_x(0, WALK_FRAME_START, WALK_FRAME_START + WALK_FRAMES -1)
 
-			frame_accum += delta * abs(velocity.x)
-			if frame_accum > frame_threshold:
-				frame_accum -= frame_threshold
-				atlas.cycle_x(1, WALK_FRAME_START, WALK_FRAME_START + WALK_FRAMES -1)
-		$Sprite2D.flip_h = (direction.x < 0)
+				frame_accum += delta * abs(velocity.x)
+				if frame_accum > frame_threshold:
+					frame_accum -= frame_threshold
+					atlas.cycle_x(1, WALK_FRAME_START, WALK_FRAME_START + WALK_FRAMES -1)
+			get_sprite(self).flip_h = (direction.x < 0)
+	else:
+		atlas.set_xy(6,0)
+		direction = Vector2.ZERO
+		if abs(velocity.x) < 50 and is_on_floor():
+			atlas.set_xy(7,0)
+			process_mode = Node.PROCESS_MODE_DISABLED
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray
@@ -50,18 +71,5 @@ func _get_configuration_warnings() -> PackedStringArray:
 		# Type check best-effort: ensure it has method 'shoot'
 		if not s.has_method("shoot"):
 			warnings.append("'Shoota' must expose a 'shoot(direction, parent?)' method.")
-
-	if not has_node("Sprite2D"):
-		warnings.append("Missing child node 'Sprite2D' (Sprite2D).")
-	else:
-		var spr = get_node("Sprite2D")
-		if not spr is Sprite2D:
-			warnings.append("'Sprite2D' must be a Sprite2D node.")
-		else:
-			var tex = spr.texture
-			if tex == null:
-				warnings.append("'Sprite2D' has no texture set; expected HandyAtlas texture.")
-			elif typeof(tex) != TYPE_OBJECT or not (tex is HandyAtlas):
-				warnings.append("'Sprite2D.texture' should be a HandyAtlas for animations.")
 
 	return warnings

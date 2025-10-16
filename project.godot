@@ -78,6 +78,10 @@ fire={
 2d_physics/layer_5="PlayArea"
 2d_physics/layer_6="AreaBounded"
 
+[physics]
+
+2d/default_gravity=20.0
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

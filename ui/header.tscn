@@ -1,33 +1,20 @@
-[gd_scene load_steps=16 format=3 uid="uid://cepq07bhxard5"]
+[gd_scene load_steps=11 format=3 uid="uid://cepq07bhxard5"]
 
 [ext_resource type="Theme" uid="uid://bnc4gesw2cmsb" path="res://theme.tres" id="1_u4kgu"]
 [ext_resource type="Script" uid="uid://dyuxpo5xxanxv" path="res://ui/lives.gd" id="2_qlsvw"]
-[ext_resource type="Script" uid="uid://dgq6s68jarg5p" path="res://ui/life_container.gd" id="3_rrb17"]
-[ext_resource type="Script" uid="uid://xu838nvrsxjk" path="res://units/player.gd" id="4_l5fqn"]
-[ext_resource type="Texture2D" uid="uid://poqg1d5e838j" path="res://Invaders/dummy.png" id="5_vyixe"]
-[ext_resource type="Script" uid="uid://uwfp0rlcq3cy" path="res://tools/handy_atlas.gd" id="6_g1pcl"]
-[ext_resource type="Script" uid="uid://ce7e3p4ngb0rc" path="res://shoota.gd" id="7_1ky6d"]
-[ext_resource type="PackedScene" uid="uid://cglfd6h0f8dxb" path="res://units/bullet.tscn" id="8_rj3ra"]
+[ext_resource type="Texture2D" uid="uid://poqg1d5e838j" path="res://Invaders/dummy.png" id="3_epg14"]
+[ext_resource type="Script" uid="uid://dgq6s68jarg5p" path="res://ui/life_container.gd" id="3_rdx01"]
+[ext_resource type="Script" uid="uid://uwfp0rlcq3cy" path="res://tools/handy_atlas.gd" id="4_pqr3k"]
+[ext_resource type="PackedScene" uid="uid://do4kgcgelx4o2" path="res://units/player_character.tscn" id="6_u4kgu"]
 [ext_resource type="Texture2D" uid="uid://ds0gta24h6pt2" path="res://ui/ghost.png" id="9_7nbam"]
 [ext_resource type="Script" uid="uid://dqawa48auhxc5" path="res://ui/points_label.gd" id="10_ngtl8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4rox2"]
-atlas = ExtResource("5_vyixe")
+resource_local_to_scene = true
+atlas = ExtResource("3_epg14")
 region = Rect2(0, 0, 32, 32)
-script = ExtResource("6_g1pcl")
+script = ExtResource("4_pqr3k")
 metadata/_custom_type_script = "uid://uwfp0rlcq3cy"
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_04jrr"]
-size = Vector2(12, 28)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_45gh3"]
-atlas = ExtResource("5_vyixe")
-region = Rect2(0, 0, 32, 32)
-script = ExtResource("6_g1pcl")
-metadata/_custom_type_script = "uid://uwfp0rlcq3cy"
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_o0b17"]
-size = Vector2(12, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bty8r"]
 atlas = ExtResource("9_7nbam")
@@ -45,90 +32,42 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -96.0
+offset_left = -128.0
 offset_bottom = 32.0
 grow_horizontal = 0
 last_wrap_alignment = 1
 script = ExtResource("2_qlsvw")
 scaling = 1
 
-[node name="LifeContainer" type="Panel" parent="Lives"]
+[node name="LifeContainer" type="TextureRect" parent="Lives"]
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 0
-script = ExtResource("3_rrb17")
-scaling = 1
-metadata/_custom_type_script = "uid://dgq6s68jarg5p"
-
-[node name="PlayerCharacter" type="CharacterBody2D" parent="Lives/LifeContainer"]
-process_mode = 4
-position = Vector2(16, 16)
-collision_layer = 2
-script = ExtResource("4_l5fqn")
-
-[node name="Sprite2D" type="Sprite2D" parent="Lives/LifeContainer/PlayerCharacter"]
+mouse_filter = 0
 texture = SubResource("AtlasTexture_4rox2")
+script = ExtResource("3_rdx01")
+life_scene = ExtResource("6_u4kgu")
+metadata/_custom_type_script = "uid://dgq6s68jarg5p"
 
-[node name="Shoota" type="Node2D" parent="Lives/LifeContainer/PlayerCharacter"]
-script = ExtResource("7_1ky6d")
-ammo = ExtResource("8_rj3ra")
-metadata/_custom_type_script = "uid://ce7e3p4ngb0rc"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Lives/LifeContainer/PlayerCharacter"]
-position = Vector2(0, 2)
-shape = SubResource("RectangleShape2D_04jrr")
-
-[node name="LifeContainer2" type="Panel" parent="Lives"]
+[node name="LifeContainer2" type="TextureRect" parent="Lives"]
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 0
-script = ExtResource("3_rrb17")
-scaling = 1
+mouse_filter = 0
+texture = SubResource("AtlasTexture_4rox2")
+script = ExtResource("3_rdx01")
+life_scene = ExtResource("6_u4kgu")
 metadata/_custom_type_script = "uid://dgq6s68jarg5p"
 
-[node name="PlayerCharacter" type="CharacterBody2D" parent="Lives/LifeContainer2"]
-process_mode = 4
-position = Vector2(16, 16)
-collision_layer = 2
-script = ExtResource("4_l5fqn")
-
-[node name="Sprite2D" type="Sprite2D" parent="Lives/LifeContainer2/PlayerCharacter"]
-texture = SubResource("AtlasTexture_45gh3")
-
-[node name="Shoota" type="Node2D" parent="Lives/LifeContainer2/PlayerCharacter"]
-script = ExtResource("7_1ky6d")
-ammo = ExtResource("8_rj3ra")
-metadata/_custom_type_script = "uid://ce7e3p4ngb0rc"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Lives/LifeContainer2/PlayerCharacter"]
-position = Vector2(0, 2)
-shape = SubResource("RectangleShape2D_o0b17")
-
-[node name="LifeContainer3" type="Panel" parent="Lives"]
+[node name="LifeContainer3" type="TextureRect" parent="Lives"]
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 0
-script = ExtResource("3_rrb17")
-scaling = 1
+mouse_filter = 0
+texture = SubResource("AtlasTexture_4rox2")
+script = ExtResource("3_rdx01")
+life_scene = ExtResource("6_u4kgu")
 metadata/_custom_type_script = "uid://dgq6s68jarg5p"
-
-[node name="PlayerCharacter" type="CharacterBody2D" parent="Lives/LifeContainer3"]
-process_mode = 4
-position = Vector2(16, 16)
-collision_layer = 2
-script = ExtResource("4_l5fqn")
-
-[node name="Sprite2D" type="Sprite2D" parent="Lives/LifeContainer3/PlayerCharacter"]
-texture = SubResource("AtlasTexture_45gh3")
-
-[node name="Shoota" type="Node2D" parent="Lives/LifeContainer3/PlayerCharacter"]
-script = ExtResource("7_1ky6d")
-ammo = ExtResource("8_rj3ra")
-metadata/_custom_type_script = "uid://ce7e3p4ngb0rc"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Lives/LifeContainer3/PlayerCharacter"]
-position = Vector2(0, 2)
-shape = SubResource("RectangleShape2D_o0b17")
 
 [node name="Score" type="HBoxContainer" parent="."]
 layout_mode = 0

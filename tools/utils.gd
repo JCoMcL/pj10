@@ -104,6 +104,11 @@ func get_ancestry(n: Node) -> Array[Node]:
 	out.reverse()
 	return out
 
+# --- time ---
+
+func delay(secs):
+	await get_tree().create_timer(secs).timeout
+
 # --- random ---
 
 var rng = RandomNumberGenerator.new()

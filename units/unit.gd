@@ -50,8 +50,12 @@ func _expire():
 func _hit():
 	_expire()
 
-func _enter_tree() -> void:
+# May be called multiple times, use wisely
+func wakeup():
 	alive = true
+
+func _enter_tree() -> void:
+	wakeup()
 
 func handle_collision(c: Node2D):
 	for b in behaviours:
