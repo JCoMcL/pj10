@@ -1,11 +1,13 @@
-@tool
 class_name Unit
 extends CharacterBody2D
 
 @export var behaviours: Array[Behaviour]
+@export var health: int = 0
 @export var auto_free = true
 @export var points_worth = 0
 @export var expire_outside_play_area = false
+
+@onready var current_health = health
 
 var monitoring_play_area = false:
 	set(b):
@@ -47,12 +49,17 @@ func _expire():
 		queue_free()
 	expire.emit()
 
-func _hit():
-	_expire()
+func _hit(damage: int = 1):
+	current_health -= damage
+	if current_health <= 0:
+		_expire()
+	else:
+		get_sprite(self).texture.add_xy(damage, 0)
 
 # May be called multiple times, use wisely
 func wakeup():
 	alive = true
+	current_health = health
 
 func _enter_tree() -> void:
 	wakeup()
@@ -71,8 +78,11 @@ func _ready():
 	monitoring_play_area = monitoring_play_area or expire_outside_play_area
 	if not Engine.is_editor_hint():
 		for b in behaviours:
-			b._initialize(self)
-			monitoring_play_area = monitoring_play_area or b.play_area_bounded
+			if b:
+				b._initialize(self)
+				monitoring_play_area = monitoring_play_area or b.play_area_bounded
+			else:
+				print("Warning: %s: behaviours not set up properly!" % self)
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray

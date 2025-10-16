@@ -9,12 +9,10 @@ func turn_radius() -> float:
 	var omega: float = float(max(turn_speed, 0.001))
 	return (speed / omega)
 
-func _initialize(u: Unit):
-	super(u)
+func _process(u: Unit, delta: float):
 	if not u.direction:
 		u.direction = target_direction
 
-func _process(u: Unit, delta: float):
 	if not is_equal_approx(u.direction.x, target_direction.x):
 		u.direction = u.direction.rotated( min(
 			abs(target_direction.angle_to(u.direction)),
@@ -26,8 +24,4 @@ func _process(u: Unit, delta: float):
 	if u.move_and_collide(u.direction * (turn_radius() * 1.5), true):
 		target_direction = Vector2(-u.direction.x, 0).normalized()
 
-	var expected_position = u.position + u.direction * speed * delta
 	move_and_collide(u, u.direction * speed * delta)
-	if u.position.distance_squared_to(expected_position) > speed:
-		print("whoospie :#")
-		u.position = expected_position

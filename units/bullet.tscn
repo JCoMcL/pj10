@@ -1,28 +1,30 @@
 [gd_scene load_steps=11 format=3 uid="uid://cglfd6h0f8dxb"]
 
 [ext_resource type="Script" uid="uid://bfggqidxv4qmv" path="res://units/bullet.gd" id="1_ebidq"]
-[ext_resource type="Texture2D" uid="uid://dao08vdoajmn2" path="res://temp/space-invaders.png" id="2_2b2rl"]
 [ext_resource type="Script" uid="uid://kbo7yeuuwhwa" path="res://units/behaviours/behaviour.gd" id="2_b7duk"]
 [ext_resource type="Script" uid="uid://chwejvr5u3ybd" path="res://tools/match_sprite.gd" id="3_b7duk"]
 [ext_resource type="Script" uid="uid://5vc4lge53ga2" path="res://units/behaviours/missile.gd" id="3_t2bd8"]
 [ext_resource type="Script" uid="uid://32qn5elehj72" path="res://units/behaviours/deadly.gd" id="4_t2bd8"]
+[ext_resource type="Texture2D" uid="uid://bbftup6gnvbeo" path="res://graphics/bullet.png" id="5_ebidq"]
 
 [sub_resource type="Resource" id="Resource_h0pa3"]
 script = ExtResource("3_t2bd8")
 speed = 480
+play_area_bounded = false
 metadata/_custom_type_script = "uid://5vc4lge53ga2"
 
 [sub_resource type="Resource" id="Resource_6ol1o"]
 script = ExtResource("4_t2bd8")
 also_die = true
+play_area_bounded = false
 metadata/_custom_type_script = "uid://32qn5elehj72"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gcgrt"]
-atlas = ExtResource("2_2b2rl")
-region = Rect2(41, 21, 3, 8)
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxwh4"]
+atlas = ExtResource("5_ebidq")
+region = Rect2(0, 0, 2, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_olvlq"]
-size = Vector2(3, 8)
+size = Vector2(2, 8)
 
 [node name="Bullet" type="CharacterBody2D"]
 collision_layer = 32
@@ -32,7 +34,7 @@ behaviours = Array[ExtResource("2_b7duk")]([SubResource("Resource_h0pa3"), SubRe
 expire_outside_play_area = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("AtlasTexture_gcgrt")
+texture = SubResource("AtlasTexture_cxwh4")
 
 [node name="AutoRectangleCollider2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_olvlq")

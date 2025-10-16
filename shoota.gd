@@ -12,12 +12,14 @@ func find_first_node_not_under_unit() -> Node:
 	var ancestry = Utils.get_ancestry(self)
 	var candidate: Node
 	for n in ancestry:
-		if n is Unit:
+		if n is Unit or n is FauxUnit:
 			return candidate
 		candidate = n
 	return candidate
 
 func shoot(direction:Vector2, parent:Node=null, mask:int=-1) -> bool:
+	if not parent:
+		parent = Game.get_game(self).new_entity_region
 	if not parent:
 		parent = find_first_node_not_under_unit() # yes it really is that complicated
 
@@ -30,6 +32,6 @@ func shoot(direction:Vector2, parent:Node=null, mask:int=-1) -> bool:
 		bullet.collision_mask = mask
 		bullet.global_position = global_position
 		bullet.direction = direction.normalized()
-		bullet._ready()
+		bullet.wakeup()
 		return true
 	return false

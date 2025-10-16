@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://do4kgcgelx4o2"]
 
 [ext_resource type="Script" uid="uid://xu838nvrsxjk" path="res://units/player.gd" id="1_0hvvw"]
-[ext_resource type="Texture2D" uid="uid://poqg1d5e838j" path="res://Invaders/dummy.png" id="2_6qc1w"]
+[ext_resource type="Texture2D" uid="uid://poqg1d5e838j" path="res://graphics/dummy.png" id="2_6qc1w"]
 [ext_resource type="Script" uid="uid://uwfp0rlcq3cy" path="res://tools/handy_atlas.gd" id="3_uuvki"]
 [ext_resource type="Script" uid="uid://ce7e3p4ngb0rc" path="res://shoota.gd" id="4_6qc1w"]
 [ext_resource type="PackedScene" uid="uid://cglfd6h0f8dxb" path="res://units/bullet.tscn" id="5_uuvki"]

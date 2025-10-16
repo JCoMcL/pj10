@@ -100,7 +100,7 @@ func set_region(w,h):
 	shape.shape = RectangleShape2D.new()
 	shape.shape.size = end - end_pad
 	shape.position = center + center_pad
-	shape.visible = true
+	shape.visible = false
 
 	var background = get_background()
 	background.size = end - end_pad

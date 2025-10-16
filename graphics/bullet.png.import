@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://poqg1d5e838j"
-path="res://.godot/imported/dummy.png-d0a5973b95c19ee99b80ffe8d4fbfa04.ctex"
+uid="uid://bbftup6gnvbeo"
+path="res://.godot/imported/bullet.png-4c444e886a83930bd4eef12f46edeb01.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Invaders/dummy.png"
-dest_files=["res://.godot/imported/dummy.png-d0a5973b95c19ee99b80ffe8d4fbfa04.ctex"]
+source_file="res://graphics/bullet.png"
+dest_files=["res://.godot/imported/bullet.png-4c444e886a83930bd4eef12f46edeb01.ctex"]
 
 [params]
 

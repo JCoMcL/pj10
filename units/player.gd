@@ -18,7 +18,7 @@ func _input(ev: InputEvent):
 func wakeup():
 	super()
 	if auto_ground:
-		print(move_and_collide(Vector2.DOWN * 1000))
+		move_and_collide(Vector2.DOWN * 1000)
 
 func _ready():
 	if can_process():

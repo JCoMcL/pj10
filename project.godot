@@ -34,7 +34,8 @@ window/size/resizable=false
 
 folder_colors={
 "res://ui/": "green",
-"res://units/": "blue"
+"res://units/": "blue",
+"res://units/enemies/": "teal"
 }
 
 [input]

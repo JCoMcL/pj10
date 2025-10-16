@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://bguhxfj4pgmhq"]
+
+[ext_resource type="Script" uid="uid://khuuqn83eivc" path="res://units/unit.gd" id="1_4bn8d"]
+[ext_resource type="Script" uid="uid://blu1c4kvb2ite" path="res://units/character_sprite_2d.gd" id="2_0uxyc"]
+[ext_resource type="Texture2D" uid="uid://c5cooyxy4myt0" path="res://graphics/enemies.png" id="2_ecagp"]
+[ext_resource type="Script" uid="uid://uwfp0rlcq3cy" path="res://tools/handy_atlas.gd" id="2_qkw36"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ecagp"]
+resource_local_to_scene = true
+atlas = ExtResource("2_ecagp")
+region = Rect2(0, 0, 16, 16)
+script = ExtResource("2_qkw36")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ecagp"]
+resource_local_to_scene = true
+size = Vector2(14, 14)
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 3
+motion_mode = 1
+script = ExtResource("1_4bn8d")
+points_worth = 1
+metadata/_custom_type_script = "uid://khuuqn83eivc"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_ecagp")
+script = ExtResource("2_0uxyc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ecagp")
+debug_color = Color(1, 0.37, 0.5275, 0.0901961)

@@ -13,7 +13,6 @@ class_name Lives
 func refresh():
 	size = Vector2.ZERO
 	for c in get_children():
-		print(size)
 		if c is LifeContainer:
 			c.setup_life()
 		size.x += c.size.x
