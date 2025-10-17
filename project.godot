@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Utils="*res://tools/utils.gd"
 Direction="*res://tools/direction.gd"
+GlobalSFXPlayer="*res://sound_effects.gd"
 
 [debug]
 

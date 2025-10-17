@@ -7,8 +7,9 @@ extends CharacterBody2D
 @export var points_worth = 0
 @export var expire_outside_play_area = false
 
+signal expire
 @onready var current_health = health
-
+var direction: Vector2
 var monitoring_play_area = false:
 	set(b):
 		monitoring_play_area = b
@@ -33,11 +34,21 @@ static func get_sprite(instance: Unit) -> Sprite2D:
 			return c
 	return null
 
-var direction: Vector2
+@onready var _sfx_player: SFXPlayer
+func _set_sfx_player():
+	for c in get_children():
+		if c is SFXPlayer:
+			_sfx_player = c
 
-signal expire
+func play_sfx(effect_name: String):
+	if _sfx_player and _sfx_player.play_sfx(effect_name):
+		return
+	var game = Game.get_game(self)
+	if game and game.sfx_player and game.sfx_player.play_sfx(effect_name):
+		return
+	assert(GlobalSFXPlayer.play_sfx(effect_name))
 
-var alive = true
+var alive: bool = true
 func _expire():
 	if not alive:
 		print("Warning: %s: double expire" % self)
@@ -59,6 +70,7 @@ func _hit(damage: int = 1):
 # May be called multiple times, use wisely
 func wakeup():
 	alive = true
+	process_mode = Node.PROCESS_MODE_INHERIT
 	current_health = health
 
 func _enter_tree() -> void:

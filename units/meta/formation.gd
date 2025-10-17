@@ -93,7 +93,7 @@ func setup():
 		if not formation_size.x:
 			formation_size.x = rank_size.x
 		formation_size.y += rank_size.y
-		
+
 		var discrepency = rank_size.x - formation_size.x
 		for u in rank_units:
 			u.position.x -= discrepency / 2
@@ -121,4 +121,3 @@ func _ready():
 		for b in behaviours:
 			for u in get_units():
 				b._initialize(u) #NOTE: this happens BEFORE the units' _ready becuase the've just been created
-				print(u)

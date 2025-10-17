@@ -6,6 +6,7 @@ class_name Game
 @export var lives: Lives
 @export var current_player: Player
 @export var player_spawn_point: Marker2D
+@export var sfx_player: SFXPlayer
 
 func get_team_color(o: CollisionObject2D) -> Color:
 	for layer in Utils.seperate_layers(o.collision_layer):
@@ -34,7 +35,6 @@ func spawn_player(p: Player):
 		p.reparent(new_entity_region)
 	else:
 		new_entity_region.add_child(p)
-	
 	p.wakeup() # TODO maybe this should always be triggered manually?
 
 func set_active_player(p: Player):
