@@ -1,15 +1,29 @@
-[gd_scene load_steps=11 format=3 uid="uid://cepq07bhxard5"]
+[gd_scene load_steps=13 format=3 uid="uid://cepq07bhxard5"]
 
 [ext_resource type="Theme" uid="uid://bnc4gesw2cmsb" path="res://theme.tres" id="1_u4kgu"]
 [ext_resource type="Script" uid="uid://dyuxpo5xxanxv" path="res://ui/lives.gd" id="2_qlsvw"]
-[ext_resource type="Texture2D" uid="uid://poqg1d5e838j" path="res://Invaders/dummy.png" id="3_epg14"]
+[ext_resource type="Texture2D" uid="uid://poqg1d5e838j" path="res://graphics/dummy.png" id="3_epg14"]
 [ext_resource type="Script" uid="uid://dgq6s68jarg5p" path="res://ui/life_container.gd" id="3_rdx01"]
 [ext_resource type="Script" uid="uid://uwfp0rlcq3cy" path="res://tools/handy_atlas.gd" id="4_pqr3k"]
 [ext_resource type="PackedScene" uid="uid://do4kgcgelx4o2" path="res://units/player_character.tscn" id="6_u4kgu"]
 [ext_resource type="Texture2D" uid="uid://ds0gta24h6pt2" path="res://ui/ghost.png" id="9_7nbam"]
 [ext_resource type="Script" uid="uid://dqawa48auhxc5" path="res://ui/points_label.gd" id="10_ngtl8"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4rox2"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_epg14"]
+resource_local_to_scene = true
+atlas = ExtResource("3_epg14")
+region = Rect2(0, 0, 32, 32)
+script = ExtResource("4_pqr3k")
+metadata/_custom_type_script = "uid://uwfp0rlcq3cy"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pqr3k"]
+resource_local_to_scene = true
+atlas = ExtResource("3_epg14")
+region = Rect2(0, 0, 32, 32)
+script = ExtResource("4_pqr3k")
+metadata/_custom_type_script = "uid://uwfp0rlcq3cy"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u4kgu"]
 resource_local_to_scene = true
 atlas = ExtResource("3_epg14")
 region = Rect2(0, 0, 32, 32)
@@ -44,7 +58,7 @@ layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 0
 mouse_filter = 0
-texture = SubResource("AtlasTexture_4rox2")
+texture = SubResource("AtlasTexture_epg14")
 script = ExtResource("3_rdx01")
 life_scene = ExtResource("6_u4kgu")
 metadata/_custom_type_script = "uid://dgq6s68jarg5p"
@@ -54,7 +68,7 @@ layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 0
 mouse_filter = 0
-texture = SubResource("AtlasTexture_4rox2")
+texture = SubResource("AtlasTexture_pqr3k")
 script = ExtResource("3_rdx01")
 life_scene = ExtResource("6_u4kgu")
 metadata/_custom_type_script = "uid://dgq6s68jarg5p"
@@ -64,7 +78,7 @@ layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 0
 mouse_filter = 0
-texture = SubResource("AtlasTexture_4rox2")
+texture = SubResource("AtlasTexture_u4kgu")
 script = ExtResource("3_rdx01")
 life_scene = ExtResource("6_u4kgu")
 metadata/_custom_type_script = "uid://dgq6s68jarg5p"

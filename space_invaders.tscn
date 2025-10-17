@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://civ3r62diebkh"]
+[gd_scene load_steps=23 format=3 uid="uid://civ3r62diebkh"]
 
 [ext_resource type="Script" uid="uid://hmnb8xcddo0d" path="res://game.gd" id="1_2u8fv"]
 [ext_resource type="Script" uid="uid://dy0t0sdbw1h2a" path="res://play_area.gd" id="2_2u8fv"]
@@ -6,13 +6,15 @@
 [ext_resource type="Theme" uid="uid://bnc4gesw2cmsb" path="res://theme.tres" id="3_hu1xn"]
 [ext_resource type="Script" uid="uid://c1xo8svguvebh" path="res://ui/status_label.gd" id="4_ep106"]
 [ext_resource type="PackedScene" uid="uid://txfq4bqj45b0" path="res://units/enemies/star.tscn" id="7_hm1og"]
+[ext_resource type="PackedScene" uid="uid://dmsgpgydfdor5" path="res://units/enemies/crab.tscn" id="10_847uq"]
 [ext_resource type="Script" uid="uid://kbo7yeuuwhwa" path="res://units/behaviours/behaviour.gd" id="11_3pn3u"]
 [ext_resource type="Script" uid="uid://b2wj6hdp3fpmf" path="res://player_spawn.gd" id="11_150to"]
-[ext_resource type="Script" uid="uid://dosksyhc2t0m" path="res://formation.gd" id="11_hgni5"]
+[ext_resource type="Script" uid="uid://dosksyhc2t0m" path="res://units/meta/formation.gd" id="11_hgni5"]
 [ext_resource type="AudioStream" uid="uid://2eu65vihpb4i" path="res://audio/soundtrack.ogg" id="11_uxjvs"]
 [ext_resource type="PackedScene" uid="uid://ds6wp0hmnouyk" path="res://units/enemies/bug.tscn" id="12_3pn3u"]
 [ext_resource type="Script" uid="uid://ksdfgesjdr6c" path="res://units/behaviours/sidewinder.gd" id="12_847uq"]
-[ext_resource type="Script" uid="uid://ckri073qfsukw" path="res://grid_pattern.gd" id="12_uxjvs"]
+[ext_resource type="Script" uid="uid://ckri073qfsukw" path="res://units/meta/grid_pattern.gd" id="12_uxjvs"]
+[ext_resource type="Script" uid="uid://c2rurlqhkqaou" path="res://sound_effects.gd" id="13_3pn3u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uxjvs"]
 size = Vector2(511, 444)
@@ -27,18 +29,21 @@ size = Vector2(511, 444)
 script = ExtResource("12_uxjvs")
 members = {
 "a": ExtResource("7_hm1og"),
-"b": ExtResource("12_3pn3u")
+"b": ExtResource("12_3pn3u"),
+"c": ExtResource("10_847uq")
 }
-pattern_string = "a aab bba b b b ab ba"
+pattern_string = "a c aab bba b b b ab ba"
 metadata/_custom_type_script = "uid://ckri073qfsukw"
 
 [sub_resource type="Resource" id="Resource_r0y7k"]
 resource_local_to_scene = true
 script = ExtResource("12_847uq")
-speed = 40
+speed = 30
 turn_speed = 5
 play_area_bounded = false
 metadata/_custom_type_script = "uid://ksdfgesjdr6c"
+
+[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_847uq"]
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("new_entity_region", "lives", "player_spawn_point")]
 script = ExtResource("1_2u8fv")
@@ -137,7 +142,7 @@ position = Vector2(128, 200)
 script = ExtResource("11_150to")
 
 [node name="Formation" type="Node2D" parent="Scaling"]
-position = Vector2(12, 29)
+position = Vector2(3.5, 28)
 script = ExtResource("11_hgni5")
 rank = 8
 file = 14
@@ -145,8 +150,10 @@ using = 1
 unit_pattern = SubResource("Resource_rq143")
 behaviours = Array[ExtResource("11_3pn3u")]([SubResource("Resource_r0y7k")])
 
+[node name="SoundEffects" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamPolyphonic_847uq")
+script = ExtResource("13_3pn3u")
+
 [node name="Soundtrack" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_uxjvs")
 autoplay = true
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
