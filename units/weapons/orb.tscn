@@ -1,0 +1,55 @@
+[gd_scene load_steps=14 format=3 uid="uid://bcexupn4fuc53"]
+
+[ext_resource type="PackedScene" uid="uid://cglfd6h0f8dxb" path="res://units/weapons/_bullet.tscn" id="1_mi1cs"]
+[ext_resource type="Texture2D" uid="uid://bbftup6gnvbeo" path="res://units/weapons/bullet.png" id="2_kmb26"]
+[ext_resource type="Script" uid="uid://5nmf3cnrr8s8" path="res://units/weapons/orb.gd" id="2_qbe4m"]
+[ext_resource type="Script" uid="uid://kbo7yeuuwhwa" path="res://units/behaviours/behaviour.gd" id="3_35w50"]
+[ext_resource type="Script" uid="uid://32qn5elehj72" path="res://units/behaviours/deadly.gd" id="5_lg6bi"]
+[ext_resource type="Script" uid="uid://dkywtcocw0jaa" path="res://units/behaviours/oscillate.gd" id="6_46kd7"]
+[ext_resource type="Script" uid="uid://benmqv834rxw0" path="res://units/behaviours/inertial.gd" id="6_pcxav"]
+[ext_resource type="Script" uid="uid://cft4t5nfaiai4" path="res://units/behaviours/bouncy.gd" id="7_pcxav"]
+
+[sub_resource type="Resource" id="Resource_6ol1o"]
+script = ExtResource("5_lg6bi")
+ignore_layers = 1
+also_die = true
+damage = 2
+play_area_bounded = false
+metadata/_custom_type_script = "uid://32qn5elehj72"
+
+[sub_resource type="Resource" id="Resource_46kd7"]
+resource_local_to_scene = true
+script = ExtResource("6_46kd7")
+frequency = 0.642
+amplitude = 30
+play_area_bounded = false
+metadata/_custom_type_script = "uid://dkywtcocw0jaa"
+
+[sub_resource type="Resource" id="Resource_lypa5"]
+script = ExtResource("6_pcxav")
+drag = 0
+play_area_bounded = false
+metadata/_custom_type_script = "uid://benmqv834rxw0"
+
+[sub_resource type="Resource" id="Resource_y2yfs"]
+script = ExtResource("7_pcxav")
+ignore_layers = 0
+bounciness = 1
+play_area_bounded = false
+metadata/_custom_type_script = "uid://cft4t5nfaiai4"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qbe4m"]
+atlas = ExtResource("2_kmb26")
+region = Rect2(2, 0, 19, 9)
+
+[node name="Orb" instance=ExtResource("1_mi1cs")]
+script = ExtResource("2_qbe4m")
+behaviours = Array[ExtResource("3_35w50")]([SubResource("Resource_6ol1o"), SubResource("Resource_46kd7"), SubResource("Resource_lypa5"), SubResource("Resource_y2yfs")])
+health = 0
+auto_free = true
+points_worth = 0
+
+[node name="Sprite2D" parent="." index="0"]
+texture = SubResource("AtlasTexture_qbe4m")
+hframes = 2
+frame = 1

@@ -38,7 +38,9 @@ folder_colors={
 "res://ui/": "green",
 "res://units/": "blue",
 "res://units/enemies/": "teal",
-"res://units/meta/": "purple"
+"res://units/meta/": "yellow",
+"res://units/players/": "pink",
+"res://units/weapons/": "purple"
 }
 
 [input]

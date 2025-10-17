@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bbftup6gnvbeo"
-path="res://.godot/imported/bullet.png-4c444e886a83930bd4eef12f46edeb01.ctex"
+uid="uid://cks4j15y8ely7"
+path="res://.godot/imported/dizzy.png-7216948b8383618c810ecde02ca5e202.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphics/bullet.png"
-dest_files=["res://.godot/imported/bullet.png-4c444e886a83930bd4eef12f46edeb01.ctex"]
+source_file="res://units/players/dizzy.png"
+dest_files=["res://.godot/imported/dizzy.png-7216948b8383618c810ecde02ca5e202.ctex"]
 
 [params]
 

@@ -3,10 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://bguhxfj4pgmhq" path="res://units/enemies/_enemy.tscn" id="1_n80v8"]
 [ext_resource type="Script" uid="uid://kbo7yeuuwhwa" path="res://units/behaviours/behaviour.gd" id="2_870p3"]
 [ext_resource type="Script" uid="uid://civxpexunlqfi" path="res://units/behaviours/bomber.gd" id="3_pghv7"]
-[ext_resource type="Texture2D" uid="uid://c5cooyxy4myt0" path="res://graphics/enemies.png" id="4_mawgr"]
+[ext_resource type="Texture2D" uid="uid://c5cooyxy4myt0" path="res://units/enemies/enemies.png" id="4_mawgr"]
 [ext_resource type="Script" uid="uid://uwfp0rlcq3cy" path="res://tools/handy_atlas.gd" id="5_d8ihr"]
-[ext_resource type="Script" uid="uid://ce7e3p4ngb0rc" path="res://shoota.gd" id="6_h1eq8"]
-[ext_resource type="PackedScene" uid="uid://cglfd6h0f8dxb" path="res://units/bullet.tscn" id="7_bfv18"]
+[ext_resource type="Script" uid="uid://bbav8weitt8f3" path="res://units/weapons/shoota.gd" id="6_h1eq8"]
+[ext_resource type="PackedScene" uid="uid://cglfd6h0f8dxb" path="res://units/weapons/_bullet.tscn" id="7_bfv18"]
 
 [sub_resource type="Resource" id="Resource_pnbvc"]
 script = ExtResource("3_pghv7")

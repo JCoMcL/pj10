@@ -1,7 +1,7 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
-graphics/references
+**/references/
 temp/
 .cursorindexingignore
 .specstory

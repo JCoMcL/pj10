@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2gkpltrehua4"
-path="res://.godot/imported/enemies.png-54f6dd22fa36905f43103a80b3460952.ctex"
+uid="uid://liqdy3limkqn"
+path="res://.godot/imported/checker-background.png-997ab2f997abd5284443e893dd02d9b6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://enemies.png"
-dest_files=["res://.godot/imported/enemies.png-54f6dd22fa36905f43103a80b3460952.ctex"]
+source_file="res://units/players/checker-background.png"
+dest_files=["res://.godot/imported/checker-background.png-997ab2f997abd5284443e893dd02d9b6.ctex"]
 
 [params]
 

@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://bc6lg0ushliyj"]
+
+[ext_resource type="PackedScene" uid="uid://do4kgcgelx4o2" path="res://units/players/player_character.tscn" id="1_7tlug"]
+[ext_resource type="Texture2D" uid="uid://c0cbl4qinp5v6" path="res://units/players/lumi.png" id="2_rnep0"]
+[ext_resource type="Script" uid="uid://uwfp0rlcq3cy" path="res://tools/handy_atlas.gd" id="3_40uyx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hg30c"]
+resource_local_to_scene = true
+atlas = ExtResource("2_rnep0")
+region = Rect2(0, 0, 32, 32)
+margin = Rect2(-1, 0, 0, 0)
+script = ExtResource("3_40uyx")
+metadata/_custom_type_script = "uid://uwfp0rlcq3cy"
+
+[node name="PlayerCharacter" instance=ExtResource("1_7tlug")]
+
+[node name="Sprite2D" parent="." index="0"]
+texture = SubResource("AtlasTexture_hg30c")

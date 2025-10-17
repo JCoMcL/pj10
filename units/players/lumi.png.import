@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cks4j15y8ely7"
-path="res://.godot/imported/dizzy.png-b303bdb2b83f78a13b1f01ec6391c90d.ctex"
+uid="uid://c0cbl4qinp5v6"
+path="res://.godot/imported/lumi.png-c74eae8bf72bbc799b34d42dcd092ee4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphics/dizzy.png"
-dest_files=["res://.godot/imported/dizzy.png-b303bdb2b83f78a13b1f01ec6391c90d.ctex"]
+source_file="res://units/players/lumi.png"
+dest_files=["res://.godot/imported/lumi.png-c74eae8bf72bbc799b34d42dcd092ee4.ctex"]
 
 [params]
 

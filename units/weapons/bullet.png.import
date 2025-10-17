@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://liqdy3limkqn"
-path="res://.godot/imported/checker-background.png-57e85a13209f0fc29fa4d2525b35867a.ctex"
+uid="uid://bbftup6gnvbeo"
+path="res://.godot/imported/bullet.png-f4ea970b968cb867312385fe375f8081.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphics/checker-background.png"
-dest_files=["res://.godot/imported/checker-background.png-57e85a13209f0fc29fa4d2525b35867a.ctex"]
+source_file="res://units/weapons/bullet.png"
+dest_files=["res://.godot/imported/bullet.png-f4ea970b968cb867312385fe375f8081.ctex"]
 
 [params]
 

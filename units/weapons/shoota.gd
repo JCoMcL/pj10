@@ -6,7 +6,8 @@ class_name Shoota
 		assert(scn.instantiate() is Unit)
 		ammo = scn
 
-@onready var bullet_pool = Pool.new(ammo, 3, Pool.PASS, true, false)
+@export_range(1,64,1) var ammo_count = 3
+@onready var bullet_pool = Pool.new(ammo, ammo_count, Pool.PASS, true, false)
 
 func find_first_node_not_under_unit() -> Node:
 	var ancestry = Utils.get_ancestry(self)
@@ -17,7 +18,7 @@ func find_first_node_not_under_unit() -> Node:
 		candidate = n
 	return candidate
 
-func shoot(direction:Vector2, parent:Node=null, mask:int=-1) -> bool:
+func shoot(direction:Vector2, parent:Node=null, mask:int=-1) -> Unit:
 	if not parent:
 		parent = Game.get_game(self).new_entity_region
 	if not parent:
@@ -33,5 +34,5 @@ func shoot(direction:Vector2, parent:Node=null, mask:int=-1) -> bool:
 		bullet.global_position = global_position
 		bullet.direction = direction.normalized()
 		bullet.wakeup()
-		return true
-	return false
+		return bullet
+	return null

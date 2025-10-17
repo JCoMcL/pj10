@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bguhxfj4pgmhq" path="res://units/enemies/_enemy.tscn" id="1_tbvge"]
 [ext_resource type="Script" uid="uid://kbo7yeuuwhwa" path="res://units/behaviours/behaviour.gd" id="2_au8sf"]
-[ext_resource type="Texture2D" uid="uid://c5cooyxy4myt0" path="res://graphics/enemies.png" id="2_necur"]
+[ext_resource type="Texture2D" uid="uid://c5cooyxy4myt0" path="res://units/enemies/enemies.png" id="2_necur"]
 [ext_resource type="Script" uid="uid://32qn5elehj72" path="res://units/behaviours/deadly.gd" id="3_a8bsq"]
 [ext_resource type="Script" uid="uid://uwfp0rlcq3cy" path="res://tools/handy_atlas.gd" id="3_au8sf"]
 
