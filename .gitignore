@@ -5,3 +5,4 @@ graphics/references
 temp/
 .cursorindexingignore
 .specstory
+*.png~
