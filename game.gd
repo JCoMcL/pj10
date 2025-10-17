@@ -29,12 +29,13 @@ func _on_player_died():
 	set_active_player(next_life)
 
 func spawn_player(p: Player):
-	new_entity_region.add_child(p)
 	if player_spawn_point:
-		p.global_position = player_spawn_point.global_position
+		player_spawn_point.add_child(p)
+		p.reparent(new_entity_region)
 	else:
-		p.global_position = Vector2(30, 30)
-	p.wakeup()
+		new_entity_region.add_child(p)
+	
+	p.wakeup() # TODO maybe this should always be triggered manually?
 
 func set_active_player(p: Player):
 	current_player = p

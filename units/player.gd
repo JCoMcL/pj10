@@ -15,7 +15,18 @@ func _input(ev: InputEvent):
 	if ev.is_action_pressed("fire") or ev.is_action_pressed("up"):
 		$Shoota.shoot(Vector2.UP)
 
+var invulnerable = true
+func grace_window(seconds=2):
+	invulnerable = true
+	await Utils.delay(seconds)
+	invulnerable = false
+
+func _hit(damage:int=0):
+	if not invulnerable:
+		super()
+
 func wakeup():
+	grace_window()
 	super()
 	if auto_ground:
 		move_and_collide(Vector2.DOWN * 1000)
@@ -31,10 +42,20 @@ func _expire():
 		-200
 	)
 
+var flash_accum = 0.0
 var frame_accum = 0.0
 func _process(delta):
 	var sprite = get_sprite(self)
 	var atlas = sprite.texture as HandyAtlas
+
+	if invulnerable:
+		flash_accum += delta
+		while flash_accum > 0.1:
+			flash_accum -= 0.15
+			sprite.visible = !sprite.visible
+	else:
+		sprite.visible = true
+
 	if alive:
 		direction.x = Input.get_axis("left", "right")
 		if direction.x == 0:
