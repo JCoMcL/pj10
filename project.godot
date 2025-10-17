@@ -33,9 +33,11 @@ window/size/resizable=false
 [file_customization]
 
 folder_colors={
+"res://graphics/": "orange",
 "res://ui/": "green",
 "res://units/": "blue",
-"res://units/enemies/": "teal"
+"res://units/enemies/": "teal",
+"res://units/meta/": "purple"
 }
 
 [input]
