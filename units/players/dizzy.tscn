@@ -26,6 +26,7 @@ position = Vector2(-0.5, 1.5)
 shape = SubResource("RectangleShape2D_ko4n6")
 
 [node name="Shoota" parent="." index="2"]
+position = Vector2(-9, -15)
 script = ExtResource("4_0nkv5")
 ammo = ExtResource("5_1jacx")
 ammo_count = 2

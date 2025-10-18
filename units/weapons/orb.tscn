@@ -17,11 +17,13 @@ damage = 2
 play_area_bounded = false
 metadata/_custom_type_script = "uid://32qn5elehj72"
 
-[sub_resource type="Resource" id="Resource_46kd7"]
+[sub_resource type="Resource" id="Resource_pcxav"]
 resource_local_to_scene = true
 script = ExtResource("6_46kd7")
-frequency = 0.642
-amplitude = 30
+x_frequency = 0.6
+y_frequency = 0.4
+amplitude = Vector2(20.615, 6.015)
+frequency_spread = 0.218
 play_area_bounded = false
 metadata/_custom_type_script = "uid://dkywtcocw0jaa"
 
@@ -44,10 +46,7 @@ region = Rect2(2, 0, 19, 9)
 
 [node name="Orb" instance=ExtResource("1_mi1cs")]
 script = ExtResource("2_qbe4m")
-behaviours = Array[ExtResource("3_35w50")]([SubResource("Resource_6ol1o"), SubResource("Resource_46kd7"), SubResource("Resource_lypa5"), SubResource("Resource_y2yfs")])
-health = 0
-auto_free = true
-points_worth = 0
+behaviours = Array[ExtResource("3_35w50")]([SubResource("Resource_6ol1o"), SubResource("Resource_pcxav"), SubResource("Resource_lypa5"), SubResource("Resource_y2yfs")])
 
 [node name="Sprite2D" parent="." index="0"]
 texture = SubResource("AtlasTexture_qbe4m")

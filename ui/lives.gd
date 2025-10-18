@@ -17,6 +17,8 @@ func refresh():
 			c.setup_life()
 		size.x += c.size.x
 		size.y = max(size.y, c.size.y)
+	position.x = get_parent().size.x - size.x
+	position.y = 0
 
 func get_life() -> Unit:
 	for c in get_children():

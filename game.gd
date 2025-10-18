@@ -62,6 +62,16 @@ static func get_game(from: Node) -> Game:
 		from = from.get_parent()
 	return from
 
+static func add_to_playfield(o: Node2D, from: Node2D):
+	var parent: Node2D
+	var game = get_game(from)
+	if game and game.new_entity_region:
+		parent = game.new_entity_region
+	else:
+		parent = from.get_parent()
+	from.add_child(o)
+	o.reparent(parent)
+
 func _ready():
 	if not current_player:
 		spawn_player(lives.get_life())

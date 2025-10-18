@@ -20,8 +20,6 @@ func play_sfx(effect_name: String) -> bool:
 		_build_sfx_table()
 	if not sfx.has(effect_name):
 		return false
-
-	print("playing %s" % effect_name)
 	play()
 	get_stream_playback().play_stream(sfx[effect_name])
 	return true

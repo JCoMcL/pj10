@@ -41,4 +41,3 @@ func spawn_bullet():
 func _ready() -> void:
 	for i in range(ammo_count):
 		spawn_bullet()
-

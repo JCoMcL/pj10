@@ -32,9 +32,6 @@ collision_layer = 0
 collision_mask = 17
 script = ExtResource("1_s1sts")
 behaviours = Array[ExtResource("2_jqm6u")]([SubResource("Resource_h0pa3"), SubResource("Resource_6ol1o")])
-health = null
-auto_free = null
-points_worth = null
 expire_outside_play_area = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
