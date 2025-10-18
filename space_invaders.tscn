@@ -35,7 +35,7 @@ members = {
 pattern_string = "a c aab bba b b b ab ba"
 metadata/_custom_type_script = "uid://ckri073qfsukw"
 
-[sub_resource type="Resource" id="Resource_r0y7k"]
+[sub_resource type="Resource" id="Resource_847uq"]
 resource_local_to_scene = true
 script = ExtResource("12_847uq")
 speed = 30
@@ -148,12 +148,14 @@ rank = 8
 file = 14
 using = 1
 unit_pattern = SubResource("Resource_rq143")
-behaviours = Array[ExtResource("11_3pn3u")]([SubResource("Resource_r0y7k")])
+behaviours = Array[ExtResource("11_3pn3u")]([SubResource("Resource_847uq")])
 
-[node name="SoundEffects" type="AudioStreamPlayer" parent="."]
+[node name="SoundEffects" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamPolyphonic_847uq")
+bus = &"Capture"
 script = ExtResource("13_3pn3u")
 
-[node name="Soundtrack" type="AudioStreamPlayer" parent="."]
+[node name="Soundtrack" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_uxjvs")
 autoplay = true
+bus = &"Capture"

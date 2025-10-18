@@ -1,0 +1,57 @@
+[gd_scene load_steps=10 format=3 uid="uid://dqg26hpv4h2q"]
+
+[ext_resource type="PackedScene" uid="uid://c4lccs8l5darl" path="res://addons/godot4.3_fps_character_controller/Player/player.tscn" id="2_fmulm"]
+[ext_resource type="PackedScene" uid="uid://c2vmgj4mex45g" path="res://arcade_cabinet.tscn" id="3_r3fl7"]
+[ext_resource type="Script" uid="uid://cmmocqlyu3bng" path="res://sub_viewport.gd" id="4_i5arm"]
+[ext_resource type="PackedScene" uid="uid://dn73q1c7tasit" path="res://main.tscn" id="4_jka67"]
+[ext_resource type="PackedScene" uid="uid://pgkw6db8mrc" path="res://arcade/level.glb" id="4_v072a"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_j2cqg"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v072a"]
+sky_top_color = Color(0.040066, 0.0513754, 0.110096, 1)
+sky_horizon_color = Color(0.240528, 0.160696, 0.149361, 1)
+ground_bottom_color = Color(0.0826605, 0.065772, 0.0461518, 1)
+ground_horizon_color = Color(0.223226, 0.125342, 0.106177, 1)
+
+[sub_resource type="Sky" id="Sky_3m4ft"]
+sky_material = SubResource("ProceduralSkyMaterial_v072a")
+
+[sub_resource type="Environment" id="Environment_i5bjg"]
+background_mode = 2
+sky = SubResource("Sky_3m4ft")
+ssao_radius = 0.16
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("2_fmulm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.849, 0.250404, 1.93)
+
+[node name="floor" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor"]
+shape = SubResource("WorldBoundaryShape3D_j2cqg")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_i5bjg")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(0.249488, 0.169849, -0.953366, -0.043, 0.98547, 0.164315, 0.967423, 2.30048e-08, 0.253167, -8.58288, 5.11676, 0)
+light_color = Color(0.4588, 0.55552, 0.62, 1)
+shadow_enabled = true
+shadow_reverse_cull_face = true
+directional_shadow_mode = 0
+
+[node name="level" parent="." instance=ExtResource("4_v072a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.64216, -4.76837e-07, 6.68272)
+
+[node name="arcade_cabinet" parent="." node_paths=PackedStringArray("subviewport") instance=ExtResource("3_r3fl7")]
+transform = Transform3D(-0.860938, 0, -0.508711, 0, 1, 0, 0.508711, 0, -0.860938, 2.75193, 0, 2.47207)
+subviewport = NodePath("../SubViewport")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+audio_listener_enable_2d = true
+size = Vector2i(512, 480)
+script = ExtResource("4_i5arm")
+
+[node name="Node2D" parent="SubViewport" instance=ExtResource("4_jka67")]

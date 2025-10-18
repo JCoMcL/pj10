@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=4 uid="uid://c2vmgj4mex45g"]
+
+[ext_resource type="Script" uid="uid://bp422vrfuk4jn" path="res://arcade_cabinet.gd" id="1_2os1j"]
+[ext_resource type="Script" uid="uid://ddbjfjvog51u8" path="res://addons/godot4.3_fps_character_controller/Player/Interactable.gd" id="2_lb5ik"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ejl7r"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_1yiv1"]
+_surfaces = [{
+"aabb": AABB(0, 0, -0.3, 0.7, 1.9, 0.6),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAACAAEAAwAEAAEABQAAAAIAAwAAAAUABAAGAAIABQACAAYAAwAHAAQAAwAFAAcABwAGAAQABwAFAAYA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AAAAAP//AAAAAJPXAAAAAAAAk9f//wAAAAAAAAAAAAD/////AAAAAP//AAD//wAA////////AAD//wAAAAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_bhqjw"]
+resource_name = "asset_library_arcade_cabinet_geo"
+_surfaces = [{
+"aabb": AABB(0, 0, -0.3, 0.7, 1.9, 0.6),
+"attribute_data": PackedByteArray("/1////+f/7//n////1//v/9f/7//n/9//5//v/9f/3//X/9//5//P/+f/3//X/8//1//P/+fAAD/n/8//18AAP8f/3//X/8//1//f/8f/z//n/9//9//P//f/3//n/8/"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUA"),
+"material": SubResource("StandardMaterial3D_ejl7r"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AAAAAP//VNUAAJPXAABU1QAAk9f//1TVAAAAAAAAVNUAAAAAAAD///////8AAP//AACT1wAA/////wAAAAD/////AAAAAFTV////////VNX/////AABU1f//AAD//1TV//8AAP///78AAJPX////v/////////+/AAAAAP///78AAAAAAAD/v///AAD///+///8AAAAA/78AAAAA////v/////8AAF/0AACT1///X/QAAJPXAABf9P///////1/0VNVU1VTVVNVU1VTVVNVU1f+//7//v/+//7//v/+//7+qKqoqqiqqKqoqqiqqKqoq/////////////////////wAA/38AAP9/AAD/fwAA/38VdAq6FXQKuhV0CroVdAq6")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_1yiv1")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_3qm6d"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2os1j"]
+size = Vector3(0.109436, 0.513428, 0.558228)
+
+[node name="arcade_cabinet" type="MeshInstance3D"]
+mesh = SubResource("ArrayMesh_bhqjw")
+skeleton = NodePath("")
+script = ExtResource("1_2os1j")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.732536, 1.22575, 0)
+attenuation_model = 1
+volume_db = -1.959
+max_distance = 7.0
+panning_strength = 0.5
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(-4.09113e-09, 0, 0.0935941, 0, 0.0935941, 0, -0.0935941, 0, -4.09113e-09, 0.732536, 1.22575, 0)
+texture = SubResource("ViewportTexture_3qm6d")
+
+[node name="Area3D" type="Area3D" parent="Sprite3D"]
+transform = Transform3D(-4.67031e-07, 0, -10.6844, 0, 10.6844, 0, 10.6844, 0, -4.67031e-07, 0, 0, 0)
+script = ExtResource("2_lb5ik")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0184631, -0.00158691, -0.00115967)
+shape = SubResource("BoxShape3D_2os1j")

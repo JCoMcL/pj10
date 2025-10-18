@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4lccs8l5darl"]
+
+[ext_resource type="Script" uid="uid://by6c4oo1inwlp" path="res://first_person_character.gd" id="1_rjnwj"]
+[ext_resource type="Script" uid="uid://fh55yoan343g" path="res://addons/godot4.3_fps_character_controller/Player/player_inetractcast_logic.gd" id="2_dpr1a"]
+[ext_resource type="Theme" uid="uid://bnc4gesw2cmsb" path="res://theme.tres" id="3_rs4r1"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rjnwj"]
+height = 1.5
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_rjnwj")
+height = 1.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_rjnwj")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+
+[node name="PlayerInetractcast" type="RayCast3D" parent="Head/Camera3D" node_paths=PackedStringArray("Prompt")]
+target_position = Vector3(0, 0, -2)
+collide_with_areas = true
+script = ExtResource("2_dpr1a")
+Prompt = NodePath("../../../UserInterface/CenterContainer/MarginContainer/InteractLabel")
+
+[node name="UserInterface" type="CanvasLayer" parent="."]
+
+[node name="CenterContainer" type="CenterContainer" parent="UserInterface"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UserInterface/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 400
+
+[node name="InteractLabel" type="RichTextLabel" parent="UserInterface/CenterContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("3_rs4r1")
+theme_override_colors/default_color = Color(0.9, 0.9, 0.9, 0.32549)
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "hello"
+fit_content = true
+autowrap_mode = 0
+shortcut_keys_enabled = false
+horizontal_alignment = 1
+vertical_alignment = 1
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
