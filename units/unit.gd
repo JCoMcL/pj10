@@ -65,7 +65,8 @@ func _hit(damage: int = 1):
 	if current_health <= 0:
 		_expire()
 	else:
-		get_sprite(self).texture.add_xy(damage, 0)
+		if get_sprite(self).texture is HandyAtlas:
+			get_sprite(self).texture.add_xy(damage, 0)
 
 # May be called multiple times, use wisely
 func wakeup():

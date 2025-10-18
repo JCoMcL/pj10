@@ -13,7 +13,7 @@ var _overdraft_behaviour: int
 var _scene: PackedScene
 var _default_search = 0
 
-enum {EXPAND, WAIT, RECYCLE, PASS}
+enum Poolmode {EXPAND, WAIT, RECYCLE, PASS}
 
 func warn(s):
 	if _verbose:
@@ -30,7 +30,7 @@ func add(n: Node) -> Node:
 	store.append(n)
 	return n
 
-func _init(scn: PackedScene, count: int=2, overdraft_behaviour=EXPAND, use_search=true, verbose=true):
+func _init(scn: PackedScene, count: int=2, overdraft_behaviour=Poolmode.EXPAND, use_search=true, verbose=true):
 	_scene=scn
 	_overdraft_behaviour=overdraft_behaviour
 	_verbose=verbose
@@ -53,13 +53,13 @@ func next(parent: Node, search=_default_search) -> Node:
 			return await next(parent, search-1)
 		warn("Warning: pool member %s is still active. Consider increasing allocation to at least %d" % [n, store.size() + 1])
 		match _overdraft_behaviour:
-			EXPAND:
+			Poolmode.EXPAND:
 				n = add(_scene.instantiate())
-			WAIT:
+			Poolmode.WAIT:
 				await n.expire
-			RECYCLE:
+			Poolmode.RECYCLE:
 				pass
-			PASS:
+			Poolmode.PASS:
 				return null
 
 	if parent:

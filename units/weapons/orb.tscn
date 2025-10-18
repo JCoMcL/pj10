@@ -12,8 +12,8 @@
 [sub_resource type="Resource" id="Resource_6ol1o"]
 script = ExtResource("5_lg6bi")
 ignore_layers = 1
-also_die = true
 damage = 2
+take_damage = 1
 play_area_bounded = false
 metadata/_custom_type_script = "uid://32qn5elehj72"
 
