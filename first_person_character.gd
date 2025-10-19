@@ -25,7 +25,7 @@ func _mouse_motion_input(event: InputEventMouseMotion):
 	camera.rotate_x(event.relative.y * look_sensitivity * -1)
 
 @onready var input_tracker = InputTracker.new()
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	get_viewport().set_input_as_handled()
 	if event is InputEventMouseButton:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -36,7 +36,7 @@ func _input(event: InputEvent) -> void:
 		_mouse_motion_input(event)
 
 	elif current_game:
-		current_game._input(event)
+		current_game.push_input(event)
 	else:
 		input_tracker._input(event)
 

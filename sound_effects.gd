@@ -5,8 +5,7 @@ var sfx = {}
 
 func _build_sfx_table():
 	var sfx_dir = "res://audio/sfx"
-	var d = DirAccess.open(sfx_dir)
-	for f in d.get_files():
+	for f in ResourceLoader.list_directory(sfx_dir):
 		if f.ends_with(".wav"):
 			var res = ResourceLoader.load("%s/%s" % [sfx_dir, f])
 			if res:
@@ -22,9 +21,13 @@ func play_sfx(effect_name: String) -> bool:
 		return false
 	play()
 	get_stream_playback().play_stream(sfx[effect_name])
+	var relay = Fuckit.audio_relays[self]
+	relay.play()
+	relay.get_stream_playback().play_stream(sfx[effect_name])
 	return true
 
 func _ready():
+	await Fuckit.relay_audio(self)
 	if not sfx:
 		_build_sfx_table()
 	var game = Game.get_game(self)

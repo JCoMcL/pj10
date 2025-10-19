@@ -52,7 +52,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.849, 0.250404, 1.93)
 handle_input_locally = false
 anisotropic_filtering_level = 0
 canvas_item_default_texture_filter = 0
-audio_listener_enable_2d = true
 size = Vector2i(512, 480)
 
 [node name="Node2D" parent="SubViewport" instance=ExtResource("4_jka67")]

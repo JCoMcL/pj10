@@ -35,6 +35,8 @@ func _physics_process(delta: float) -> void:
 
 func spawn_bullet():
 	var b = await super.shoot(Vector2.ZERO)
+	if not is_instance_valid(b): #This occurs when the game is quitting
+		return
 	b.expire.connect(_on_bullet_expire.bind(b), CONNECT_ONE_SHOT)
 	bullet_state[b] = ORBITING
 

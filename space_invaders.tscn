@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://civ3r62diebkh"]
+[gd_scene load_steps=24 format=3 uid="uid://civ3r62diebkh"]
 
 [ext_resource type="Script" uid="uid://hmnb8xcddo0d" path="res://game.gd" id="1_2u8fv"]
 [ext_resource type="Script" uid="uid://dy0t0sdbw1h2a" path="res://play_area.gd" id="2_2u8fv"]
@@ -15,15 +15,16 @@
 [ext_resource type="Script" uid="uid://ksdfgesjdr6c" path="res://units/behaviours/sidewinder.gd" id="12_847uq"]
 [ext_resource type="Script" uid="uid://ckri073qfsukw" path="res://units/meta/grid_pattern.gd" id="12_uxjvs"]
 [ext_resource type="Script" uid="uid://c2rurlqhkqaou" path="res://sound_effects.gd" id="13_3pn3u"]
+[ext_resource type="Script" uid="uid://dwgcxwg7bm3vr" path="res://soundtrack.gd" id="16_r0y7k"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_847uq"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r0y7k"]
 size = Vector2(511, 444)
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r0y7k"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_f1sqh"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rq143"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kxb8h"]
 
 [sub_resource type="Resource" id="Resource_rq143"]
 script = ExtResource("12_uxjvs")
@@ -35,7 +36,7 @@ members = {
 pattern_string = "a c aab bba b b b ab ba"
 metadata/_custom_type_script = "uid://ckri073qfsukw"
 
-[sub_resource type="Resource" id="Resource_847uq"]
+[sub_resource type="Resource" id="Resource_r0y7k"]
 resource_local_to_scene = true
 script = ExtResource("12_847uq")
 speed = 30
@@ -71,7 +72,7 @@ metadata/_custom_type_script = "uid://dy0t0sdbw1h2a"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea"]
 visible = false
 position = Vector2(255.5, 258)
-shape = SubResource("RectangleShape2D_847uq")
+shape = SubResource("RectangleShape2D_r0y7k")
 
 [node name="Background" type="ColorRect" parent="PlayArea"]
 z_index = -1
@@ -112,7 +113,7 @@ script = ExtResource("4_ep106")
 position = Vector2(255.5, 480)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/DownWall"]
-shape = SubResource("WorldBoundaryShape2D_r0y7k")
+shape = SubResource("WorldBoundaryShape2D_f1sqh")
 one_way_collision = true
 one_way_collision_margin = 50.0
 
@@ -121,7 +122,7 @@ position = Vector2(0, 258)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/LeftWall"]
 rotation = 1.5708
-shape = SubResource("WorldBoundaryShape2D_f1sqh")
+shape = SubResource("WorldBoundaryShape2D_rq143")
 one_way_collision = true
 one_way_collision_margin = 50.0
 
@@ -130,7 +131,7 @@ position = Vector2(511, 258)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/RightWall"]
 rotation = -1.5708
-shape = SubResource("WorldBoundaryShape2D_rq143")
+shape = SubResource("WorldBoundaryShape2D_kxb8h")
 one_way_collision = true
 one_way_collision_margin = 50.0
 
@@ -148,14 +149,17 @@ rank = 8
 file = 14
 using = 1
 unit_pattern = SubResource("Resource_rq143")
-behaviours = Array[ExtResource("11_3pn3u")]([SubResource("Resource_847uq")])
+behaviours = Array[ExtResource("11_3pn3u")]([SubResource("Resource_r0y7k")])
 
 [node name="SoundEffects" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamPolyphonic_847uq")
-bus = &"Capture"
+panning_strength = 0.46
+bus = &"2D"
 script = ExtResource("13_3pn3u")
 
 [node name="Soundtrack" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_uxjvs")
 autoplay = true
-bus = &"Capture"
+panning_strength = 0.42
+bus = &"2D"
+script = ExtResource("16_r0y7k")

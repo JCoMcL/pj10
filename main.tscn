@@ -10,13 +10,14 @@ script = ExtResource("1_0xm2m")
 update_in_editor = false
 resolution = Vector2(511, 480)
 scan_line_amount = 0.486
-scan_line_strength = -7.2
-warp_amount = 0.0
-interference_amount = 0.281
-grille_amount = 0.163
-vignette_amount = 0.186
-vignette_intensity = 0.436
-aberation_amount = 0.482
+scan_line_strength = -3.391
+warp_amount = 0.175
+noise_amount = 0.037
+interference_amount = 0.726
+grille_amount = 0.157
+vignette_amount = 0.274
+vignette_intensity = 0.567
+aberation_amount = 0.429
 roll_line_amount = 0.0
 
 [node name="SpaceInvaders" parent="CanvasLayer" instance=ExtResource("2_h2yge")]
