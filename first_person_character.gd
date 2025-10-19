@@ -12,13 +12,25 @@ class_name FirstPersonCharacter3D
 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
-
+@onready var interactcast = $Head/Camera3D/PlayerInetractcast
 
 var current_game: ArcadeGame
+func atttach_game(g: ArcadeGame):
+	current_game = g
+	$UserInterface.visible = false if g else true
+	if not g:
+		setup_height()
+	else:
+		head.global_transform = g.observation_point.global_transform
+
 func _interact(body: Node3D):
-	if body is ArcadeGame:
-		current_game = body
-		head.global_transform = body.observation_point.global_transform
+	if not current_game and body is ArcadeGame:
+		atttach_game(body)
+
+func _on_interactable_focus_change(n: Node3D):
+	print(n)
+	if current_game:
+		atttach_game(null)
 
 func _mouse_motion_input(event: InputEventMouseMotion):
 	head.rotate_y(event.relative.x * look_sensitivity * -1)
@@ -43,7 +55,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func setup_height():
 	if not head: #not ready
 		return
-	head.position.y = height
+	head.position = Vector3(0, height, 0)
 	$CollisionShape3D.shape.height - height
 	$CollisionShape3D.position.y = height/2
 
