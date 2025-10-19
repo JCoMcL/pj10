@@ -46,7 +46,7 @@ transform = Transform3D(-0.860938, 0, -0.508711, 0, 1, 0, 0.508711, 0, -0.860938
 subviewport = NodePath("../SubViewport")
 
 [node name="Player" parent="." instance=ExtResource("2_fmulm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.849, 0.250404, 1.93)
+transform = Transform3D(-0.0192672, 0, -0.999814, 0, 1, 0, 0.999814, 0, -0.0192672, -8.98858, 0.250404, 5.72079)
 
 [node name="SubViewport" type="SubViewport" parent="."]
 handle_input_locally = false

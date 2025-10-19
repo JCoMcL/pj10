@@ -5,6 +5,7 @@
 [ext_resource type="Theme" uid="uid://bnc4gesw2cmsb" path="res://theme.tres" id="3_rs4r1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rjnwj"]
+radius = 0.25
 height = 1.5
 
 [node name="Player" type="CharacterBody3D"]
@@ -56,3 +57,5 @@ horizontal_alignment = 1
 vertical_alignment = 1
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
+
+[connection signal="focused_interactable_changed" from="Head/Camera3D/PlayerInetractcast" to="." method="_on_interactable_focus_change"]

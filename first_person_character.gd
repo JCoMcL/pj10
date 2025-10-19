@@ -63,7 +63,7 @@ func _ready() -> void:
 	setup_height()
 
 func _physics_process(delta: float) -> void:
-	var target_move = input_tracker.movement_input.rotated(-head.rotation.y)
+	var target_move = input_tracker.movement_input.rotated(-head.rotation.y).rotated(-rotation.y)
 	var target_move_3 = Vector3(target_move.x, 0, target_move.y)
 	velocity = velocity.move_toward(target_move_3 * speed, accel * delta)
 	move_and_slide()
