@@ -1,6 +1,8 @@
 extends Node3D
+class_name ArcadeGame
 
 @export var subviewport: SubViewport
+@export var observation_point: Node3D
 
 var capture:AudioEffectCapture
 var playback:AudioStreamGeneratorPlayback
@@ -13,7 +15,7 @@ func _ready():
 	assert(subviewport)
 	var tex: ViewportTexture = $Sprite3D.texture
 	tex.viewport_path = subviewport.get_path()
-	
+
 	capture = AudioServer.get_bus_effect(capture_bus_idx, 0)
 	speaker
 	speaker.stream = AudioStreamGenerator.new()
@@ -31,10 +33,16 @@ func fill_buffer():
 	while playback_available > capture_available:
 		var buffer = capture.get_buffer(capture_available)
 		playback.push_buffer(buffer)
-		
+
 		playback_available -= capture_available
 		if playback_available <= 0:
 			break
 		capture_available = capture.get_frames_available()
 		if capture_available <= 0:
 			break
+
+@onready var input_tracker = InputTracker.new()
+func _input(ev: InputEvent):
+	input_tracker._input(ev)
+	print(input_tracker.movement_input)
+	subviewport.push_input(ev)

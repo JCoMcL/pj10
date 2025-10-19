@@ -3,11 +3,18 @@ extends RayCast3D
 @export var Prompt : RichTextLabel
 var curr_dialogue : String
 
-func _physics_process(delta: float) -> void:
+var player: FirstPersonCharacter3D
+func _ready() -> void:
+	var p = get_parent()
+	while p and p is not FirstPersonCharacter3D:
+		p = p.get_parent()
+	player = p
 
+
+func _physics_process(delta: float) -> void:
 	if is_colliding():
 		var collider = get_collider()
-		
+
 		if collider is Interactable:
 			if collider.prompt_action == "interact":
 				# Prompt Logic
@@ -22,7 +29,7 @@ func _physics_process(delta: float) -> void:
 						collider.run_dialogue()
 
 				elif Input.is_action_just_pressed(collider.prompt_action):
-					collider.interact(owner)
+					collider.interact(player)
 
 			else:
 				Prompt.text = collider.get_prompt()

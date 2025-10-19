@@ -1,8 +1,10 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+
 **/references/
 temp/
 .cursorindexingignore
 .specstory
 *.png~
+export
