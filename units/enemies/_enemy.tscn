@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://bguhxfj4pgmhq"]
 
 [ext_resource type="Script" uid="uid://khuuqn83eivc" path="res://units/unit.gd" id="1_4bn8d"]
-[ext_resource type="Script" uid="uid://blu1c4kvb2ite" path="res://units/character_sprite_2d.gd" id="2_0uxyc"]
-[ext_resource type="Texture2D" uid="uid://c5cooyxy4myt0" path="res://units/enemies/enemies.png" id="2_ecagp"]
+[ext_resource type="Script" uid="uid://blu1c4kvb2ite" path="res://units/character_sprite.gd" id="2_0uxyc"]
+[ext_resource type="Texture2D" uid="uid://b0yx0e1akq830" path="res://units/enemies/enemies.png" id="2_ecagp"]
 [ext_resource type="Script" uid="uid://uwfp0rlcq3cy" path="res://tools/handy_atlas.gd" id="2_qkw36"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ecagp"]
@@ -26,6 +26,8 @@ metadata/_custom_type_script = "uid://khuuqn83eivc"
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_ecagp")
 script = ExtResource("2_0uxyc")
+vertical_speed_only = null
+random_hflip = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ecagp")

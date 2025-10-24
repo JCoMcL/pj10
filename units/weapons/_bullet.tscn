@@ -25,7 +25,7 @@ atlas = ExtResource("5_r7xm8")
 region = Rect2(0, 0, 2, 7)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pfotm"]
-size = Vector2(8, 2)
+size = Vector2(5, 3)
 
 [node name="Bullet" type="CharacterBody2D"]
 collision_layer = 0

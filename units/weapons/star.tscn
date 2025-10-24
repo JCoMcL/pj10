@@ -3,10 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://cglfd6h0f8dxb" path="res://units/weapons/_bullet.tscn" id="1_fr1x7"]
 [ext_resource type="Script" uid="uid://kbo7yeuuwhwa" path="res://units/behaviours/behaviour.gd" id="2_cngue"]
 [ext_resource type="Texture2D" uid="uid://da7ep115w0rqx" path="res://units/weapons/ammunition.png" id="2_k0qbt"]
-[ext_resource type="Script" uid="uid://bwcdr8ctm5686" path="res://units/weapons/star_anim.gd" id="3_k0qbt"]
 [ext_resource type="Script" uid="uid://5vc4lge53ga2" path="res://units/behaviours/missile.gd" id="3_pmnkl"]
 [ext_resource type="Script" uid="uid://32qn5elehj72" path="res://units/behaviours/deadly.gd" id="4_a8rm7"]
 [ext_resource type="Script" uid="uid://q543xek4c3p1" path="res://units/behaviours/fuse.gd" id="5_wbyng"]
+[ext_resource type="Script" uid="uid://blu1c4kvb2ite" path="res://units/character_sprite.gd" id="7_cngue"]
 
 [sub_resource type="Resource" id="Resource_h0pa3"]
 script = ExtResource("3_pmnkl")
@@ -37,8 +37,14 @@ region = Rect2(32, 0, 32, 32)
 behaviours = Array[ExtResource("2_cngue")]([SubResource("Resource_h0pa3"), SubResource("Resource_6ol1o"), SubResource("Resource_sjm7l")])
 
 [node name="Sprite2D" parent="." index="0"]
-position = Vector2(0, 1)
+position = Vector2(0.5, 0.5)
 texture = SubResource("AtlasTexture_ao3mq")
 hframes = 2
 vframes = 2
-script = ExtResource("3_k0qbt")
+frame = 3
+script = ExtResource("7_cngue")
+vertical_speed_only = null
+randomize_frames = 4
+randomize_rate = 35
+random_hflip = null
+random_vflip = null

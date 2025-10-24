@@ -3,10 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://cglfd6h0f8dxb" path="res://units/weapons/_bullet.tscn" id="1_cdixm"]
 [ext_resource type="Script" uid="uid://kbo7yeuuwhwa" path="res://units/behaviours/behaviour.gd" id="2_kk0x4"]
 [ext_resource type="Texture2D" uid="uid://da7ep115w0rqx" path="res://units/weapons/ammunition.png" id="2_xwk5l"]
-[ext_resource type="Script" uid="uid://bx3ug8t5h08fs" path="res://sparkle_anim.gd" id="3_kk0x4"]
 [ext_resource type="Script" uid="uid://32qn5elehj72" path="res://units/behaviours/deadly.gd" id="3_wvrs6"]
 [ext_resource type="Script" uid="uid://q543xek4c3p1" path="res://units/behaviours/fuse.gd" id="4_wvrs6"]
 [ext_resource type="Script" uid="uid://benmqv834rxw0" path="res://units/behaviours/inertial.gd" id="5_wgomp"]
+[ext_resource type="Script" uid="uid://blu1c4kvb2ite" path="res://units/character_sprite.gd" id="7_wgomp"]
 
 [sub_resource type="Resource" id="Resource_wgomp"]
 script = ExtResource("3_wvrs6")
@@ -42,7 +42,9 @@ behaviours = Array[ExtResource("2_kk0x4")]([SubResource("Resource_wgomp"), SubRe
 [node name="Sprite2D" parent="." index="0"]
 texture = SubResource("AtlasTexture_wvrs6")
 vframes = 4
-script = ExtResource("3_kk0x4")
+script = ExtResource("7_wgomp")
+vertical_speed_only = null
+randomize_frames = 4
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("CircleShape2D_gohag")

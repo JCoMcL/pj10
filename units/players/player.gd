@@ -15,6 +15,8 @@ var input_tracker = InputTracker.new()
 func _unhandled_input(ev: InputEvent):
 	if ev.is_action_pressed("fire") or ev.is_action_pressed("up"):
 		$Shoota.shoot(Vector2.UP)
+	elif ev.is_action_pressed("commit_self_die"):
+		_hit()
 	else:
 		input_tracker._input(ev)
 
