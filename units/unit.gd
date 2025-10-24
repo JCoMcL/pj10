@@ -46,7 +46,7 @@ func play_sfx(effect_name: String):
 	var game = Game.get_game(self)
 	if game and game.sfx_player and game.sfx_player.play_sfx(effect_name):
 		return
-	assert(GlobalSFXPlayer.play_sfx(effect_name))
+	#assert(GlobalSFXPlayer.play_sfx(effect_name))
 
 var alive: bool = true
 func _expire():
@@ -73,6 +73,7 @@ func wakeup():
 	alive = true
 	process_mode = Node.PROCESS_MODE_INHERIT
 	current_health = health
+	init_behaviours()
 
 func _enter_tree() -> void:
 	wakeup()
@@ -87,8 +88,7 @@ func _physics_process(delta: float) -> void:
 			if inside_play_area or not b.play_area_bounded:
 				b._process(self, delta)
 
-func _ready():
-	monitoring_play_area = monitoring_play_area or expire_outside_play_area
+func init_behaviours():
 	if not Engine.is_editor_hint():
 		for b in behaviours:
 			if b:
@@ -96,6 +96,9 @@ func _ready():
 				monitoring_play_area = monitoring_play_area or b.play_area_bounded
 			else:
 				print("Warning: %s: behaviours not set up properly!" % self)
+	
+func _ready():
+	monitoring_play_area = monitoring_play_area or expire_outside_play_area
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray

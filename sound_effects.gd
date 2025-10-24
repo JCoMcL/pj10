@@ -20,11 +20,16 @@ func play_sfx(effect_name: String) -> bool:
 	if not sfx.has(effect_name):
 		return false
 	play()
-	get_stream_playback().play_stream(sfx[effect_name])
-	var relay = Fuckit.audio_relays[self]
-	relay.play()
-	relay.get_stream_playback().play_stream(sfx[effect_name])
-	return true
+	var playback = get_stream_playback()
+	if playback:
+		playback.play_stream(sfx[effect_name])
+		if Fuckit.audio_relays.has(self):
+			var relay = Fuckit.audio_relays[self]
+			if is_instance_valid(relay):
+				relay.play()
+				relay.get_stream_playback().play_stream(sfx[effect_name])
+		return true
+	return false
 
 func _ready():
 	await Fuckit.relay_audio(self)

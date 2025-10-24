@@ -8,7 +8,7 @@
 
 [sub_resource type="Resource" id="Resource_h0pa3"]
 script = ExtResource("3_gvlvk")
-speed = 480
+speed = 240
 play_area_bounded = false
 metadata/_custom_type_script = "uid://5vc4lge53ga2"
 
@@ -25,7 +25,7 @@ atlas = ExtResource("5_r7xm8")
 region = Rect2(0, 0, 2, 7)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pfotm"]
-size = Vector2(8, 8)
+size = Vector2(8, 2)
 
 [node name="Bullet" type="CharacterBody2D"]
 collision_layer = 0

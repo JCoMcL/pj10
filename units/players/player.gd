@@ -11,9 +11,12 @@ func _physics_process(delta):
 	velocity += get_gravity()
 	move_and_slide()
 
-func _input(ev: InputEvent):
+var input_tracker = InputTracker.new()
+func _unhandled_input(ev: InputEvent):
 	if ev.is_action_pressed("fire") or ev.is_action_pressed("up"):
 		$Shoota.shoot(Vector2.UP)
+	else:
+		input_tracker._input(ev)
 
 var invulnerable = true
 func grace_window(seconds=2):
@@ -33,7 +36,9 @@ func wakeup():
 
 func _ready():
 	if can_process():
-		Game.get_game(self).set_active_player(self)
+		var game = Game.get_game(self)
+		if game:
+			Game.get_game(self).set_active_player(self)
 
 func _expire():
 	super()
@@ -57,7 +62,7 @@ func _process(delta):
 		sprite.visible = true
 
 	if alive:
-		direction.x = Input.get_axis("left", "right")
+		direction.x = input_tracker.movement_input.x
 		if direction.x == 0:
 			atlas.set_xy(0,0)
 		else:

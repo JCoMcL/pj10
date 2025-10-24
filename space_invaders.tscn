@@ -46,7 +46,7 @@ metadata/_custom_type_script = "uid://ksdfgesjdr6c"
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_847uq"]
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("new_entity_region", "lives", "player_spawn_point")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("new_entity_region", "lives", "player_spawn_point", "sfx_player")]
 script = ExtResource("1_2u8fv")
 new_entity_region = NodePath("Scaling")
 team_colors = {
@@ -55,6 +55,7 @@ team_colors = {
 }
 lives = NodePath("PlayArea/Header/Lives")
 player_spawn_point = NodePath("Scaling/PlayerSpawn")
+sfx_player = NodePath("SoundEffects")
 metadata/_custom_type_script = "uid://hmnb8xcddo0d"
 
 [node name="PlayArea" type="Area2D" parent="."]
@@ -145,7 +146,7 @@ script = ExtResource("11_150to")
 [node name="Formation" type="Node2D" parent="Scaling"]
 position = Vector2(17.5, 28)
 script = ExtResource("11_hgni5")
-rank = 8
+rank = 9
 file = 14
 using = 1
 unit_pattern = SubResource("Resource_rq143")
@@ -159,6 +160,7 @@ script = ExtResource("13_3pn3u")
 
 [node name="Soundtrack" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_uxjvs")
+volume_db = -14.4
 autoplay = true
 panning_strength = 0.42
 bus = &"2D"

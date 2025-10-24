@@ -1,0 +1,117 @@
+[gd_scene load_steps=15 format=3 uid="uid://dqg26hpv4h2q"]
+
+[ext_resource type="Texture2D" uid="uid://7t10nkvoqex0" path="res://arcade/level/moon.png" id="1_aablb"]
+[ext_resource type="PackedScene" uid="uid://pgkw6db8mrc" path="res://arcade/level/level.glb" id="2_vciaq"]
+[ext_resource type="PackedScene" uid="uid://c2vmgj4mex45g" path="res://arcade/arcade_cabinet.tscn" id="3_og5px"]
+[ext_resource type="PackedScene" uid="uid://c4lccs8l5darl" path="res://addons/godot4.3_fps_character_controller/Player/player.tscn" id="4_tey2p"]
+[ext_resource type="Script" uid="uid://bc47ccwfqefpq" path="res://sub_viewport.gd" id="5_5ah18"]
+[ext_resource type="PackedScene" uid="uid://dn73q1c7tasit" path="res://main.tscn" id="6_w05ub"]
+[ext_resource type="Script" uid="uid://dyryi34waf0fr" path="res://arcade/break_switch.gd" id="7_xs0yj"]
+[ext_resource type="AudioStream" uid="uid://dwa1rb7rh7rho" path="res://audio/sfx/breaker_switch.wav" id="8_dw2wl"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_j2cqg"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v072a"]
+sky_top_color = Color(0.040066, 0.0513754, 0.110096, 1)
+sky_horizon_color = Color(0.240528, 0.160696, 0.149361, 1)
+ground_bottom_color = Color(0.0826605, 0.065772, 0.0461518, 1)
+ground_horizon_color = Color(0.223226, 0.125342, 0.106177, 1)
+energy_multiplier = 0.0
+
+[sub_resource type="Sky" id="Sky_3m4ft"]
+sky_material = SubResource("ProceduralSkyMaterial_v072a")
+
+[sub_resource type="Environment" id="Environment_i5bjg"]
+background_mode = 2
+sky = SubResource("Sky_3m4ft")
+ssao_radius = 0.16
+volumetric_fog_density = 0.318
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jsk3o"]
+size = Vector3(0.21875, 0.281036, 0.204346)
+
+[sub_resource type="LightmapGIData" id="LightmapGIData_opqp7"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="floor" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor"]
+shape = SubResource("WorldBoundaryShape3D_j2cqg")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.101374, 0.213556, -0.433548, -0.0414202, 0.445192, 0.209607, 0.481513, -0.00666457, 0.109307, -20.7119, 11.7104, 3.30157)
+gi_mode = 0
+billboard = 1
+fixed_size = true
+texture_filter = 0
+texture = ExtResource("1_aablb")
+
+[node name="Moonlight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.200195, 0.482975, -0.852442, -0.0954035, 0.87553, 0.473651, 0.9751, -0.0134964, 0.221354, -6.26852, 5.06628, 0)
+light_color = Color(0.4588, 0.55552, 0.62, 1)
+light_energy = 13.623
+light_angular_distance = 2.0
+light_bake_mode = 1
+shadow_enabled = true
+shadow_reverse_cull_face = true
+directional_shadow_mode = 0
+sky_mode = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_i5bjg")
+
+[node name="level" parent="." instance=ExtResource("2_vciaq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.64216, -4.76837e-07, 6.68272)
+
+[node name="arcade_cabinet" parent="." node_paths=PackedStringArray("subviewport") instance=ExtResource("3_og5px")]
+transform = Transform3D(-0.845327, 0, 0.53425, 0, 1, 0, -0.53425, 0, -0.845327, 2.75193, 0, 2.47207)
+subviewport = NodePath("../SubViewport")
+
+[node name="Player" parent="." instance=ExtResource("4_tey2p")]
+transform = Transform3D(-0.0192672, 0, -0.999814, 0, 1, 0, 0.999814, 0, -0.0192672, -9.88607, 0, 5.721)
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+handle_input_locally = false
+anisotropic_filtering_level = 0
+canvas_item_default_texture_filter = 0
+size = Vector2i(512, 480)
+script = ExtResource("5_5ah18")
+scene = ExtResource("6_w05ub")
+
+[node name="Emergency light" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.73625, 0.736423, 1.14226)
+light_color = Color(0.46, 0.1564, 0.1564, 1)
+light_energy = 0.108
+light_bake_mode = 1
+shadow_enabled = true
+
+[node name="Exit light" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.31699, 2.60539, 5.57765)
+light_color = Color(0.170086, 0.308425, 0.106315, 1)
+light_energy = 0.529
+light_bake_mode = 1
+shadow_enabled = true
+omni_range = 5.448
+omni_attenuation = 0.485
+
+[node name="Switch" type="Area3D" parent="."]
+transform = Transform3D(-0.939692, -0.34202, 0, 0.34202, -0.939692, 0, 0, 0, 1, 3.59363, 1.52981, 1.13667)
+monitoring = false
+monitorable = false
+script = ExtResource("7_xs0yj")
+prompt_message = "switch on"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Switch"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0683594, 0.0441437, 0.0980225)
+shape = SubResource("BoxShape3D_jsk3o")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Switch"]
+transform = Transform3D(1, 2.98023e-08, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+stream = ExtResource("8_dw2wl")
+
+[node name="LightmapGI" type="LightmapGI" parent="."]
+interior = true
+texel_scale = 5.0
+light_data = SubResource("LightmapGIData_opqp7")

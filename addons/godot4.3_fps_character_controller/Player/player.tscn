@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c4lccs8l5darl"]
+[gd_scene load_steps=6 format=3 uid="uid://c4lccs8l5darl"]
 
 [ext_resource type="Script" uid="uid://by6c4oo1inwlp" path="res://first_person_character.gd" id="1_rjnwj"]
 [ext_resource type="Script" uid="uid://fh55yoan343g" path="res://addons/godot4.3_fps_character_controller/Player/player_inetractcast_logic.gd" id="2_dpr1a"]
@@ -7,6 +7,9 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rjnwj"]
 radius = 0.25
 height = 1.5
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_rs4r1"]
+exposure_multiplier = 1.63
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_rjnwj")
@@ -20,6 +23,7 @@ shape = SubResource("CapsuleShape3D_rjnwj")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
+attributes = SubResource("CameraAttributesPractical_rs4r1")
 current = true
 
 [node name="PlayerInetractcast" type="RayCast3D" parent="Head/Camera3D" node_paths=PackedStringArray("Prompt")]

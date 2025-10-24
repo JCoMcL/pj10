@@ -26,7 +26,6 @@ func _ready() -> void:
 	if dialouge != "":
 		_parse_dialogue()
 
-
 func get_key() -> String:
 	if prompt_key_override:
 		return override_text

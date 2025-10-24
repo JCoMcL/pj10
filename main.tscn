@@ -6,6 +6,7 @@
 [node name="Node2D" type="Node2D"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("1_0xm2m")
 update_in_editor = false
 resolution = Vector2(511, 480)

@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cdln0til4f66"]
+
+[ext_resource type="Texture2D" uid="uid://dtqfoyi015u5r" path="res://arcade/level/level_palette.png" id="1_g1hj5"]
+
+[resource]
+resource_name = "Palette"
+cull_mode = 2
+albedo_texture = ExtResource("1_g1hj5")
+roughness = 0.268182
+texture_filter = 2

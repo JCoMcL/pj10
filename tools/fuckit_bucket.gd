@@ -17,3 +17,6 @@ func relay_audio(a2d: AudioStreamPlayer2D):
 	else:
 		await audio_relay_registered
 		relay_audio(a2d)
+
+signal power_on
+signal game_over

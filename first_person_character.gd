@@ -24,11 +24,11 @@ func atttach_game(g: ArcadeGame):
 		head.global_transform = g.observation_point.global_transform
 
 func _interact(body: Node3D):
+	print(body)
 	if not current_game and body is ArcadeGame:
 		atttach_game(body)
 
 func _on_interactable_focus_change(n: Node3D):
-	print(n)
 	if current_game:
 		atttach_game(null)
 
