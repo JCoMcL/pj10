@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dn73q1c7tasit" path="res://main.tscn" id="6_w05ub"]
 [ext_resource type="Script" uid="uid://dyryi34waf0fr" path="res://arcade/break_switch.gd" id="7_xs0yj"]
 [ext_resource type="AudioStream" uid="uid://dwa1rb7rh7rho" path="res://audio/sfx/breaker_switch.wav" id="8_dw2wl"]
+[ext_resource type="LightmapGIData" uid="uid://c81vafbkddtla" path="res://arcade/Arcade.lmbake" id="9_vciaq"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_j2cqg"]
 
@@ -29,8 +30,6 @@ volumetric_fog_density = 0.318
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jsk3o"]
 size = Vector3(0.21875, 0.281036, 0.204346)
-
-[sub_resource type="LightmapGIData" id="LightmapGIData_opqp7"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -112,6 +111,7 @@ transform = Transform3D(1, 2.98023e-08, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 stream = ExtResource("8_dw2wl")
 
 [node name="LightmapGI" type="LightmapGI" parent="."]
+quality = 2
 interior = true
-texel_scale = 5.0
-light_data = SubResource("LightmapGIData_opqp7")
+texel_scale = 10.0
+light_data = ExtResource("9_vciaq")

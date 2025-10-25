@@ -8,4 +8,5 @@ temp/
 .specstory
 *.png~
 *.blend1
+*.exr
 export
