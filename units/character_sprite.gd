@@ -2,14 +2,15 @@
 extends Sprite2D
 class_name CharacterSprite2D
 
+@export_range(0,16) var animation_frames: int = 0
+@export_range(0, 60, 1, "suffix:fps") var animation_rate = 0
+@export_range(0,16) var randomize_frames: int
+@export_range(0, 60, 1, "suffix:fps") var randomize_rate = 0
 @export_range(0,16) var speed_frames: int = 0
 @export_range(0,1000) var speed_start:float = 0.0
 @export_range(0,3000) var speed_end:float = 1000.0
+@export_range(0,16) var damage_frames: int = 0
 @export var vertical_speed_only = false
-@export_range(0,16) var randomize_frames: int
-@export_range(0, 60, 1, "suffix:fps") var randomize_rate = 0
-#NOTE: if speed_frames and randomize_frames are both nonzero, behaviour is undefined.
-# We'll wait until we have a usecase to sort that out
 @export var random_hflip = false
 @export var random_vflip = false
 
@@ -31,23 +32,37 @@ func set_speed_frame(delta: float):
 
 	frame = min(_frame, speed_frames-1)
 
-var randomize_accum: float
+func advance_animation():
+	if frame >= animation_frames - 1:
+		frame = 0
+	else:
+		frame += 1
+
+func advance_damage():
+	frame = damage_frames - damage_frames * unit.current_health / unit.health
+
+var animation_cumer: Cumer
+var randomize_cumer: Cumer
 func _process(delta: float) -> void:
 	if speed_frames:
 		set_speed_frame(delta)
-	if randomize_rate and not Engine.is_editor_hint():
-		var randomize_frame_time = 1.0/randomize_rate
-		randomize_accum += delta
-		while randomize_accum > randomize_frame_time:
-			randomize_accum -= randomize_frame_time
-			randomize_sprite()
+	if randomize_cumer:
+		randomize_cumer.add(delta)
+	if animation_cumer:
+		animation_cumer.add(delta)
+
 
 func _ready() -> void:
 	if randomize_frames:
 		randomize_sprite()
+		if randomize_rate > 0:
+			randomize_cumer = Cumer.new(randomize_rate, randomize_sprite)
+	if animation_frames and animation_rate > 0:
+		animation_cumer = Cumer.new(animation_rate, advance_animation)
+	if damage_frames:
+		unit.hit.connect(advance_damage)
 	if random_hflip:
 		flip_h = randf() > 0.5
-		print(flip_h)
 	if random_vflip:
 		flip_v = randf() > 0.5
 

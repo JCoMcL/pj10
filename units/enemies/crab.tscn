@@ -7,7 +7,7 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_tjmlk"]
 resource_local_to_scene = true
 atlas = ExtResource("2_4ljjv")
-region = Rect2(0, 32, 16, 16)
+region = Rect2(0, 32, 64, 16)
 script = ExtResource("3_lkky1")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m0tbq"]
@@ -20,7 +20,8 @@ health = 4
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(0, -0.5)
 texture = SubResource("AtlasTexture_tjmlk")
-vertical_speed_only = null
+hframes = 4
+damage_frames = 4
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("RectangleShape2D_m0tbq")

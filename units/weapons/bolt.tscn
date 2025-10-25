@@ -36,10 +36,12 @@ health = 3
 position = Vector2(0, 7)
 texture = SubResource("AtlasTexture_840x1")
 hframes = 3
+frame = 1
 script = ExtResource("6_6ivgk")
-vertical_speed_only = null
+animation_rate = null
 randomize_frames = 3
 randomize_rate = 60
+vertical_speed_only = null
 random_hflip = null
 random_vflip = null
 

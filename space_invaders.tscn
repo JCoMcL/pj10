@@ -21,7 +21,7 @@
 [ext_resource type="Script" uid="uid://dwgcxwg7bm3vr" path="res://soundtrack.gd" id="16_r0y7k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kxb8h"]
-size = Vector2(511, 444)
+size = Vector2(512, 444)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_jn53l"]
 
@@ -97,23 +97,23 @@ metadata/_custom_type_script = "uid://hmnb8xcddo0d"
 collision_layer = 16
 collision_mask = 32
 script = ExtResource("2_2u8fv")
-width = 511
 top_padding = 36
 ceiling = false
 viewable = true
 metadata/_custom_type_script = "uid://dy0t0sdbw1h2a"
 
 [node name="Header" parent="PlayArea" instance=ExtResource("3_hm1og")]
+offset_right = 512.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea"]
 visible = false
-position = Vector2(255.5, 258)
+position = Vector2(256, 258)
 shape = SubResource("RectangleShape2D_kxb8h")
 
 [node name="Background" type="ColorRect" parent="PlayArea"]
 z_index = -1
 offset_top = 36.0
-offset_right = 511.0
+offset_right = 512.0
 offset_bottom = 480.0
 color = Color(0.0292591, 0.0436052, 0.100111, 1)
 
@@ -122,7 +122,7 @@ z_index = 1
 layout_mode = 3
 anchors_preset = 0
 offset_top = 36.0
-offset_right = 511.0
+offset_right = 512.0
 offset_bottom = 480.0
 
 [node name="Label" type="Label" parent="PlayArea/Foreground"]
@@ -146,7 +146,7 @@ vertical_alignment = 1
 script = ExtResource("4_ep106")
 
 [node name="DownWall" type="StaticBody2D" parent="PlayArea"]
-position = Vector2(255.5, 480)
+position = Vector2(256, 480)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/DownWall"]
 shape = SubResource("WorldBoundaryShape2D_jn53l")
@@ -163,7 +163,7 @@ one_way_collision = true
 one_way_collision_margin = 50.0
 
 [node name="RightWall" type="StaticBody2D" parent="PlayArea"]
-position = Vector2(511, 258)
+position = Vector2(512, 258)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/RightWall"]
 rotation = -1.5708

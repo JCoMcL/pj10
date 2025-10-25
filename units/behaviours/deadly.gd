@@ -8,6 +8,8 @@ extends Behaviour
 func _handle_collision(struck_object: Node2D, u: Unit):
 	super(struck_object, u)
 	if struck_object.collision_layer & ~ignore_layers:
+		if "alive" in struck_object and not struck_object.alive:
+			return
 		if struck_object.has_method("_hit"):
 			struck_object._hit(damage)
 		if take_damage:

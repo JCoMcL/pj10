@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bguhxfj4pgmhq" path="res://units/enemies/_enemy.tscn" id="1_n80v8"]
 [ext_resource type="Script" uid="uid://kbo7yeuuwhwa" path="res://units/behaviours/behaviour.gd" id="2_870p3"]
 [ext_resource type="Script" uid="uid://civxpexunlqfi" path="res://units/behaviours/bomber.gd" id="3_pghv7"]
-[ext_resource type="Texture2D" uid="uid://c5cooyxy4myt0" path="res://units/enemies/enemies.png" id="4_mawgr"]
+[ext_resource type="Texture2D" uid="uid://b0yx0e1akq830" path="res://units/enemies/enemies.png" id="4_mawgr"]
 [ext_resource type="Script" uid="uid://uwfp0rlcq3cy" path="res://tools/handy_atlas.gd" id="5_d8ihr"]
 [ext_resource type="Script" uid="uid://bbav8weitt8f3" path="res://units/weapons/shoota.gd" id="6_h1eq8"]
 [ext_resource type="PackedScene" uid="uid://cglfd6h0f8dxb" path="res://units/weapons/_bullet.tscn" id="7_bfv18"]
@@ -20,7 +20,7 @@ metadata/_custom_type_script = "uid://civxpexunlqfi"
 [sub_resource type="AtlasTexture" id="AtlasTexture_1t64g"]
 resource_local_to_scene = true
 atlas = ExtResource("4_mawgr")
-region = Rect2(0, 16, 16, 16)
+region = Rect2(0, 16, 32, 16)
 script = ExtResource("5_d8ihr")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_870p3"]
@@ -33,6 +33,10 @@ behaviours = Array[ExtResource("2_870p3")]([SubResource("Resource_pnbvc")])
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(0, 0.5)
 texture = SubResource("AtlasTexture_1t64g")
+hframes = 2
+animation_frames = 2
+animation_rate = 1
+damage_frames = 0
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("RectangleShape2D_870p3")
@@ -40,4 +44,3 @@ shape = SubResource("RectangleShape2D_870p3")
 [node name="Shoota" type="Node2D" parent="." index="2"]
 script = ExtResource("6_h1eq8")
 ammo = ExtResource("7_bfv18")
-metadata/_custom_type_script = "uid://ce7e3p4ngb0rc"

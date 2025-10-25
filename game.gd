@@ -69,8 +69,10 @@ static func add_to_playfield(o: Node2D, from: Node2D):
 		parent = game.new_entity_region
 	else:
 		parent = from.get_parent()
-	from.add_child(o)
+	if not o.get_parent():
+		from.add_child(o)
 	o.reparent(parent)
+	o.global_position = from.global_position
 
 func _ready():
 	if not current_player:

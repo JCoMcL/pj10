@@ -51,6 +51,7 @@ behaviours = Array[ExtResource("3_35w50")]([SubResource("Resource_6ol1o"), SubRe
 texture = SubResource("AtlasTexture_y2yfs")
 hframes = 2
 script = ExtResource("8_pcxav")
+animation_rate = null
 speed_frames = 2
 speed_start = 200.0
 speed_end = 200.0

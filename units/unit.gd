@@ -8,7 +8,7 @@ extends CharacterBody2D
 @export var expire_outside_play_area = false
 
 signal expire
-@onready var current_health = health
+@onready var current_health:int  = health
 var direction: Vector2
 var monitoring_play_area = false:
 	set(b):
@@ -54,19 +54,19 @@ func _expire():
 		print("Warning: %s: double expire" % self)
 		return
 	alive = false
+	velocity = Vector2.ZERO
 	if points_worth:
 		Game.get_game(self).add_score(points_worth)
+	expire.emit()
 	if auto_free:
 		queue_free()
-	expire.emit()
 
+signal hit
 func _hit(damage: int = 1):
 	current_health -= damage
+	hit.emit()
 	if current_health <= 0:
 		_expire()
-	else:
-		if get_sprite(self).texture is HandyAtlas:
-			get_sprite(self).texture.add_xy(damage, 0)
 
 # May be called multiple times, use wisely
 func wakeup():

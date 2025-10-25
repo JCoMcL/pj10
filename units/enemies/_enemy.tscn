@@ -8,7 +8,7 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_ecagp"]
 resource_local_to_scene = true
 atlas = ExtResource("2_ecagp")
-region = Rect2(0, 0, 16, 16)
+region = Rect2(10, 7, 20, 33)
 script = ExtResource("2_qkw36")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ecagp"]
@@ -26,6 +26,7 @@ metadata/_custom_type_script = "uid://khuuqn83eivc"
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_ecagp")
 script = ExtResource("2_0uxyc")
+animation_rate = null
 vertical_speed_only = null
 random_hflip = true
 

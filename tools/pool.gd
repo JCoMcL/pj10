@@ -13,7 +13,7 @@ var _overdraft_behaviour: int
 var _scene: PackedScene
 var _default_search = 0
 
-enum Poolmode {EXPAND, WAIT, RECYCLE, PASS}
+enum Poolmode {EXPAND, WAIT, KILL, RECYCLE, KILL_AND_RECYCLE, PASS}
 
 func warn(s):
 	if _verbose:
@@ -57,6 +57,11 @@ func next(parent: Node, search=_default_search) -> Node:
 				n = add(_scene.instantiate())
 			Poolmode.WAIT:
 				await n.expire
+			Poolmode.KILL:
+				n._expire()
+				return null
+			Poolmode.KILL_AND_RECYCLE:
+				n._expire()
 			Poolmode.RECYCLE:
 				pass
 			Poolmode.PASS:

@@ -6,7 +6,7 @@ var bullet_state: Dictionary
 
 func _on_bullet_expire(b: Unit):
 	b.velocity = Vector2.ZERO
-	var new_bullet = await spawn_bullet() #this is probably the same bullet
+	await spawn_bullet() #this is probably the same bullet
 	assert(bullet_state.size() == ammo_count)
 
 func shoot(direction:Vector2, parent:Node=null, mask:int=-1) -> Unit:
