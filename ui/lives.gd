@@ -1,33 +1,51 @@
 @tool
-extends Container
+extends Control
 class_name Lives
 
-@export_tool_button("refresh") var f = refresh
-@export_range(1,3,1) var scaling = 2:
-	set(i):
-		scaling = i
-		for c in get_children():
-			c.scaling = i
-		refresh.call_deferred()
-
-func refresh():
-	size = Vector2.ZERO
+func get_life_containers() -> Array[LifeContainer]:
+	var out: Array[LifeContainer]
 	for c in get_children():
 		if c is LifeContainer:
-			c.setup_life()
-		size.x += c.size.x
-		size.y = max(size.y, c.size.y)
-	position.x = get_parent().size.x - size.x
-	position.y = 0
+			out.append(c)
+	return out
 
 func get_life() -> Unit:
-	for c in get_children():
-		if c is LifeContainer:
-			var l = c.life
-			if l and l.alive:
-				return l
+	for c in get_life_containers():
+		var l = c.life
+		if l and l.alive:
+			return l
 	return null
 
+func add_life(life: Unit) -> bool:
+	for c in get_life_containers():
+		if not c.life:
+			c.life = life
+			return true
+	return false
+
+func clear_lives():
+	for c in get_life_containers():
+		c.life = null
+		c.life_scene = null
+
+func is_filled() -> bool:
+	for c in get_life_containers():
+		if not c.life:
+			return false
+	return true
+
+func has_life() -> bool:
+	for c in get_life_containers():
+		if c.life:
+			return true
+	return false
+
+func commune(with: Lives):
+	var ours = get_life_containers()
+	var theirs = with.get_life_containers()
+	for i in range(ours.size()):
+		theirs[i].life = ours[i].life
+		
 func _ready():
 	var game = Game.get_game(self)
 	if game and not game.lives:

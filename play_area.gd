@@ -36,6 +36,8 @@ class_name PlayArea
 		right_wall = b
 		refresh()
 
+@export_tool_button("refresh") var f = refresh
+
 ## Expose components for viewing and editing.
 ## May cause strange bugs if left on
 @export var viewable: bool = false:
@@ -108,9 +110,11 @@ func set_region(w,h):
 	background.position.y = top_padding
 
 	var foreground = get_foreground()
-	foreground.size = end - end_pad
+	foreground.size = end /2
+	foreground.scale = Vector2.ONE * 2
 	foreground.z_index = 1
-	foreground.position.y = top_padding
+	foreground.position = Vector2.ZERO
+
 
 	var active_walls = [ceiling, true, left_wall, right_wall]
 	for direction in Direction.each:

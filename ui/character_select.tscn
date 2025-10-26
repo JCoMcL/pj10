@@ -1,0 +1,129 @@
+[gd_scene load_steps=11 format=3 uid="uid://t6vey86s1202"]
+
+[ext_resource type="Script" uid="uid://rgdj1bvmqvin" path="res://ui/character_select.gd" id="1_0hgph"]
+[ext_resource type="Theme" uid="uid://bnc4gesw2cmsb" path="res://ui/theme.tres" id="1_00q01"]
+[ext_resource type="Script" uid="uid://bbmwy7avdmqf6" path="res://ui/dialogue_screen.gd" id="1_insa7"]
+[ext_resource type="PackedScene" uid="uid://c787qqqdmbiju" path="res://ui/life_container_large.tscn" id="1_p8qou"]
+[ext_resource type="Script" uid="uid://dyuxpo5xxanxv" path="res://ui/lives.gd" id="2_p8qou"]
+[ext_resource type="PackedScene" uid="uid://rex66rah1v0f" path="res://units/players/jelly.tscn" id="3_insa7"]
+[ext_resource type="PackedScene" uid="uid://bc6lg0ushliyj" path="res://units/players/lumi.tscn" id="4_p8qou"]
+[ext_resource type="PackedScene" uid="uid://dgyeqcyecu50c" path="res://units/players/dizzy.tscn" id="4_u6j12"]
+[ext_resource type="PackedScene" uid="uid://do4kgcgelx4o2" path="res://units/players/player_character.tscn" id="5_00q01"]
+[ext_resource type="PackedScene" uid="uid://drxjk8huytppt" path="res://ui/character_portrait.tscn" id="7_8j5xr"]
+
+[node name="CharacterSelectScreen" type="ColorRect" node_paths=PackedStringArray("confirm_button", "initial_focus", "lives")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -256.0
+offset_bottom = -240.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_00q01")
+color = Color(0.0129109, 0.0194323, 0.0565071, 1)
+script = ExtResource("1_insa7")
+confirm_button = NodePath("CenterContainer/HSplitContainer/Button")
+initial_focus = NodePath("CenterContainer/HSplitContainer/BoxContainer/TopRow/Character0")
+lives = NodePath("CenterContainer/HSplitContainer/Lives")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HSplitContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Lives" type="HBoxContainer" parent="CenterContainer/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+script = ExtResource("2_p8qou")
+
+[node name="LifeContainer" parent="CenterContainer/HSplitContainer/Lives" instance=ExtResource("1_p8qou")]
+layout_mode = 2
+
+[node name="LifeContainer2" parent="CenterContainer/HSplitContainer/Lives" instance=ExtResource("1_p8qou")]
+layout_mode = 2
+
+[node name="LifeContainer3" parent="CenterContainer/HSplitContainer/Lives" instance=ExtResource("1_p8qou")]
+layout_mode = 2
+
+[node name="Gap" type="Control" parent="CenterContainer/HSplitContainer"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+
+[node name="BoxContainer" type="HFlowContainer" parent="CenterContainer/HSplitContainer"]
+layout_mode = 2
+alignment = 1
+script = ExtResource("1_0hgph")
+characters = Array[PackedScene]([ExtResource("4_u6j12"), ExtResource("3_insa7"), ExtResource("4_p8qou")])
+dummy = ExtResource("5_00q01")
+
+[node name="TopRow" type="GridContainer" parent="CenterContainer/HSplitContainer/BoxContainer"]
+layout_mode = 2
+columns = 5
+
+[node name="Character0" parent="CenterContainer/HSplitContainer/BoxContainer/TopRow" instance=ExtResource("7_8j5xr")]
+layout_mode = 2
+focus_neighbor_right = NodePath("/root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/CharacterSelectScreen/CenterContainer/HSplitContainer/BoxContainer/TopRow/Character1")
+focus_neighbor_bottom = NodePath("/root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/CharacterSelectScreen/CenterContainer/HSplitContainer/BoxContainer/BottomRow/Character4")
+focus_next = NodePath("/root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/CharacterSelectScreen/CenterContainer/HSplitContainer/BoxContainer/TopRow/Character1")
+
+[node name="Character1" parent="CenterContainer/HSplitContainer/BoxContainer/TopRow" instance=ExtResource("7_8j5xr")]
+layout_mode = 2
+focus_neighbor_left = NodePath("/root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/CharacterSelectScreen/CenterContainer/HSplitContainer/BoxContainer/TopRow/Character0")
+focus_neighbor_right = NodePath("/root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/CharacterSelectScreen/CenterContainer/HSplitContainer/BoxContainer/TopRow/Character2")
+focus_neighbor_bottom = NodePath("/root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/CharacterSelectScreen/CenterContainer/HSplitContainer/BoxContainer/BottomRow/Character5")
+focus_next = NodePath("/root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/CharacterSelectScreen/CenterContainer/HSplitContainer/BoxContainer/TopRow/Character2")
+
+[node name="Character2" parent="CenterContainer/HSplitContainer/BoxContainer/TopRow" instance=ExtResource("7_8j5xr")]
+layout_mode = 2
+focus_neighbor_left = NodePath("/root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/CharacterSelectScreen/CenterContainer/HSplitContainer/BoxContainer/TopRow/Character1")
+focus_neighbor_right = NodePath("/root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/CharacterSelectScreen/CenterContainer/HSplitContainer/BoxContainer/TopRow/Character3")
+focus_neighbor_bottom = NodePath("/root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/CharacterSelectScreen/CenterContainer/HSplitContainer/BoxContainer/BottomRow/Character6")
+focus_next = NodePath("/root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/CharacterSelectScreen/CenterContainer/HSplitContainer/BoxContainer/TopRow/Character3")
+
+[node name="Character3" parent="CenterContainer/HSplitContainer/BoxContainer/TopRow" instance=ExtResource("7_8j5xr")]
+layout_mode = 2
+focus_neighbor_left = NodePath("/root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/CharacterSelectScreen/CenterContainer/HSplitContainer/BoxContainer/TopRow/Character2")
+focus_neighbor_bottom = NodePath("/root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/CharacterSelectScreen/CenterContainer/HSplitContainer/BoxContainer/BottomRow/Character6")
+focus_next = NodePath("/root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/CharacterSelectScreen/CenterContainer/HSplitContainer/BoxContainer/TopRow/Character2")
+
+[node name="BottomRow" type="GridContainer" parent="CenterContainer/HSplitContainer/BoxContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="Character4" parent="CenterContainer/HSplitContainer/BoxContainer/BottomRow" instance=ExtResource("7_8j5xr")]
+layout_mode = 2
+focus_neighbor_top = NodePath("/root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/CharacterSelectScreen/CenterContainer/HSplitContainer/BoxContainer/TopRow/Character0")
+focus_neighbor_right = NodePath("/root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/CharacterSelectScreen/CenterContainer/HSplitContainer/BoxContainer/BottomRow/Character5")
+focus_next = NodePath("/root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/CharacterSelectScreen/CenterContainer/HSplitContainer/BoxContainer/BottomRow/Character5")
+
+[node name="Character5" parent="CenterContainer/HSplitContainer/BoxContainer/BottomRow" instance=ExtResource("7_8j5xr")]
+layout_mode = 2
+focus_neighbor_left = NodePath("/root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/CharacterSelectScreen/CenterContainer/HSplitContainer/BoxContainer/BottomRow/Character4")
+focus_neighbor_top = NodePath("/root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/CharacterSelectScreen/CenterContainer/HSplitContainer/BoxContainer/TopRow/Character1")
+focus_neighbor_right = NodePath("/root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/CharacterSelectScreen/CenterContainer/HSplitContainer/BoxContainer/BottomRow/Character6")
+focus_next = NodePath("/root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/CharacterSelectScreen/CenterContainer/HSplitContainer/BoxContainer/BottomRow/Character6")
+
+[node name="Character6" parent="CenterContainer/HSplitContainer/BoxContainer/BottomRow" instance=ExtResource("7_8j5xr")]
+layout_mode = 2
+focus_neighbor_left = NodePath("/root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/CharacterSelectScreen/CenterContainer/HSplitContainer/BoxContainer/BottomRow/Character5")
+focus_neighbor_top = NodePath("/root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/CharacterSelectScreen/CenterContainer/HSplitContainer/BoxContainer/TopRow/Character3")
+focus_next = NodePath("/root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/CharacterSelectScreen/CenterContainer/HSplitContainer/BoxContainer/BottomRow/Character5")
+
+[node name="Control" type="Control" parent="CenterContainer/HSplitContainer"]
+custom_minimum_size = Vector2(0, 13.53)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CenterContainer/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+disabled = true
+action_mode = 0
+text = "PROCEED"

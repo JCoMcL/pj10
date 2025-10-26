@@ -7,6 +7,7 @@ class_name Game
 @export var current_player: Player
 @export var player_spawn_point: Marker2D
 @export var sfx_player: SFXPlayer
+@export var dialgoue_screens: Array[DialogueScreen]
 
 func get_team_color(o: CollisionObject2D) -> Color:
 	for layer in Utils.seperate_layers(o.collision_layer):
@@ -74,6 +75,18 @@ static func add_to_playfield(o: Node2D, from: Node2D):
 	o.reparent(parent)
 	o.global_position = from.global_position
 
+func on_dialogue_finished():
+	dialgoue_screens[0].visible = false
+	_ready()
+	
+func open_dialogue():
+	dialgoue_screens[0].activate()
+	dialgoue_screens[0].dialogue_finished.connect(on_dialogue_finished, CONNECT_ONE_SHOT)
+	
 func _ready():
-	if not current_player:
+	for d in dialgoue_screens:
+		d.visible = false
+	if not current_player and lives and lives.has_life():
 		spawn_player(lives.get_life())
+	else:
+		open_dialogue()

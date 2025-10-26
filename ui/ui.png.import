@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bbdkcl2sqyt48"
-path="res://.godot/imported/panel_underline.png-b8849d51bbf925a8b4769199222b0b4a.ctex"
+uid="uid://eg5e5ky0jlgl"
+path="res://.godot/imported/ui.png-ef864d40b34feab5b9a4902640fca412.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/panel_underline.png"
-dest_files=["res://.godot/imported/panel_underline.png-b8849d51bbf925a8b4769199222b0b4a.ctex"]
+source_file="res://ui/ui.png"
+dest_files=["res://.godot/imported/ui.png-ef864d40b34feab5b9a4902640fca412.ctex"]
 
 [params]
 

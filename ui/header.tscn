@@ -1,39 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://cepq07bhxard5"]
+[gd_scene load_steps=6 format=3 uid="uid://cepq07bhxard5"]
 
-[ext_resource type="Theme" uid="uid://bnc4gesw2cmsb" path="res://theme.tres" id="1_u4kgu"]
-[ext_resource type="Script" uid="uid://dyuxpo5xxanxv" path="res://ui/lives.gd" id="2_qlsvw"]
-[ext_resource type="Script" uid="uid://dgq6s68jarg5p" path="res://ui/life_container.gd" id="3_rdx01"]
-[ext_resource type="Texture2D" uid="uid://cks4j15y8ely7" path="res://units/players/dizzy.png" id="3_rrb17"]
-[ext_resource type="Texture2D" uid="uid://3bs6b0bvfdvj" path="res://units/players/jelly.png" id="3_u4kgu"]
-[ext_resource type="Script" uid="uid://uwfp0rlcq3cy" path="res://tools/handy_atlas.gd" id="4_pqr3k"]
-[ext_resource type="PackedScene" uid="uid://dgyeqcyecu50c" path="res://units/players/dizzy.tscn" id="6_l5fqn"]
-[ext_resource type="PackedScene" uid="uid://rex66rah1v0f" path="res://units/players/jelly.tscn" id="6_qlsvw"]
+[ext_resource type="Theme" uid="uid://bnc4gesw2cmsb" path="res://ui/theme.tres" id="1_u4kgu"]
+[ext_resource type="PackedScene" uid="uid://beu6m7t7diqpy" path="res://ui/lives.tscn" id="2_85dvu"]
 [ext_resource type="Texture2D" uid="uid://ds0gta24h6pt2" path="res://ui/ghost.png" id="9_7nbam"]
-[ext_resource type="Texture2D" uid="uid://c0cbl4qinp5v6" path="res://units/players/lumi.png" id="9_vyixe"]
-[ext_resource type="PackedScene" uid="uid://bc6lg0ushliyj" path="res://units/players/lumi.tscn" id="10_g1pcl"]
 [ext_resource type="Script" uid="uid://dqawa48auhxc5" path="res://ui/points_label.gd" id="10_ngtl8"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rrb17"]
-resource_local_to_scene = true
-atlas = ExtResource("9_vyixe")
-region = Rect2(0, 0, 32, 32)
-margin = Rect2(-1, 0, 0, 0)
-script = ExtResource("4_pqr3k")
-metadata/_custom_type_script = "uid://uwfp0rlcq3cy"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_l5fqn"]
-resource_local_to_scene = true
-atlas = ExtResource("3_rrb17")
-region = Rect2(0, 0, 32, 32)
-script = ExtResource("4_pqr3k")
-metadata/_custom_type_script = "uid://uwfp0rlcq3cy"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vyixe"]
-resource_local_to_scene = true
-atlas = ExtResource("3_u4kgu")
-region = Rect2(0, 0, 32, 32)
-script = ExtResource("4_pqr3k")
-metadata/_custom_type_script = "uid://uwfp0rlcq3cy"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bty8r"]
 atlas = ExtResource("9_7nbam")
@@ -42,52 +12,18 @@ region = Rect2(0, 0, 14, 16)
 [node name="Header" type="ColorRect"]
 z_index = 1
 offset_right = 511.0
-offset_bottom = 36.0
+offset_bottom = 36.465
 theme = ExtResource("1_u4kgu")
 color = Color(0, 0, 0, 1)
 
-[node name="Lives" type="HFlowContainer" parent="."]
+[node name="Lives" parent="." instance=ExtResource("2_85dvu")]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = 383.0
-offset_right = 511.0
-offset_bottom = 32.0
+offset_left = -105.0
+offset_right = 0.0
 grow_horizontal = 0
-last_wrap_alignment = 1
-script = ExtResource("2_qlsvw")
-scaling = 1
-
-[node name="LifeContainer" type="TextureRect" parent="Lives"]
-layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 0
-mouse_filter = 0
-texture = SubResource("AtlasTexture_rrb17")
-script = ExtResource("3_rdx01")
-life_scene = ExtResource("10_g1pcl")
-metadata/_custom_type_script = "uid://dgq6s68jarg5p"
-
-[node name="LifeContainer2" type="TextureRect" parent="Lives"]
-layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 0
-mouse_filter = 0
-texture = SubResource("AtlasTexture_l5fqn")
-script = ExtResource("3_rdx01")
-life_scene = ExtResource("6_l5fqn")
-metadata/_custom_type_script = "uid://dgq6s68jarg5p"
-
-[node name="LifeContainer3" type="TextureRect" parent="Lives"]
-layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 0
-mouse_filter = 0
-texture = SubResource("AtlasTexture_vyixe")
-script = ExtResource("3_rdx01")
-life_scene = ExtResource("6_qlsvw")
-metadata/_custom_type_script = "uid://dgq6s68jarg5p"
 
 [node name="Score" type="HBoxContainer" parent="."]
 layout_mode = 0
@@ -102,5 +38,6 @@ stretch_mode = 4
 
 [node name="Label" type="Label" parent="Score"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 text = "000"
 script = ExtResource("10_ngtl8")
