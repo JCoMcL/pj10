@@ -1,7 +1,5 @@
-extends Control
+extends SelectableControl
 class_name CharacterPortrait
-
-var selectable = true
 
 func deselect_character(lc: LifeContainer):
 	lc.life = null
@@ -21,4 +19,6 @@ func _gui_input(event: InputEvent) -> void:
 	if selectable and event.is_action_pressed("fire"):
 		select_character()
 		accept_event()
+	else:
+		super(event)
 	

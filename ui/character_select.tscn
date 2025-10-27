@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://t6vey86s1202"]
+[gd_scene load_steps=12 format=3 uid="uid://t6vey86s1202"]
 
 [ext_resource type="Script" uid="uid://rgdj1bvmqvin" path="res://ui/character_select.gd" id="1_0hgph"]
 [ext_resource type="Theme" uid="uid://bnc4gesw2cmsb" path="res://ui/theme.tres" id="1_00q01"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dgyeqcyecu50c" path="res://units/players/dizzy.tscn" id="4_u6j12"]
 [ext_resource type="PackedScene" uid="uid://do4kgcgelx4o2" path="res://units/players/player_character.tscn" id="5_00q01"]
 [ext_resource type="PackedScene" uid="uid://drxjk8huytppt" path="res://ui/character_portrait.tscn" id="7_8j5xr"]
+[ext_resource type="Script" uid="uid://ce5yktvlfqfes" path="res://ui/selectable_control.gd" id="11_0r2wt"]
 
 [node name="CharacterSelectScreen" type="ColorRect" node_paths=PackedStringArray("confirm_button", "initial_focus", "lives")]
 anchors_preset = 15
@@ -124,6 +125,5 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-disabled = true
-action_mode = 0
 text = "PROCEED"
+script = ExtResource("11_0r2wt")
