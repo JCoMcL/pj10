@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://c787qqqdmbiju"]
 
-[ext_resource type="Script" uid="uid://vsug0tvhag0w" path="res://ui/ui_texture_rect.gd" id="2_2vxq5"]
+[ext_resource type="Script" uid="uid://cwu5jitc4ba7s" path="res://ui/ui_contact_shadow.gd" id="2_2vxq5"]
 [ext_resource type="Script" uid="uid://dgq6s68jarg5p" path="res://ui/life_container.gd" id="3_n7wlc"]
 
 [sub_resource type="Image" id="Image_2vxq5"]

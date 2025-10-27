@@ -73,6 +73,3 @@ func setup_nieghbours():
 func _ready():
 	populate()
 	setup_nieghbours()
-
-func _gui_input(event: InputEvent) -> void:
-	print(event)

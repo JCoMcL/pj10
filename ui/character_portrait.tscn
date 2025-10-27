@@ -1,9 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://drxjk8huytppt"]
+[gd_scene load_steps=11 format=3 uid="uid://drxjk8huytppt"]
 
 [ext_resource type="Script" uid="uid://picywnie7q7c" path="res://ui/character_portrait.gd" id="1_b6djj"]
+[ext_resource type="Texture2D" uid="uid://cks4j15y8ely7" path="res://units/players/dizzy.png" id="2_q2f1r"]
+[ext_resource type="Script" uid="uid://uwfp0rlcq3cy" path="res://tools/handy_atlas.gd" id="3_7b0ce"]
 [ext_resource type="Script" uid="uid://dgq6s68jarg5p" path="res://ui/life_container.gd" id="4_7b0ce"]
+[ext_resource type="PackedScene" uid="uid://dgyeqcyecu50c" path="res://units/players/dizzy.tscn" id="5_m2om7"]
 [ext_resource type="Texture2D" uid="uid://eg5e5ky0jlgl" path="res://ui/ui.png" id="7_6llue"]
 [ext_resource type="Script" uid="uid://vsug0tvhag0w" path="res://ui/ui_texture_rect.gd" id="8_7b0ce"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fbdoy"]
+resource_local_to_scene = true
+atlas = ExtResource("2_q2f1r")
+region = Rect2(0, 0, 32, 32)
+script = ExtResource("3_7b0ce")
+metadata/_custom_type_script = "uid://uwfp0rlcq3cy"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7b0ce"]
 atlas = ExtResource("7_6llue")
@@ -31,7 +41,9 @@ offset_right = 32.0
 offset_bottom = 32.0
 size_flags_horizontal = 2
 size_flags_vertical = 0
+texture = SubResource("AtlasTexture_fbdoy")
 script = ExtResource("4_7b0ce")
+life_scene = ExtResource("5_m2om7")
 metadata/_custom_type_script = "uid://dgq6s68jarg5p"
 
 [node name="Foreground" type="TextureRect" parent="LifeContainer"]

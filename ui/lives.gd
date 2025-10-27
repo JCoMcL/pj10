@@ -16,12 +16,12 @@ func get_life() -> Unit:
 			return l
 	return null
 
-func add_life(life: Unit) -> bool:
+func add_life(life: Unit) -> LifeContainer:
 	for c in get_life_containers():
 		if not c.life:
 			c.life = life
-			return true
-	return false
+			return c
+	return null
 
 func clear_lives():
 	for c in get_life_containers():
