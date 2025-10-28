@@ -1,4 +1,4 @@
-default: clean $(addprefix crushed/, $(wildcard *.wav))
+default: $(addprefix crushed/, $(wildcard *.wav))
 
 crushed/%.wav: %.wav
 	$(MAKE) crushed-8/$<

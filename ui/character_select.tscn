@@ -127,4 +127,4 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "PROCEED"
 script = ExtResource("11_0r2wt")
-activate_sfx = &"bawoowe"
+activate_sfx = &"jump"

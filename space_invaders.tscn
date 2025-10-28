@@ -166,7 +166,6 @@ script = ExtResource("13_3pn3u")
 [node name="Soundtrack" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_uxjvs")
 volume_db = -14.4
-autoplay = true
 panning_strength = 0.42
 bus = &"2D"
 script = ExtResource("16_r0y7k")

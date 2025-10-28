@@ -4,7 +4,7 @@ class_name SFXPlayer
 var sfx = {}
 
 func _build_sfx_table():
-	var sfx_dir = "res://audio/sfx"
+	var sfx_dir = "res://audio/sfx/crushed-32"
 	for f in ResourceLoader.list_directory(sfx_dir):
 		if f.ends_with(".wav"):
 			var res = ResourceLoader.load("%s/%s" % [sfx_dir, f])
