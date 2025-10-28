@@ -34,12 +34,16 @@ func _physics_process(delta: float) -> void:
 					bullet_state[b] = PASSIVE
 
 func spawn_bullet():
+	await Utils.delay(0.4)
 	var b = await super.shoot(Vector2.ZERO)
 	if not is_instance_valid(b): #This occurs when the game is quitting
 		return
 	b.expire.connect(_on_bullet_expire.bind(b), CONNECT_ONE_SHOT)
 	bullet_state[b] = ORBITING
+	if autoshoot:
+		shoot(default_direction)
 
 func _ready() -> void:
 	for i in range(ammo_count):
-		spawn_bullet()
+		await spawn_bullet()
+	super()

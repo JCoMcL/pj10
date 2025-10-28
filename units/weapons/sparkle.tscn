@@ -26,7 +26,7 @@ metadata/_custom_type_script = "uid://q543xek4c3p1"
 [sub_resource type="Resource" id="Resource_gohag"]
 resource_local_to_scene = true
 script = ExtResource("5_wgomp")
-drag = 5
+drag = 8
 randomize_drag = 0.5
 play_area_bounded = false
 metadata/_custom_type_script = "uid://benmqv834rxw0"
@@ -39,6 +39,7 @@ region = Rect2(64, 0, 7, 20)
 radius = 1.0
 
 [node name="Sparkle" instance=ExtResource("1_cdixm")]
+hit_sfx = "knock"
 behaviours = Array[ExtResource("2_kk0x4")]([SubResource("Resource_wgomp"), SubResource("Resource_bgdah"), SubResource("Resource_gohag")])
 
 [node name="Sprite2D" parent="." index="0"]

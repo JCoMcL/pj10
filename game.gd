@@ -23,7 +23,7 @@ func _on_player_died():
 	if not lives:
 		return _lose()
 
-	await Utils.delay(2)
+	await Utils.delay(1)
 	var next_life = lives.get_life()
 	if not next_life:
 		return _lose()
@@ -77,12 +77,16 @@ static func add_to_playfield(o: Node2D, from: Node2D):
 
 func on_dialogue_finished():
 	dialgoue_screens[0].visible = false
+	if new_entity_region:
+		new_entity_region.process_mode = Node.PROCESS_MODE_INHERIT
 	_ready()
-	
+
 func open_dialogue():
+	if new_entity_region:
+		new_entity_region.process_mode = Node.PROCESS_MODE_DISABLED
 	dialgoue_screens[0].activate()
 	dialgoue_screens[0].dialogue_finished.connect(on_dialogue_finished, CONNECT_ONE_SHOT)
-	
+
 func _ready():
 	for d in dialgoue_screens:
 		d.visible = false

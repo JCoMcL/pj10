@@ -6,10 +6,11 @@
 [node name="Glitterbomb" type="Node2D"]
 script = ExtResource("1_sgubh")
 ammo = ExtResource("2_ax1ip")
-ammo_count = 8
+ammo_count = 12
 pool_mode = 0
-spread = 1.5708
-apply_impulse = 500.0
+spread = 2.0944
+apply_impulse = 400.0
 autoshoot = true
 oneshot = true
+shoot_sfx = &""
 metadata/_custom_type_script = "uid://bbav8weitt8f3"

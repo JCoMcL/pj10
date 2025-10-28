@@ -28,6 +28,7 @@ region = Rect2(32, 0, 32, 32)
 
 [node name="Star" instance=ExtResource("1_fr1x7")]
 payload = ExtResource("2_pmnkl")
+hit_sfx = "bang"
 behaviours = Array[ExtResource("2_cngue")]([SubResource("Resource_h0pa3"), SubResource("Resource_6ol1o")])
 
 [node name="Sprite2D" parent="." index="0"]
@@ -35,7 +36,7 @@ position = Vector2(0.5, 0.5)
 texture = SubResource("AtlasTexture_ao3mq")
 hframes = 2
 vframes = 2
-frame = 1
+frame = 2
 script = ExtResource("7_cngue")
 animation_rate = null
 randomize_frames = 4

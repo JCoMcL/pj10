@@ -14,6 +14,7 @@ class_name Shoota
 @export var autoshoot = false
 @export var oneshot = false
 @export var default_direction = Vector2.UP
+@export var shoot_sfx: StringName = "bew"
 
 @onready var bullet_pool = Pool.new(ammo, ammo_count, pool_mode, true, false)
 
@@ -25,6 +26,10 @@ func find_first_node_not_under_unit() -> Node:
 			return candidate
 		candidate = n
 	return candidate
+
+func auto_shoot(direction:Vector2 = default_direction, parent:Node=null, mask:int=-1):
+	if autoshoot:
+		shoot(direction, parent, mask)
 
 var timer: SceneTreeTimer
 func shoot(direction:Vector2, parent:Node=null, mask:int=-1) -> Unit:
@@ -48,13 +53,12 @@ func shoot(direction:Vector2, parent:Node=null, mask:int=-1) -> Unit:
 		bullet.velocity += bullet.direction * apply_impulse
 		bullet.wakeup()
 
-		if interval > 0 and not oneshot:
+		if not oneshot and interval > 0:
 			timer = get_tree().create_timer(interval)
-			if autoshoot:
-				timer.timeout.connect(shoot.bind(direction, parent, mask))
+			timer.timeout.connect(auto_shoot.bind(direction, parent, mask))
+		SFXPlayer.get_sfx_player(self).play_sfx(shoot_sfx)
 		return bullet
 	return null
 
 func _ready():
-	if autoshoot:
-		shoot(default_direction)
+	auto_shoot()

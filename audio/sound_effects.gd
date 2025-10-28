@@ -4,7 +4,7 @@ class_name SFXPlayer
 var sfx = {}
 
 func _build_sfx_table():
-	var sfx_dir = "res://audio/sfx/crushed-32"
+	var sfx_dir = "res://audio/sfx"
 	for f in ResourceLoader.list_directory(sfx_dir):
 		if f.ends_with(".wav"):
 			var res = ResourceLoader.load("%s/%s" % [sfx_dir, f])
@@ -45,6 +45,7 @@ func _ready():
 	if not sfx:
 		_build_sfx_table()
 	stream = AudioStreamPolyphonic.new()
+	stream.polyphony = 5
 	var game = Game.get_game(self)
 	if game and not game.sfx_player:
 		game.sfx_player = self

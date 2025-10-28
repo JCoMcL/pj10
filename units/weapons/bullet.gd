@@ -4,12 +4,9 @@ class_name Bullet
 @export var payload: PackedScene
 @export var hit_sfx = "pip"
 
-func _hit(damage: int = 0):
+func _expire():
 	if hit_sfx:
 		play_sfx(hit_sfx)
-	super(damage)
-
-func _expire():
 	if not alive:
 		return
 	if payload_instance:

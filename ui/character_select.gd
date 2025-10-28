@@ -14,7 +14,7 @@ func get_life_containers(root: Node = self) -> Array[LifeContainer]:
 			for lc in get_life_containers(c):
 				out.append(lc)
 	return out
-	
+
 func populate():
 	var life_containers = get_life_containers(self)
 	var population: Array[PackedScene]
@@ -36,7 +36,7 @@ func set_focus_row_pair(left: Control, right: Control):
 func set_focus_column_pair(top: Control, bottom: Control):
 	top.focus_neighbor_bottom = bottom.get_path()
 	bottom.focus_neighbor_top = top.get_path()
-	
+
 func set_left_to_right_neighbours(a: Array[Control]):
 	var prev: Control
 	for curr in a:
