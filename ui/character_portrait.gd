@@ -6,7 +6,7 @@ func deselect_character(lc: LifeContainer):
 	$LifeContainer.self_modulate = Color.WHITE
 	selectable = true
 	grab_focus()
-	play_sfx("blom")
+	play_sfx(back_sfx)
 
 func _select() -> bool:
 	if not super():

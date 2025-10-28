@@ -2,6 +2,9 @@ extends Control
 class_name SelectableControl
 
 @export var selectable = true
+@export var select_sfx: StringName = "blup"
+@export var activate_sfx: StringName = "bwoo"
+@export var back_sfx: StringName = "blom"
 
 var direction_table = {
 	"up" : (func(c): return c.focus_neighbor_top).bind(self),
@@ -30,8 +33,8 @@ func _select() -> bool:
 	if not selectable:
 		return false
 	accept_event()
-	play_sfx("blooph")
-	play_sfx("blup")
+	play_sfx(activate_sfx)
+	play_sfx(select_sfx)
 	if button_interface:
 		button_interface.button_pressed = true
 		button_interface.pressed.emit()
@@ -44,7 +47,7 @@ func _gui_input(ev: InputEvent) -> void:
 	for d in direction_table.keys():
 		if ev.is_action_pressed(d):
 			if transfer_focus(d):
-				play_sfx("blup")
+				play_sfx(select_sfx)
 			accept_event()
 			break
 	if ev.is_action_pressed("fire"):

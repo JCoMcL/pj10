@@ -10,3 +10,4 @@ temp/
 *.blend1
 *.exr
 export
+audio/sfx/crushed-*
