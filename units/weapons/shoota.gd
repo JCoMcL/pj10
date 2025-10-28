@@ -15,6 +15,13 @@ class_name Shoota
 @export var oneshot = false
 @export var default_direction = Vector2.UP
 @export var shoot_sfx: StringName = "bew"
+@export_range(0,1) var run_and_gun: float = 1
+@export_range(0,6) var run_and_gun_recovery_time: float = 1
+
+var _rag_rec = 1.0
+func get_speed_modifier(delta: float) -> float:
+	_rag_rec = move_toward(_rag_rec, 1.0, delta / run_and_gun_recovery_time)
+	return lerp(run_and_gun, 1.0, _rag_rec)
 
 @onready var bullet_pool = Pool.new(ammo, ammo_count, pool_mode, true, false)
 
@@ -57,6 +64,7 @@ func shoot(direction:Vector2, parent:Node=null, mask:int=-1) -> Unit:
 			timer = get_tree().create_timer(interval)
 			timer.timeout.connect(auto_shoot.bind(direction, parent, mask))
 		SFXPlayer.get_sfx_player(self).play_sfx(shoot_sfx)
+		_rag_rec = 0
 		return bullet
 	return null
 

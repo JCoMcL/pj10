@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://beqk5wfnbn6hv"]
+
+[ext_resource type="PackedScene" uid="uid://cglfd6h0f8dxb" path="res://units/weapons/_bullet.tscn" id="1_fyeyr"]
+[ext_resource type="Texture2D" uid="uid://da7ep115w0rqx" path="res://units/weapons/ammunition.png" id="2_4ou4y"]
+[ext_resource type="Script" uid="uid://blu1c4kvb2ite" path="res://units/character_sprite.gd" id="3_g0c4h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gg0jp"]
+atlas = ExtResource("2_4ou4y")
+region = Rect2(15, 15, 17, 17)
+
+[node name="Bullet" instance=ExtResource("1_fyeyr")]
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(-1, 0)
+texture = SubResource("AtlasTexture_gg0jp")
+flip_h = true
+hframes = 2
+vframes = 2
+script = ExtResource("3_g0c4h")
+animation_frames = 4
+animation_rate = 7
+strobe_rate = 20
+random_hflip = true
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, 1.25)

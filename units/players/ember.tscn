@@ -1,0 +1,21 @@
+[gd_scene load_steps=6 format=3 uid="uid://dq80wlctowul2"]
+
+[ext_resource type="PackedScene" uid="uid://do4kgcgelx4o2" path="res://units/players/player_character.tscn" id="1_srfxa"]
+[ext_resource type="Texture2D" uid="uid://b4gtuk6lsub2p" path="res://units/players/ember.png" id="2_syuq8"]
+[ext_resource type="Script" uid="uid://uwfp0rlcq3cy" path="res://tools/handy_atlas.gd" id="3_wmb35"]
+[ext_resource type="PackedScene" uid="uid://beqk5wfnbn6hv" path="res://units/weapons/flare.tscn" id="4_syuq8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5p1ay"]
+resource_local_to_scene = true
+atlas = ExtResource("2_syuq8")
+region = Rect2(0, 0, 32, 32)
+script = ExtResource("3_wmb35")
+metadata/_custom_type_script = "uid://uwfp0rlcq3cy"
+
+[node name="PlayerCharacter" instance=ExtResource("1_srfxa")]
+
+[node name="Sprite2D" parent="." index="0"]
+texture = SubResource("AtlasTexture_5p1ay")
+
+[node name="Shoota" parent="." index="2"]
+ammo = ExtResource("4_syuq8")

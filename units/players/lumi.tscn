@@ -25,3 +25,4 @@ ammo = ExtResource("4_rnep0")
 ammo_count = 1
 pool_mode = 0
 interval = 0.5
+run_and_gun = 0.0

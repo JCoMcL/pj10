@@ -4,13 +4,14 @@ class_name Player
 @export var acceleration = 6
 @export var speed = 240
 @export var auto_ground = true
+@export var death_sfx: StringName = "beyum"
 
 @onready var shoota: Shoota = $Shoota
 
 func _physics_process(delta):
 	super(delta)
 	var _acceleration = acceleration if alive else 10 if is_on_floor() else 3
-	velocity.x = lerp(velocity.x, direction.x * speed, _acceleration * delta)
+	velocity.x = lerp(velocity.x, direction.x * speed * shoota.get_speed_modifier(delta), _acceleration * delta)
 	velocity += get_gravity()
 	move_and_slide()
 
@@ -49,9 +50,10 @@ func _ready():
 func _expire():
 	super()
 	velocity = Vector2(
-		400 * (1 if get_sprite(self).flip_h else -1),
+		600 * (1 if get_sprite(self).flip_h else -1),
 		-200
 	)
+	play_sfx(death_sfx)
 
 var flash_accum = 0.0
 var frame_accum = 0.0
@@ -91,17 +93,13 @@ func _process(delta):
 		atlas.set_xy(6,0)
 		direction = Vector2.ZERO
 		if abs(velocity.x) < 50 and is_on_floor():
+			play_sfx("crunch")
 			atlas.set_xy(7,0)
 			process_mode = Node.PROCESS_MODE_DISABLED
 
 func _get_configuration_warnings() -> PackedStringArray:
-	var warnings: PackedStringArray
-	if not has_node("Shoota"):
-		warnings.append("Missing child node 'Shoota' (Shoota).")
-	else:
-		var s = get_node("Shoota")
-		# Type check best-effort: ensure it has method 'shoot'
-		if not s.has_method("shoot"):
-			warnings.append("'Shoota' must expose a 'shoot(direction, parent?)' method.")
+	var warnings = super()
+	if not has_node("Shoota") or $Shoota is not Shoota:
+		warnings.append("no Shoota")
 
 	return warnings
