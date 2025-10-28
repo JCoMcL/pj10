@@ -30,6 +30,7 @@ metadata/_custom_type_script = "uid://dkywtcocw0jaa"
 [sub_resource type="Resource" id="Resource_lypa5"]
 script = ExtResource("6_pcxav")
 drag = 0
+randomize_drag = 0.0
 play_area_bounded = false
 metadata/_custom_type_script = "uid://benmqv834rxw0"
 

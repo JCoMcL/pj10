@@ -72,4 +72,6 @@ func next(parent: Node, search=_default_search) -> Node:
 			n.reparent(parent)
 		else:
 			parent.add_child(n)
+	if n.has_method("wakeup"):
+		n.wakeup()
 	return n

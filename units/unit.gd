@@ -75,9 +75,6 @@ func wakeup():
 	current_health = health
 	init_behaviours()
 
-func _enter_tree() -> void:
-	wakeup()
-
 func handle_collision(c: Node2D):
 	for b in behaviours:
 		b._handle_collision(c, self)
@@ -98,6 +95,7 @@ func init_behaviours():
 				print("Warning: %s: behaviours not set up properly!" % self)
 	
 func _ready():
+	wakeup()
 	monitoring_play_area = monitoring_play_area or expire_outside_play_area
 
 func _get_configuration_warnings() -> PackedStringArray:

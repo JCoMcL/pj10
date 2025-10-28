@@ -20,6 +20,7 @@ health = 4
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(0, -0.5)
 texture = SubResource("AtlasTexture_tjmlk")
+flip_h = false
 hframes = 4
 damage_frames = 4
 

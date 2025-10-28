@@ -4,11 +4,14 @@ class_name Bullet
 @export var payload: PackedScene
 @export var hit_sfx = "pip"
 
+func _hit(damage: int = 0):
+	if hit_sfx:
+		play_sfx(hit_sfx)
+	super(damage)
+
 func _expire():
 	if not alive:
 		return
-	if hit_sfx:
-		play_sfx(hit_sfx)
 	if payload_instance:
 		if payload_instance is Unit:
 			payload_instance.collision_mask = collision_mask
@@ -21,3 +24,4 @@ var payload_instance: Node
 func _ready():
 	if payload:
 		payload_instance = payload.instantiate()
+	super()

@@ -28,7 +28,7 @@ region = Rect2(0, 0, 2, 7)
 size = Vector2(5, 3)
 
 [node name="Bullet" type="CharacterBody2D"]
-collision_layer = 0
+collision_layer = 32
 collision_mask = 17
 script = ExtResource("1_s1sts")
 behaviours = Array[ExtResource("2_jqm6u")]([SubResource("Resource_h0pa3"), SubResource("Resource_6ol1o")])

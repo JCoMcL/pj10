@@ -39,7 +39,8 @@ func advance_animation():
 		frame += 1
 
 func advance_damage():
-	frame = damage_frames - damage_frames * unit.current_health / unit.health
+	var d = damage_frames-1
+	frame = d - d * unit.current_health / unit.health
 
 var animation_cumer: Cumer
 var randomize_cumer: Cumer
@@ -59,7 +60,7 @@ func _ready() -> void:
 			randomize_cumer = Cumer.new(randomize_rate, randomize_sprite)
 	if animation_frames and animation_rate > 0:
 		animation_cumer = Cumer.new(animation_rate, advance_animation)
-	if damage_frames:
+	if damage_frames and not Engine.is_editor_hint():
 		unit.hit.connect(advance_damage)
 	if random_hflip:
 		flip_h = randf() > 0.5

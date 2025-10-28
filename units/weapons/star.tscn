@@ -35,6 +35,7 @@ position = Vector2(0.5, 0.5)
 texture = SubResource("AtlasTexture_ao3mq")
 hframes = 2
 vframes = 2
+frame = 1
 script = ExtResource("7_cngue")
 animation_rate = null
 randomize_frames = 4
