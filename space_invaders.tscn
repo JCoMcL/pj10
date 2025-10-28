@@ -15,8 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://ds6wp0hmnouyk" path="res://units/enemies/bug.tscn" id="12_3pn3u"]
 [ext_resource type="Script" uid="uid://ksdfgesjdr6c" path="res://units/behaviours/sidewinder.gd" id="12_847uq"]
 [ext_resource type="Script" uid="uid://ckri073qfsukw" path="res://units/meta/grid_pattern.gd" id="12_uxjvs"]
-[ext_resource type="Script" uid="uid://c2rurlqhkqaou" path="res://sound_effects.gd" id="13_3pn3u"]
-[ext_resource type="Script" uid="uid://dwgcxwg7bm3vr" path="res://soundtrack.gd" id="16_r0y7k"]
+[ext_resource type="Script" uid="uid://c2rurlqhkqaou" path="res://audio/sound_effects.gd" id="13_3pn3u"]
+[ext_resource type="Script" uid="uid://dwgcxwg7bm3vr" path="res://audio/soundtrack.gd" id="16_r0y7k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f1sqh"]
 size = Vector2(512, 445)

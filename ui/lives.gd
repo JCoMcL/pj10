@@ -45,7 +45,7 @@ func commune(with: Lives):
 	var theirs = with.get_life_containers()
 	for i in range(ours.size()):
 		theirs[i].life = ours[i].life
-		
+
 func _ready():
 	var game = Game.get_game(self)
 	if game and not game.lives:

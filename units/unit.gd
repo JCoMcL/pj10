@@ -93,7 +93,7 @@ func init_behaviours():
 				monitoring_play_area = monitoring_play_area or b.play_area_bounded
 			else:
 				print("Warning: %s: behaviours not set up properly!" % self)
-	
+
 func _ready():
 	wakeup()
 	monitoring_play_area = monitoring_play_area or expire_outside_play_area

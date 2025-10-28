@@ -5,20 +5,24 @@ class_name Player
 @export var speed = 240
 @export var auto_ground = true
 
+@onready var shoota: Shoota = $Shoota
+
 func _physics_process(delta):
 	super(delta)
-	velocity.x = lerp(velocity.x, direction.x * speed, acceleration * delta)
+	var _acceleration = acceleration if alive else 10 if is_on_floor() else 3
+	velocity.x = lerp(velocity.x, direction.x * speed, _acceleration * delta)
 	velocity += get_gravity()
 	move_and_slide()
 
 var input_tracker = InputTracker.new()
 func _unhandled_input(ev: InputEvent):
+	input_tracker._input(ev)
+	shoota.autoshoot = input_tracker.firing
+
 	if ev.is_action_pressed("fire") or ev.is_action_pressed("up"):
-		$Shoota.shoot(Vector2.UP)
+		shoota.shoot(Vector2.UP)
 	elif ev.is_action_pressed("commit_self_die"):
 		_hit()
-	else:
-		input_tracker._input(ev)
 
 var invulnerable = true
 func grace_window(seconds=2):
@@ -45,7 +49,7 @@ func _ready():
 func _expire():
 	super()
 	velocity = Vector2(
-		500 * (1 if get_sprite(self).flip_h else -1),
+		400 * (1 if get_sprite(self).flip_h else -1),
 		-200
 	)
 
@@ -75,7 +79,7 @@ func _process(delta):
 				const WALK_FRAMES = 4
 				const frame_threshold = 30
 
-				# make sure w are on one of the walk frames
+				# make sure we are on one of the walk frames
 				atlas.cycle_x(0, WALK_FRAME_START, WALK_FRAME_START + WALK_FRAMES -1)
 
 				frame_accum += delta * abs(velocity.x)
