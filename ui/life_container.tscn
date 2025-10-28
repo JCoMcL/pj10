@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dgq6s68jarg5p" path="res://ui/life_container.gd" id="1_sohe2"]
 [ext_resource type="Texture2D" uid="uid://eg5e5ky0jlgl" path="res://ui/ui.png" id="2_bp7ve"]
-[ext_resource type="Script" uid="uid://vsug0tvhag0w" path="res://ui/ui_texture_rect.gd" id="2_sohe2"]
+[ext_resource type="Script" uid="uid://cwu5jitc4ba7s" path="res://ui/ui_contact_shadow.gd" id="3_bp7ve"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l6y4e"]
 atlas = ExtResource("2_bp7ve")
@@ -27,5 +27,5 @@ offset_bottom = 33.0
 scale = Vector2(2, 2)
 texture = SubResource("AtlasTexture_l6y4e")
 stretch_mode = 4
-script = ExtResource("2_sohe2")
+script = ExtResource("3_bp7ve")
 show_as_focused = true

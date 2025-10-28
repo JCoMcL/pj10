@@ -18,8 +18,10 @@ var life: Unit:
 			life = null
 		life_scene = val
 
+signal life_changed
 func refresh():
 	setup_life.call_deferred()
+	life_changed.emit()
 
 func setup_life():
 	if not life:
