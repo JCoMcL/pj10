@@ -26,16 +26,25 @@ func transfer_focus(s: String) -> bool:
 	n.grab_focus()
 	return true
 
-func _select():
+func _select() -> bool:
+	if not selectable:
+		return false
 	accept_event()
+	play_sfx("blooph")
+	play_sfx("blup")
 	if button_interface:
 		button_interface.button_pressed = true
 		button_interface.pressed.emit()
+	return true
+
+func play_sfx(s):
+	return SFXPlayer.get_sfx_player(self).play_sfx(s)
 
 func _gui_input(ev: InputEvent) -> void:
 	for d in direction_table.keys():
 		if ev.is_action_pressed(d):
-			transfer_focus(d)
+			if transfer_focus(d):
+				play_sfx("blup")
 			accept_event()
 			break
 	if ev.is_action_pressed("fire"):
@@ -46,7 +55,8 @@ func _gui_input(ev: InputEvent) -> void:
 
 var button_interface: BaseButton
 func _ready():
-	if "button_pressed" in self:
-		button_interface = self as Control as BaseButton
+	var c = self as Control
+	if c is BaseButton:
+		button_interface = c as BaseButton
 	if selectable:
 		focus_mode = 2

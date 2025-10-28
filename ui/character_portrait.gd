@@ -5,8 +5,12 @@ func deselect_character(lc: LifeContainer):
 	lc.life = null
 	$LifeContainer.self_modulate = Color.WHITE
 	selectable = true
+	grab_focus()
+	play_sfx("blom")
 
-func select_character():
+func _select() -> bool:
+	if not super():
+		return false
 	var screen = DialogueScreen.get_dialogue_screen(self)
 	if screen and $LifeContainer.life:
 		var life_container = screen.submit($LifeContainer.life)
@@ -14,11 +18,4 @@ func select_character():
 			screen.push_back_handler(deselect_character.bind(life_container))
 			$LifeContainer.self_modulate = Color("17121d")
 			selectable = false
-
-func _gui_input(event: InputEvent) -> void:
-	if selectable and event.is_action_pressed("fire"):
-		select_character()
-		accept_event()
-	else:
-		super(event)
-	
+	return true

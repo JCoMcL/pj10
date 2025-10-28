@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://civ3r62diebkh"]
+[gd_scene load_steps=24 format=3 uid="uid://civ3r62diebkh"]
 
 [ext_resource type="Script" uid="uid://hmnb8xcddo0d" path="res://game.gd" id="1_2u8fv"]
 [ext_resource type="Script" uid="uid://dy0t0sdbw1h2a" path="res://play_area.gd" id="2_2u8fv"]
@@ -44,8 +44,6 @@ speed = 30
 turn_speed = 5
 play_area_bounded = false
 metadata/_custom_type_script = "uid://ksdfgesjdr6c"
-
-[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_847uq"]
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("new_entity_region", "lives", "player_spawn_point", "sfx_player", "dialgoue_screens")]
 script = ExtResource("1_2u8fv")
@@ -161,7 +159,6 @@ unit_pattern = SubResource("Resource_rq143")
 behaviours = Array[ExtResource("11_3pn3u")]([SubResource("Resource_uqyrq")])
 
 [node name="SoundEffects" type="AudioStreamPlayer2D" parent="."]
-stream = SubResource("AudioStreamPolyphonic_847uq")
 panning_strength = 0.46
 bus = &"2D"
 script = ExtResource("13_3pn3u")

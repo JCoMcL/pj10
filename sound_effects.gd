@@ -14,13 +14,15 @@ func _build_sfx_table():
 				assert(not sfx.has(key))
 				sfx[key] = res
 
+var playback:AudioStreamPlaybackPolyphonic
 func play_sfx(effect_name: String) -> bool:
 	if not sfx:
 		_build_sfx_table()
 	if not sfx.has(effect_name):
 		return false
-	play()
-	var playback = get_stream_playback()
+	if not playback:
+		play()
+		playback = get_stream_playback()
 	if playback:
 		playback.play_stream(sfx[effect_name])
 		if Fuckit.audio_relays.has(self):
@@ -31,10 +33,19 @@ func play_sfx(effect_name: String) -> bool:
 		return true
 	return false
 
+static func get_sfx_player(from: Node) -> SFXPlayer:
+	if "_sfx_player" in from and from._sfx_player is SFXPlayer:
+		return from._sfx_player
+	var game = Game.get_game(from)
+	if game and game.sfx_player:
+		return game.sfx_player
+	return GlobalSFXPlayer
+
 func _ready():
-	await Fuckit.relay_audio(self)
 	if not sfx:
 		_build_sfx_table()
+	stream = AudioStreamPolyphonic.new()
 	var game = Game.get_game(self)
 	if game and not game.sfx_player:
 		game.sfx_player = self
+	Fuckit.relay_audio(self)
