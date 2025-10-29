@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://civ3r62diebkh"]
+[gd_scene load_steps=19 format=3 uid="uid://civ3r62diebkh"]
 
 [ext_resource type="Script" uid="uid://hmnb8xcddo0d" path="res://game.gd" id="1_2u8fv"]
 [ext_resource type="Script" uid="uid://dy0t0sdbw1h2a" path="res://play_area.gd" id="2_2u8fv"]
@@ -6,38 +6,24 @@
 [ext_resource type="Theme" uid="uid://bnc4gesw2cmsb" path="res://ui/theme.tres" id="3_hu1xn"]
 [ext_resource type="Script" uid="uid://c1xo8svguvebh" path="res://ui/status_label.gd" id="4_ep106"]
 [ext_resource type="PackedScene" uid="uid://t6vey86s1202" path="res://ui/character_select.tscn" id="6_jn53l"]
-[ext_resource type="PackedScene" uid="uid://bd02pjd7wdaa1" path="res://units/enemies/star.tscn" id="9_f1sqh"]
-[ext_resource type="PackedScene" uid="uid://dmsgpgydfdor5" path="res://units/enemies/crab.tscn" id="10_847uq"]
+[ext_resource type="PackedScene" uid="uid://jty5ue45sh4n" path="res://waves/formation_ennui.tscn" id="8_uxjvs"]
 [ext_resource type="Script" uid="uid://kbo7yeuuwhwa" path="res://units/behaviours/behaviour.gd" id="11_3pn3u"]
 [ext_resource type="Script" uid="uid://b2wj6hdp3fpmf" path="res://player_spawn.gd" id="11_150to"]
-[ext_resource type="Script" uid="uid://dosksyhc2t0m" path="res://units/meta/formation.gd" id="11_hgni5"]
 [ext_resource type="AudioStream" uid="uid://2eu65vihpb4i" path="res://audio/soundtrack.ogg" id="11_uxjvs"]
-[ext_resource type="PackedScene" uid="uid://ds6wp0hmnouyk" path="res://units/enemies/bug.tscn" id="12_3pn3u"]
 [ext_resource type="Script" uid="uid://ksdfgesjdr6c" path="res://units/behaviours/sidewinder.gd" id="12_847uq"]
-[ext_resource type="Script" uid="uid://ckri073qfsukw" path="res://units/meta/grid_pattern.gd" id="12_uxjvs"]
 [ext_resource type="Script" uid="uid://c2rurlqhkqaou" path="res://audio/sound_effects.gd" id="13_3pn3u"]
 [ext_resource type="Script" uid="uid://dwgcxwg7bm3vr" path="res://audio/soundtrack.gd" id="16_r0y7k"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_f1sqh"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uxjvs"]
 size = Vector2(512, 445)
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rq143"]
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_3pn3u"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kxb8h"]
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_847uq"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_jn53l"]
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r0y7k"]
 
-[sub_resource type="Resource" id="Resource_rq143"]
-script = ExtResource("12_uxjvs")
-members = {
-"a": ExtResource("9_f1sqh"),
-"b": ExtResource("12_3pn3u"),
-"c": ExtResource("10_847uq")
-}
-pattern_string = "a c aab bba b b b ab ba"
-metadata/_custom_type_script = "uid://ckri073qfsukw"
-
-[sub_resource type="Resource" id="Resource_uqyrq"]
+[sub_resource type="Resource" id="Resource_f1sqh"]
 resource_local_to_scene = true
 script = ExtResource("12_847uq")
 speed = 30
@@ -74,7 +60,7 @@ offset_bottom = 35.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea"]
 visible = false
 position = Vector2(256, 257.5)
-shape = SubResource("RectangleShape2D_f1sqh")
+shape = SubResource("RectangleShape2D_uxjvs")
 
 [node name="Background" type="ColorRect" parent="PlayArea"]
 z_index = -1
@@ -120,7 +106,7 @@ offset_bottom = 0.0
 position = Vector2(256, 480)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/DownWall"]
-shape = SubResource("WorldBoundaryShape2D_rq143")
+shape = SubResource("WorldBoundaryShape2D_3pn3u")
 one_way_collision = true
 one_way_collision_margin = 50.0
 
@@ -129,7 +115,7 @@ position = Vector2(0, 257.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/LeftWall"]
 rotation = 1.5708
-shape = SubResource("WorldBoundaryShape2D_kxb8h")
+shape = SubResource("WorldBoundaryShape2D_847uq")
 one_way_collision = true
 one_way_collision_margin = 50.0
 
@@ -138,7 +124,7 @@ position = Vector2(512, 257.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/RightWall"]
 rotation = -1.5708
-shape = SubResource("WorldBoundaryShape2D_jn53l")
+shape = SubResource("WorldBoundaryShape2D_r0y7k")
 one_way_collision = true
 one_way_collision_margin = 50.0
 
@@ -149,14 +135,10 @@ scale = Vector2(2, 2)
 position = Vector2(128, 200)
 script = ExtResource("11_150to")
 
-[node name="Formation" type="Node2D" parent="Scaling"]
-position = Vector2(17.5, 28)
-script = ExtResource("11_hgni5")
-rank = 9
-file = 14
-using = 1
-unit_pattern = SubResource("Resource_rq143")
-behaviours = Array[ExtResource("11_3pn3u")]([SubResource("Resource_uqyrq")])
+[node name="Formation" parent="Scaling" instance=ExtResource("8_uxjvs")]
+position = Vector2(30, 49.5)
+rank = 8
+behaviours = Array[ExtResource("11_3pn3u")]([SubResource("Resource_f1sqh")])
 
 [node name="SoundEffects" type="AudioStreamPlayer2D" parent="."]
 panning_strength = 0.46

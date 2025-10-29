@@ -14,7 +14,6 @@ func _build_sfx_table():
 				assert(not sfx.has(key))
 				sfx[key] = res
 
-
 var plays_back = {}
 func get_playback(audio_player: Node) -> AudioStreamPlayback:
 	if plays_back.has(audio_player):
@@ -50,7 +49,7 @@ func _ready():
 	if not sfx:
 		_build_sfx_table()
 	stream = AudioStreamPolyphonic.new()
-	stream.polyphony = 5
+	stream.polyphony = 8
 	var game = Game.get_game(self)
 	if game and not game.sfx_player:
 		game.sfx_player = self

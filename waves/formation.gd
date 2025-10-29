@@ -54,14 +54,9 @@ func clean():
 	for c in get_children():
 		assert(Engine.is_editor_hint)
 		c.free()
-
-
-func _on_unit_expire(u: Unit):
-	current_health -= 1
-	hit.emit()
-	if current_health <= 0:
-		_expire()
-	pass
+	for u in get_units():
+		u.free()
+	subunits.clear()
 
 func _get_unit(_rank, _file) -> PackedScene:
 	if using == UnitPattern.SINGLE_UNIT:
@@ -82,17 +77,16 @@ func setup():
 		for j in range(file):
 			var scn = _get_unit(i, j)
 			var u: Unit = scn.instantiate()
-			add_child(u)
-			health += 1
+			await add_subunit(u)
 			var unit_bounds = get_unit_bounds(u,scn)
-			if not Engine.is_editor_hint():
-				u.expire.connect(_on_unit_expire.bind(u), CONNECT_ONE_SHOT)
 			rank_units.append(u)
 			# Postitioning
 			u.position = Vector2(
 				rank_size.x + unit_bounds.x / 2,
 				-(formation_size.y + unit_bounds.y /2)
 			)
+			if u.get_parent() != self:
+				u.position += position
 			rank_size.x += unit_bounds.x
 			rank_size.y = max(rank_size.y, unit_bounds.y)
 			if rank_size.x > formation_size.x and i > 1:
@@ -105,13 +99,6 @@ func setup():
 		for u in rank_units:
 			u.position.x -= discrepency / 2
 	current_health = health
-
-func get_units() -> Array[Unit]:
-	var out: Array[Unit]
-	for u in get_children():
-		if u is Unit and u.alive:
-			out.append(u)
-	return out
 
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
@@ -128,4 +115,4 @@ func _ready():
 	if not Engine.is_editor_hint():
 		for b in behaviours:
 			for u in get_units():
-				b._initialize(u) #NOTE: this happens BEFORE the units' _ready becuase the've just been created
+				b._initialize(u) #NOTE: this happens BEFORE the units' _ready becuase they've just been created
