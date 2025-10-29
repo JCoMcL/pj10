@@ -15,11 +15,17 @@ class_name CharacterSprite2D
 @export var random_hflip = false
 @export var random_vflip = false
 
+@export_tool_button("refresh") var f = reset
+
 @onready var unit: Unit = get_parent()
 
 func randomize_sprite():
-	assert(randomize_frames)
-	frame = range(speed_frames, speed_frames + randomize_frames).pick_random()
+	if randomize_frames:
+		frame = range(speed_frames, speed_frames + randomize_frames).pick_random()
+	if random_hflip:
+		flip_h = randf() > 0.5
+	if random_vflip:
+		flip_v = randf() > 0.5
 
 func set_speed_frame(delta: float):
 	assert(speed_frames > 1)
@@ -53,21 +59,21 @@ func _process(delta: float) -> void:
 	for c in cumers:
 		c.add(delta)
 
+func reset() -> void:
+	cumers.clear()
+	if is_node_ready():
+		_ready()
+
 func _ready() -> void:
-	if randomize_frames:
-		randomize_sprite()
-		if randomize_rate > 0:
-			cumers.append(Cumer.new(randomize_rate, randomize_sprite))
+	randomize_sprite()
+	if randomize_rate > 0:
+		cumers.append(Cumer.new(randomize_rate, randomize_sprite))
 	if animation_frames and animation_rate > 0:
 		cumers.append(Cumer.new(animation_rate, advance_animation))
 	if strobe_rate:
 		cumers.append(Cumer.new(strobe_rate, strobe))
 	if damage_frames and not Engine.is_editor_hint():
 		unit.hit.connect(advance_damage)
-	if random_hflip:
-		flip_h = randf() > 0.5
-	if random_vflip:
-		flip_v = randf() > 0.5
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var out = []

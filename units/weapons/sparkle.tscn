@@ -45,7 +45,6 @@ behaviours = Array[ExtResource("2_kk0x4")]([SubResource("Resource_wgomp"), SubRe
 [node name="Sprite2D" parent="." index="0"]
 texture = SubResource("AtlasTexture_wvrs6")
 vframes = 4
-frame = 1
 script = ExtResource("7_wgomp")
 animation_rate = null
 randomize_frames = 4

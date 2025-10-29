@@ -1,15 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://d0obuqv1tvpeb"]
+[gd_scene load_steps=3 format=3 uid="uid://d0obuqv1tvpeb"]
 
 [ext_resource type="Script" uid="uid://b8bccgwrucbgf" path="res://units/weapons/orbthrower.gd" id="1_r2ru5"]
-[ext_resource type="Texture2D" uid="uid://bbftup6gnvbeo" path="res://units/weapons/bullet.png" id="2_l8xvk"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_od855"]
-atlas = ExtResource("2_l8xvk")
-region = Rect2(3, 0, 8, 8)
+[ext_resource type="PackedScene" uid="uid://bcexupn4fuc53" path="res://units/weapons/orb.tscn" id="2_r2ru5"]
 
 [node name="Shoota" type="Node2D"]
 script = ExtResource("1_r2ru5")
-metadata/_custom_type_script = "uid://ce7e3p4ngb0rc"
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("AtlasTexture_od855")
+ammo = ExtResource("2_r2ru5")

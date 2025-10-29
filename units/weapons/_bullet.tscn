@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://kbo7yeuuwhwa" path="res://units/behaviours/behaviour.gd" id="2_jqm6u"]
 [ext_resource type="Script" uid="uid://5vc4lge53ga2" path="res://units/behaviours/missile.gd" id="3_gvlvk"]
 [ext_resource type="Script" uid="uid://32qn5elehj72" path="res://units/behaviours/deadly.gd" id="4_tluh8"]
-[ext_resource type="Texture2D" uid="uid://bbftup6gnvbeo" path="res://units/weapons/bullet.png" id="5_r7xm8"]
+[ext_resource type="Texture2D" uid="uid://da7ep115w0rqx" path="res://units/weapons/ammunition.png" id="5_r7xm8"]
 
 [sub_resource type="Resource" id="Resource_h0pa3"]
 script = ExtResource("3_gvlvk")

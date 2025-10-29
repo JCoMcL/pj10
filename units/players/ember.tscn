@@ -8,7 +8,7 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_5p1ay"]
 resource_local_to_scene = true
 atlas = ExtResource("2_syuq8")
-region = Rect2(0, 0, 32, 32)
+region = Rect2(1, 0, 32, 32)
 script = ExtResource("3_wmb35")
 metadata/_custom_type_script = "uid://uwfp0rlcq3cy"
 
@@ -19,3 +19,4 @@ texture = SubResource("AtlasTexture_5p1ay")
 
 [node name="Shoota" parent="." index="2"]
 ammo = ExtResource("4_syuq8")
+shoot_sfx = &"flare"
