@@ -24,7 +24,6 @@ func _on_unit_expire(u: Node):
 	assert(u is Unit or u is FauxUnit)
 	current_health -= 1
 	hit.emit()
-	print(current_health)
 	if current_health <= 0:
 		_expire()
 
@@ -37,13 +36,13 @@ func get_units() -> Array[Node]:
 	subunits = out
 	return out
 
-func add_subunit(unit: Node):
+func add_subunit(unit: Node, from:Node = self):
 	assert(unit is Unit or unit is FauxUnit)
 	health += 1
-	if not Engine.is_editor_hint():
-		await Game.add_to_playfield(unit, self)
-		print("conected")
-		unit.expire.connect(_on_unit_expire.bind(unit), CONNECT_ONE_SHOT)
-	else:
+	current_health += 1
+	if Engine.is_editor_hint():
 		add_child(unit)
+	else:
+		await Game.add_to_playfield(unit, from)
+		unit.expire.connect(_on_unit_expire.bind(unit), CONNECT_ONE_SHOT)
 	subunits.append(unit)

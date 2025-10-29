@@ -30,7 +30,7 @@ health = 2
 
 [node name="Sprite2D" parent="." index="0"]
 texture = SubResource("AtlasTexture_au8sf")
-flip_h = false
+flip_h = true
 hframes = 2
 damage_frames = 2
 vertical_speed_only = false

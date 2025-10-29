@@ -1,47 +1,36 @@
-[gd_scene load_steps=19 format=3 uid="uid://civ3r62diebkh"]
+[gd_scene load_steps=17 format=3 uid="uid://civ3r62diebkh"]
 
 [ext_resource type="Script" uid="uid://hmnb8xcddo0d" path="res://game.gd" id="1_2u8fv"]
 [ext_resource type="Script" uid="uid://dy0t0sdbw1h2a" path="res://play_area.gd" id="2_2u8fv"]
+[ext_resource type="PackedScene" uid="uid://jmkcdb54glbd" path="res://waves/wave_0.tscn" id="2_hgni5"]
 [ext_resource type="PackedScene" uid="uid://cepq07bhxard5" path="res://ui/header.tscn" id="3_hm1og"]
 [ext_resource type="Theme" uid="uid://bnc4gesw2cmsb" path="res://ui/theme.tres" id="3_hu1xn"]
 [ext_resource type="Script" uid="uid://c1xo8svguvebh" path="res://ui/status_label.gd" id="4_ep106"]
 [ext_resource type="PackedScene" uid="uid://t6vey86s1202" path="res://ui/character_select.tscn" id="6_jn53l"]
-[ext_resource type="PackedScene" uid="uid://jty5ue45sh4n" path="res://waves/formation_ennui.tscn" id="8_uxjvs"]
-[ext_resource type="Script" uid="uid://kbo7yeuuwhwa" path="res://units/behaviours/behaviour.gd" id="11_3pn3u"]
 [ext_resource type="Script" uid="uid://b2wj6hdp3fpmf" path="res://player_spawn.gd" id="11_150to"]
 [ext_resource type="AudioStream" uid="uid://2eu65vihpb4i" path="res://audio/soundtrack.ogg" id="11_uxjvs"]
-[ext_resource type="Script" uid="uid://ksdfgesjdr6c" path="res://units/behaviours/sidewinder.gd" id="12_847uq"]
+[ext_resource type="Script" uid="uid://bn8bpshcm5u4k" path="res://spawn_point.gd" id="12_r0y7k"]
 [ext_resource type="Script" uid="uid://c2rurlqhkqaou" path="res://audio/sound_effects.gd" id="13_3pn3u"]
 [ext_resource type="Script" uid="uid://dwgcxwg7bm3vr" path="res://audio/soundtrack.gd" id="16_r0y7k"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_uxjvs"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hgni5"]
 size = Vector2(512, 445)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_uxjvs"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_3pn3u"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_847uq"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r0y7k"]
-
-[sub_resource type="Resource" id="Resource_f1sqh"]
-resource_local_to_scene = true
-script = ExtResource("12_847uq")
-speed = 30
-turn_speed = 5
-play_area_bounded = false
-metadata/_custom_type_script = "uid://ksdfgesjdr6c"
-
-[node name="Game" type="Node2D" node_paths=PackedStringArray("new_entity_region", "lives", "player_spawn_point", "sfx_player", "dialgoue_screens")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("play_area", "new_entity_region", "lives", "player_spawn_point", "sfx_player", "dialgoue_screens")]
 script = ExtResource("1_2u8fv")
+play_area = NodePath("PlayArea")
 new_entity_region = NodePath("Scaling")
-team_colors = {
-"Enemy": Color(4.33177e-06, 0.64637, 0.751176, 1),
-"Friendly": Color(1, 1, 1, 1)
-}
 lives = NodePath("PlayArea/Header/Lives")
 player_spawn_point = NodePath("Scaling/PlayerSpawn")
 sfx_player = NodePath("SoundEffects")
 dialgoue_screens = [NodePath("PlayArea/Foreground/CharacterSelectScreen")]
+waves = Array[PackedScene]([ExtResource("2_hgni5")])
 metadata/_custom_type_script = "uid://hmnb8xcddo0d"
 
 [node name="PlayArea" type="Area2D" parent="."]
@@ -60,7 +49,7 @@ offset_bottom = 35.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea"]
 visible = false
 position = Vector2(256, 257.5)
-shape = SubResource("RectangleShape2D_uxjvs")
+shape = SubResource("RectangleShape2D_hgni5")
 
 [node name="Background" type="ColorRect" parent="PlayArea"]
 z_index = -1
@@ -106,7 +95,7 @@ offset_bottom = 0.0
 position = Vector2(256, 480)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/DownWall"]
-shape = SubResource("WorldBoundaryShape2D_3pn3u")
+shape = SubResource("WorldBoundaryShape2D_uxjvs")
 one_way_collision = true
 one_way_collision_margin = 50.0
 
@@ -114,8 +103,9 @@ one_way_collision_margin = 50.0
 position = Vector2(0, 257.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/LeftWall"]
+position = Vector2(-2, -1.5)
 rotation = 1.5708
-shape = SubResource("WorldBoundaryShape2D_847uq")
+shape = SubResource("WorldBoundaryShape2D_3pn3u")
 one_way_collision = true
 one_way_collision_margin = 50.0
 
@@ -124,7 +114,7 @@ position = Vector2(512, 257.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/RightWall"]
 rotation = -1.5708
-shape = SubResource("WorldBoundaryShape2D_r0y7k")
+shape = SubResource("WorldBoundaryShape2D_847uq")
 one_way_collision = true
 one_way_collision_margin = 50.0
 
@@ -132,13 +122,25 @@ one_way_collision_margin = 50.0
 scale = Vector2(2, 2)
 
 [node name="PlayerSpawn" type="Marker2D" parent="Scaling"]
-position = Vector2(128, 200)
+position = Vector2(128, 195.5)
 script = ExtResource("11_150to")
+y = 80
+mirrored = null
 
-[node name="Formation" parent="Scaling" instance=ExtResource("8_uxjvs")]
-position = Vector2(30, 49.5)
-rank = 8
-behaviours = Array[ExtResource("11_3pn3u")]([SubResource("Resource_f1sqh")])
+[node name="FormationCorner" type="Marker2D" parent="Scaling"]
+position = Vector2(9, 8.5)
+script = ExtResource("12_r0y7k")
+x = 3.51562
+y = -4.04494
+mirrored = null
+
+[node name="Edge" type="Marker2D" parent="Scaling"]
+position = Vector2(-27.0001, 102.5)
+script = ExtResource("12_r0y7k")
+x = -10.5469
+y = 38.2022
+mirrored = true
+metadata/_custom_type_script = "uid://bn8bpshcm5u4k"
 
 [node name="SoundEffects" type="AudioStreamPlayer2D" parent="."]
 panning_strength = 0.46
@@ -152,5 +154,3 @@ autoplay = true
 panning_strength = 0.42
 bus = &"2D"
 script = ExtResource("16_r0y7k")
-
-[connection signal="expire" from="Scaling/Formation" to="." method="_win"]

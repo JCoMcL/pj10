@@ -21,8 +21,10 @@ metadata/_custom_type_script = "uid://ckri073qfsukw"
 [sub_resource type="Resource" id="Resource_n0a7u"]
 resource_local_to_scene = true
 script = ExtResource("7_84ehl")
-speed = 30
+speed = 25
 turn_speed = 5
+avoidance_layers = 8
+avoidance_scale = 6
 play_area_bounded = false
 metadata/_custom_type_script = "uid://ksdfgesjdr6c"
 

@@ -1,23 +1,15 @@
 extends Node2D
 class_name Game
 
+@export var play_area: PlayArea
 @export var new_entity_region: Node2D
-@export var team_colors = {"Friendly": Color.WHITE, "Enemy" : Color("ff5277")}
 @export var lives: Lives
 @export var current_player: Player
 @export var player_spawn_point: Marker2D
 @export var sfx_player: SFXPlayer
 @export var dialgoue_screens: Array[DialogueScreen]
-
-func get_team_color(o: CollisionObject2D) -> Color:
-	for layer in Utils.seperate_layers(o.collision_layer):
-		if layer in team_colors:
-			return team_colors[layer]
-	for layer in Utils.seperate_layers(~o.collision_mask):
-		if layer in team_colors:
-			return team_colors[layer]
-
-	return Color.MAGENTA
+@export var waves: Array[PackedScene]
+@export var wave: int = 0
 
 func _on_player_died():
 	if not lives:
@@ -42,6 +34,15 @@ func set_active_player(p: Player):
 	current_player = p
 	if not p.expire.is_connected(_on_player_died):
 		p.expire.connect(_on_player_died)
+
+func on_beat_wave():
+	_win()
+
+func spawn_wave(w: PackedScene):
+	var n = w.instantiate()
+	await add_to_playfield(n, self)
+	n.expire.connect(on_beat_wave)
+	n.start()
 
 signal lose
 func _lose():
@@ -93,6 +94,7 @@ func _ready():
 	for d in dialgoue_screens:
 		d.visible = false
 	if not current_player and lives and lives.has_life():
+		await spawn_wave(waves[wave])
 		spawn_player(lives.get_life())
 	else:
 		open_dialogue()
