@@ -14,24 +14,29 @@ func _build_sfx_table():
 				assert(not sfx.has(key))
 				sfx[key] = res
 
+
+var plays_back = {}
+func get_playback(audio_player: Node) -> AudioStreamPlayback:
+	if plays_back.has(audio_player):
+		return plays_back[audio_player]
+	audio_player.play()
+	plays_back[audio_player] = audio_player.get_stream_playback()
+	return get_playback(audio_player)
+
 var playback:AudioStreamPlaybackPolyphonic
+var relay_playback: AudioStreamPlaybackPolyphonic
 func play_sfx(effect_name: String) -> bool:
 	if not sfx:
 		_build_sfx_table()
 	if not sfx.has(effect_name):
 		return false
-	if not playback:
-		play()
-		playback = get_stream_playback()
-	if playback:
-		playback.play_stream(sfx[effect_name])
-		if Fuckit.audio_relays.has(self):
-			var relay = Fuckit.audio_relays[self]
-			if is_instance_valid(relay):
-				relay.play()
-				relay.get_stream_playback().play_stream(sfx[effect_name])
-		return true
-	return false
+
+	get_playback(self).play_stream(sfx[effect_name])
+	if Fuckit.audio_relays.has(self):
+		var relay = Fuckit.audio_relays[self]
+		if is_instance_valid(relay):
+			get_playback(relay).play_stream(sfx[effect_name])
+	return true
 
 static func get_sfx_player(from: Node) -> SFXPlayer:
 	if "_sfx_player" in from and from._sfx_player is SFXPlayer:

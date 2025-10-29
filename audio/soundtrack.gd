@@ -6,4 +6,3 @@ func _readier():
 
 func _ready():
 	_readier.call_deferred()
-

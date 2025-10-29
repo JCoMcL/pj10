@@ -6,4 +6,4 @@ func interact(body):
 	var switch = get_parent().get_node("level/Breaker Panel/Breakers_001")
 	switch.rotation.z = deg_to_rad(90)
 	$AudioStreamPlayer3D.play()
-	queue_free()
+	collision_layer = 0
