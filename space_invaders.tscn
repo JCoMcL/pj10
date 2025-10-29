@@ -170,3 +170,5 @@ autoplay = true
 panning_strength = 0.42
 bus = &"2D"
 script = ExtResource("16_r0y7k")
+
+[connection signal="expire" from="Scaling/Formation" to="." method="_win"]

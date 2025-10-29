@@ -50,11 +50,17 @@ func get_unit_bounds(u: Unit, scn: PackedScene) -> Vector2:
 
 func clean():
 	_unit_bounds_cache.clear()
+	health = 0
 	for c in get_children():
 		assert(Engine.is_editor_hint)
 		c.free()
 
+
 func _on_unit_expire(u: Unit):
+	current_health -= 1
+	hit.emit()
+	if current_health <= 0:
+		_expire()
 	pass
 
 func _get_unit(_rank, _file) -> PackedScene:
@@ -77,6 +83,7 @@ func setup():
 			var scn = _get_unit(i, j)
 			var u: Unit = scn.instantiate()
 			add_child(u)
+			health += 1
 			var unit_bounds = get_unit_bounds(u,scn)
 			if not Engine.is_editor_hint():
 				u.expire.connect(_on_unit_expire.bind(u), CONNECT_ONE_SHOT)
@@ -97,6 +104,7 @@ func setup():
 		var discrepency = rank_size.x - formation_size.x
 		for u in rank_units:
 			u.position.x -= discrepency / 2
+	current_health = health
 
 func get_units() -> Array[Unit]:
 	var out: Array[Unit]
