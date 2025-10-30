@@ -38,13 +38,16 @@ size = Vector3(0.21875, 0.281036, 0.204346)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="floor"]
 shape = SubResource("WorldBoundaryShape3D_j2cqg")
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
+[node name="Moon" type="Sprite3D" parent="."]
 transform = Transform3D(0.101374, 0.213556, -0.433548, -0.0414202, 0.445192, 0.209607, 0.481513, -0.00666457, 0.109307, -20.7119, 11.7104, 3.30157)
 gi_mode = 0
+pixel_size = 0.003
 billboard = 1
 fixed_size = true
 texture_filter = 0
 texture = ExtResource("1_aablb")
+hframes = 6
+frame = 5
 
 [node name="Moonlight" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.200195, 0.482975, -0.852442, -0.0954035, 0.87553, 0.473651, 0.9751, -0.0134964, 0.221354, -6.26852, 5.06628, 0)
