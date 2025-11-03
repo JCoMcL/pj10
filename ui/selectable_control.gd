@@ -62,4 +62,4 @@ func _ready():
 	if c is BaseButton:
 		button_interface = c as BaseButton
 	if selectable:
-		focus_mode = 2
+		focus_mode = Control.FOCUS_ALL

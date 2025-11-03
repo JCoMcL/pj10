@@ -41,10 +41,10 @@ texture = SubResource("AtlasTexture_fyeyr")
 offset = Vector2(0, 14)
 hframes = 4
 script = ExtResource("3_g0c4h")
-randomize_rate = 20
 speed_frames = 3
 speed_start = 100.0
 speed_end = 800.0
+randomize_rate = 20
 random_hflip = true
 
 [node name="CollisionShape2D" parent="." index="1"]

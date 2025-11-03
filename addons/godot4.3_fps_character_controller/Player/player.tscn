@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://by6c4oo1inwlp" path="res://first_person_character.gd" id="1_rjnwj"]
 [ext_resource type="Script" uid="uid://fh55yoan343g" path="res://addons/godot4.3_fps_character_controller/Player/player_inetractcast_logic.gd" id="2_dpr1a"]
-[ext_resource type="Theme" uid="uid://bnc4gesw2cmsb" path="res://theme.tres" id="3_rs4r1"]
+[ext_resource type="Theme" uid="uid://bnc4gesw2cmsb" path="res://ui/theme.tres" id="3_rs4r1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rjnwj"]
 radius = 0.25

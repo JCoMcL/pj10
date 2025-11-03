@@ -25,9 +25,10 @@ metadata/_custom_type_script = "uid://khuuqn83eivc"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_ecagp")
+flip_h = true
 script = ExtResource("2_0uxyc")
-animation_rate = null
 vertical_speed_only = null
+animation_rate = null
 random_hflip = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
