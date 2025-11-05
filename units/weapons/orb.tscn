@@ -46,15 +46,15 @@ atlas = ExtResource("7_lypa5")
 region = Rect2(16, 0, 16, 9)
 
 [node name="Orb" instance=ExtResource("1_mi1cs")]
-hit_sfx = "thoom"
 behaviours = Array[ExtResource("3_35w50")]([SubResource("Resource_6ol1o"), SubResource("Resource_pcxav"), SubResource("Resource_lypa5"), SubResource("Resource_y2yfs")])
+hit_sfx = "thoom"
 
 [node name="Sprite2D" parent="." index="0"]
 texture = SubResource("AtlasTexture_y2yfs")
 hframes = 2
 script = ExtResource("8_pcxav")
-animation_rate = null
 speed_frames = 2
 speed_start = 200.0
 speed_end = 200.0
 vertical_speed_only = true
+animation_rate = null

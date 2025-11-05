@@ -33,8 +33,8 @@ region = Rect2(80, 0, 16, 32)
 size = Vector2(4, 4)
 
 [node name="Bullet" instance=ExtResource("1_fyeyr")]
-hit_sfx = "flerr"
 behaviours = Array[ExtResource("2_gg0jp")]([SubResource("Resource_sidca"), SubResource("Resource_4f7oy")])
+hit_sfx = "flerr"
 
 [node name="Sprite2D" parent="." index="0"]
 texture = SubResource("AtlasTexture_fyeyr")

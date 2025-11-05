@@ -36,7 +36,6 @@ texture = SubResource("AtlasTexture_1t64g")
 hframes = 2
 animation_frames = 2
 animation_rate = 1
-damage_frames = 0
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("RectangleShape2D_870p3")
