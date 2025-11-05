@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://civ3r62diebkh"]
+[gd_scene load_steps=20 format=3 uid="uid://civ3r62diebkh"]
 
 [ext_resource type="Script" uid="uid://hmnb8xcddo0d" path="res://game.gd" id="1_2u8fv"]
 [ext_resource type="Script" uid="uid://dy0t0sdbw1h2a" path="res://play_area.gd" id="2_2u8fv"]
@@ -11,18 +11,19 @@
 [ext_resource type="Script" uid="uid://dfdmh2caox5my" path="res://effect_sprite.gd" id="11_3pn3u"]
 [ext_resource type="Script" uid="uid://b2wj6hdp3fpmf" path="res://player_spawn.gd" id="11_150to"]
 [ext_resource type="AudioStream" uid="uid://2eu65vihpb4i" path="res://audio/soundtrack.ogg" id="11_uxjvs"]
+[ext_resource type="PackedScene" uid="uid://c2wcbus1mucv5" path="res://portal/portal.tscn" id="12_847uq"]
 [ext_resource type="Script" uid="uid://bn8bpshcm5u4k" path="res://spawn_point.gd" id="12_r0y7k"]
 [ext_resource type="Script" uid="uid://c2rurlqhkqaou" path="res://audio/sound_effects.gd" id="13_3pn3u"]
 [ext_resource type="Script" uid="uid://dwgcxwg7bm3vr" path="res://audio/soundtrack.gd" id="16_r0y7k"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3pn3u"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_847uq"]
 size = Vector2(512, 445)
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_847uq"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r0y7k"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_f1sqh"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rq143"]
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("play_area", "new_entity_region", "lives", "player_spawn_point", "sfx_player", "dialgoue_screens")]
 script = ExtResource("1_2u8fv")
@@ -51,7 +52,7 @@ offset_bottom = 35.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea"]
 visible = false
 position = Vector2(256, 257.5)
-shape = SubResource("RectangleShape2D_3pn3u")
+shape = SubResource("RectangleShape2D_847uq")
 
 [node name="Background" type="ColorRect" parent="PlayArea"]
 z_index = -1
@@ -98,7 +99,7 @@ position = Vector2(256, 480)
 collision_layer = 129
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/DownWall"]
-shape = SubResource("WorldBoundaryShape2D_847uq")
+shape = SubResource("WorldBoundaryShape2D_r0y7k")
 one_way_collision = true
 one_way_collision_margin = 50.0
 
@@ -109,7 +110,7 @@ collision_layer = 9
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/LeftWall"]
 position = Vector2(-2, -1.5)
 rotation = 1.5708
-shape = SubResource("WorldBoundaryShape2D_r0y7k")
+shape = SubResource("WorldBoundaryShape2D_f1sqh")
 one_way_collision = true
 one_way_collision_margin = 50.0
 
@@ -119,7 +120,7 @@ collision_layer = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/RightWall"]
 rotation = -1.5708
-shape = SubResource("WorldBoundaryShape2D_f1sqh")
+shape = SubResource("WorldBoundaryShape2D_rq143")
 one_way_collision = true
 one_way_collision_margin = 50.0
 
@@ -153,6 +154,15 @@ texture = ExtResource("10_uxjvs")
 hframes = 6
 frame = 5
 script = ExtResource("11_3pn3u")
+
+[node name="Body" parent="Scaling" instance=ExtResource("12_847uq")]
+position = Vector2(95, 80.5)
+
+[node name="SpawnPoint" type="Marker2D" parent="Scaling"]
+position = Vector2(128, 106.5)
+script = ExtResource("12_r0y7k")
+y = 40
+metadata/_custom_type_script = "uid://bn8bpshcm5u4k"
 
 [node name="SoundEffects" type="AudioStreamPlayer2D" parent="."]
 panning_strength = 0.46

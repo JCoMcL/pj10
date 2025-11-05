@@ -8,7 +8,6 @@ class_name EffectSprite2D
 @export_range(0, 60, 1, "suffix:fps") var strobe_rate = 0
 @export var random_hflip = false
 @export var random_vflip = false
-@export_tool_button("refresh") var f = reset
 
 func randomize_sprite():
 	if randomize_frames:
