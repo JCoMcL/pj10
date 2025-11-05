@@ -31,9 +31,10 @@ func grace_window(seconds=2):
 	await Utils.delay(seconds)
 	invulnerable = false
 
-func _hit(damage:int=0):
+func _hit(damage:int=0) -> int:
 	if not invulnerable:
-		super()
+		return super()
+	return 0
 
 func wakeup():
 	grace_window()

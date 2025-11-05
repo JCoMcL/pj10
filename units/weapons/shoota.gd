@@ -57,6 +57,7 @@ func shoot(direction:Vector2, parent:Node=null, mask:int=-1) -> Unit:
 	if bullet:
 		assert(bullet is Unit)
 		bullet.collision_mask = mask
+		bullet.setup_team()
 		bullet.global_position = global_position
 		bullet.direction = direction.normalized().rotated((randf() - 0.5) * spread)
 		bullet.velocity += bullet.direction * apply_impulse

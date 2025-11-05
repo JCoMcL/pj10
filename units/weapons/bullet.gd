@@ -24,3 +24,7 @@ func _ready():
 		if "points_claimed" in payload_instance and payload_instance.points_claimed is Signal:
 			payload_instance.points_claimed.connect(claim_points)
 	super()
+
+func setup_team():
+	if is_on_enemy_team():
+		$Sprite2D.evil_mode = true

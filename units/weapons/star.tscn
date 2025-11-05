@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://d0umuuuxuv1ti"]
+[gd_scene load_steps=12 format=3 uid="uid://d0umuuuxuv1ti"]
 
 [ext_resource type="PackedScene" uid="uid://cglfd6h0f8dxb" path="res://units/weapons/_bullet.tscn" id="1_fr1x7"]
 [ext_resource type="Script" uid="uid://kbo7yeuuwhwa" path="res://units/behaviours/behaviour.gd" id="2_cngue"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://0mgc37ep2ehp" path="res://units/weapons/glitterbomb.tscn" id="2_pmnkl"]
 [ext_resource type="Script" uid="uid://5vc4lge53ga2" path="res://units/behaviours/missile.gd" id="3_pmnkl"]
 [ext_resource type="Script" uid="uid://32qn5elehj72" path="res://units/behaviours/deadly.gd" id="4_a8rm7"]
-[ext_resource type="Script" uid="uid://blu1c4kvb2ite" path="res://units/character_sprite.gd" id="7_cngue"]
 
 [sub_resource type="Resource" id="Resource_h0pa3"]
 script = ExtResource("3_pmnkl")
@@ -22,6 +21,43 @@ take_damage = 1
 play_area_bounded = false
 metadata/_custom_type_script = "uid://32qn5elehj72"
 
+[sub_resource type="Shader" id="Shader_2xa64"]
+code = "shader_type canvas_item;
+uniform vec3 light: source_color = vec3(1.0);
+uniform vec3 midtone: source_color = vec3(.5);
+uniform vec3 dark: source_color = vec3(.2);
+uniform bool active = false;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	COLOR = texture(TEXTURE, UV);
+	if (active && COLOR.a > 0.0) {
+		if (COLOR.b > 0.7)
+			COLOR.rgb=light;
+		else if (COLOR.b > 0.5)
+			COLOR.rgb=midtone;
+		else if (COLOR.b > 0.3)
+			COLOR.rgb=dark;
+	}
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the CanvasItem.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ujg1r"]
+resource_local_to_scene = true
+shader = SubResource("Shader_2xa64")
+shader_parameter/light = Color(0.917647, 1, 0.666667, 1)
+shader_parameter/midtone = Color(0.239216, 0.619608, 0.588235, 1)
+shader_parameter/dark = Color(0.215686, 0.415686, 0.458824, 1)
+shader_parameter/active = false
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_ao3mq"]
 atlas = ExtResource("2_k0qbt")
 region = Rect2(32, 0, 32, 32)
@@ -32,15 +68,15 @@ hit_sfx = "bang"
 behaviours = Array[ExtResource("2_cngue")]([SubResource("Resource_h0pa3"), SubResource("Resource_6ol1o")])
 
 [node name="Sprite2D" parent="." index="0"]
+material = SubResource("ShaderMaterial_ujg1r")
 position = Vector2(0.5, 0.5)
 texture = SubResource("AtlasTexture_ao3mq")
 hframes = 2
 vframes = 2
-frame = 3
-script = ExtResource("7_cngue")
+frame = 1
+vertical_speed_only = null
 animation_rate = null
 randomize_frames = 4
 randomize_rate = 35
-vertical_speed_only = null
 random_hflip = null
 random_vflip = null

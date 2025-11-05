@@ -100,6 +100,15 @@ func init_behaviours():
 			else:
 				print("Warning: %s: behaviours not set up properly!" % self)
 
+func is_on_enemy_team() -> bool:
+	if collision_layer & Utils.layers["Friendly"]:
+		return false
+	if collision_layer & Utils.layers["Enemy"]:
+		return true
+	if collision_mask & Utils.layers["Friendly"]:
+		return true
+	return false
+
 func _ready():
 	wakeup()
 	monitoring_play_area = monitoring_play_area or expire_outside_play_area
