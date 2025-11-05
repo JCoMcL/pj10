@@ -1,4 +1,5 @@
 extends FauxUnit
+class_name Wave
 
 @export var starting_formation: PackedScene
 @export var interceptor: PackedScene
