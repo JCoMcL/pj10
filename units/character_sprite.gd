@@ -1,4 +1,3 @@
-@tool
 extends EffectSprite2D
 class_name CharacterSprite2D
 
