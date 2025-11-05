@@ -62,9 +62,9 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wvrs6"]
 resource_local_to_scene = true
 shader = SubResource("Shader_2xa64")
-shader_parameter/light = Color(0.917647, 1, 0.666667, 1)
-shader_parameter/midtone = Color(0.239216, 0.619608, 0.588235, 1)
-shader_parameter/dark = Color(0.215686, 0.415686, 0.458824, 1)
+shader_parameter/light = Color(1, 0.321569, 0.466667, 1)
+shader_parameter/midtone = Color(0.678431, 0.184314, 0.270588, 1)
+shader_parameter/dark = Color(0.470588, 0.113725, 0.309804, 1)
 shader_parameter/active = false
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wvrs6"]

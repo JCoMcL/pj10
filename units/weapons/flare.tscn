@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://beqk5wfnbn6hv"]
+[gd_scene load_steps=10 format=3 uid="uid://beqk5wfnbn6hv"]
 
 [ext_resource type="PackedScene" uid="uid://cglfd6h0f8dxb" path="res://units/weapons/_bullet.tscn" id="1_fyeyr"]
 [ext_resource type="Texture2D" uid="uid://da7ep115w0rqx" path="res://units/weapons/ammunition.png" id="2_4ou4y"]
 [ext_resource type="Script" uid="uid://kbo7yeuuwhwa" path="res://units/behaviours/behaviour.gd" id="2_gg0jp"]
-[ext_resource type="Script" uid="uid://blu1c4kvb2ite" path="res://units/character_sprite.gd" id="3_g0c4h"]
 [ext_resource type="Script" uid="uid://rqhke1r2xrwp" path="res://units/behaviours/accelerate.gd" id="4_gg0jp"]
 [ext_resource type="Script" uid="uid://32qn5elehj72" path="res://units/behaviours/deadly.gd" id="4_gyp0y"]
 
@@ -33,14 +32,13 @@ region = Rect2(80, 0, 16, 32)
 size = Vector2(4, 4)
 
 [node name="Bullet" instance=ExtResource("1_fyeyr")]
-behaviours = Array[ExtResource("2_gg0jp")]([SubResource("Resource_sidca"), SubResource("Resource_4f7oy")])
 hit_sfx = "flerr"
+behaviours = Array[ExtResource("2_gg0jp")]([SubResource("Resource_sidca"), SubResource("Resource_4f7oy")])
 
 [node name="Sprite2D" parent="." index="0"]
 texture = SubResource("AtlasTexture_fyeyr")
 offset = Vector2(0, 14)
 hframes = 4
-script = ExtResource("3_g0c4h")
 speed_frames = 3
 speed_start = 100.0
 speed_end = 800.0

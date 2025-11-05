@@ -10,7 +10,6 @@ ammo_count = 12
 pool_mode = 0
 spread = 2.0944
 apply_impulse = 400.0
-autoshoot = true
 oneshot = true
 shoot_sfx = &""
 metadata/_custom_type_script = "uid://bbav8weitt8f3"
