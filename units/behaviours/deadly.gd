@@ -11,6 +11,6 @@ func _handle_collision(struck_object: Node2D, u: Unit):
 		if "alive" in struck_object and not struck_object.alive:
 			return
 		if struck_object.has_method("_hit"):
-			struck_object._hit(damage)
+			u.claim_points(struck_object._hit(damage))
 		if take_damage:
 			u._hit(take_damage)

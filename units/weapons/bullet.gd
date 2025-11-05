@@ -21,4 +21,6 @@ var payload_instance: Node
 func _ready():
 	if payload:
 		payload_instance = payload.instantiate()
+		if "points_claimed" in payload_instance and payload_instance.points_claimed is Signal:
+			payload_instance.points_claimed.connect(claim_points)
 	super()

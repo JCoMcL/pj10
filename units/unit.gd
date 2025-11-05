@@ -55,18 +55,24 @@ func _expire():
 		return
 	alive = false
 	velocity = Vector2.ZERO
-	if points_worth:
-		Game.get_game(self).add_score(points_worth)
 	expire.emit()
 	if auto_free:
 		queue_free()
 
 signal hit
-func _hit(damage: int = 1):
+func _hit(damage: int = 1) -> int:
 	current_health -= damage
 	hit.emit()
 	if current_health <= 0:
 		_expire()
+		return points_worth
+	return 0
+
+var points_earned = 0
+signal points_claimed(int)
+func claim_points(points: int):
+	points_earned += points
+	points_claimed.emit(points)
 
 # May be called multiple times, use wisely
 func wakeup():

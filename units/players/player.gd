@@ -6,7 +6,7 @@ class_name Player
 @export var auto_ground = true
 @export var death_sfx: StringName = "beyum"
 
-@onready var shoota: Shoota = $Shoota
+var shoota: Shoota
 
 func _physics_process(delta):
 	super(delta)
@@ -41,7 +41,15 @@ func wakeup():
 	if auto_ground:
 		move_and_collide(Vector2.DOWN * 1000)
 
+func claim_points(points: int):
+	super(points)
+	var game = Game.get_game(self)
+	if game:
+		game.add_score(points)
+
 func _ready():
+	shoota = $Shoota
+	shoota.points_claimed.connect(claim_points)
 	if can_process():
 		var game = Game.get_game(self)
 		if game:

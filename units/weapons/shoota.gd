@@ -25,6 +25,8 @@ func get_speed_modifier(delta: float) -> float:
 
 @onready var bullet_pool = Pool.new(ammo, ammo_count, pool_mode, true, false)
 
+signal points_claimed(int)
+
 func find_first_node_not_under_unit() -> Node:
 	var ancestry = Utils.get_ancestry(self)
 	var candidate: Node
@@ -58,6 +60,10 @@ func shoot(direction:Vector2, parent:Node=null, mask:int=-1) -> Unit:
 		bullet.global_position = global_position
 		bullet.direction = direction.normalized().rotated((randf() - 0.5) * spread)
 		bullet.velocity += bullet.direction * apply_impulse
+
+		if not bullet.points_claimed.is_connected(points_claimed.emit):
+			bullet.points_claimed.connect(points_claimed.emit)
+
 		bullet.wakeup()
 
 		if not oneshot and interval > 0:
