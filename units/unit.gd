@@ -80,6 +80,7 @@ func wakeup():
 	process_mode = Node.PROCESS_MODE_INHERIT
 	current_health = health
 	init_behaviours()
+	reset_physics_interpolation()
 
 func handle_collision(c: Node2D):
 	for b in behaviours:

@@ -12,7 +12,7 @@ func _physics_process(delta):
 	super(delta)
 	var _acceleration = acceleration if alive else 10 if is_on_floor() else 3
 	velocity.x = lerp(velocity.x, direction.x * speed * shoota.get_speed_modifier(delta), _acceleration * delta)
-	velocity += get_gravity()
+	velocity += get_gravity() * delta
 	move_and_slide()
 
 var input_tracker = InputTracker.new()

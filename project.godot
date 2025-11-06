@@ -119,7 +119,7 @@ bomb={
 
 [physics]
 
-2d/default_gravity=20.0
+common/physics_interpolation=true
 
 [rendering]
 

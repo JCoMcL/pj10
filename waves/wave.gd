@@ -31,6 +31,7 @@ func spawn_right_interceptors():
 		current.direction = Vector2.LEFT
 		current.expire_outside_play_area = true
 		current.position.y += 18
+		current.reset_physics_interpolation()
 		await Utils.delay(1)
 
 func _expire():
@@ -49,6 +50,7 @@ func start():
 	var current: Node
 	current = await spawn_at(starting_formation, "FormationCorner")
 	current.position.y += 40
+	current.reset_physics_interpolation()
 	await Utils.delay(15)
 	spawn_left_interceptors()
 	await Utils.delay(6)
