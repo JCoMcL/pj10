@@ -9,7 +9,7 @@ func _on_bullet_expire(b: Unit):
 	await spawn_bullet() #this is probably the same bullet
 	assert(bullet_state.size() == ammo_count)
 
-func shoot(direction:Vector2, parent:Node=null, mask:int=-1) -> Unit:
+func shoot(towards:Variant, parent:Node=null, mask:int=-1) -> Unit:
 	for b in bullet_state.keys():
 		if bullet_state[b] == ORBITING:
 			bullet_state[b] = WIND_UP

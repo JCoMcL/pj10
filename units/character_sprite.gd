@@ -70,7 +70,7 @@ func _process(delta: float):
 		elif get_direction().y > 0:
 			flip_v = !initial_vflip
 	if directional_rotate:
-		rotation = get_direction().angle()
+		material.set_shader_parameter("rotation", get_direction().angle()+PI/2)
 	if speed_frames:
 		set_speed_frame(delta)
 	super(delta)

@@ -7,9 +7,6 @@ uniform vec2 scale = vec2(1.0);
 uniform float mosaic = 1;
 uniform float rotation = 0.0;
 
-void vertex() {
-	VERTEX *= scale;
-}
 vec2 rotate_uv(vec2 uv, float angle, vec2 center, vec2 ratio) {
 	uv -= center;
 	uv *= ratio;
@@ -31,11 +28,20 @@ vec2 round_uv(vec2 uv, vec2 tex_px_size){
 	);
 }
 
+vec2 transform_uv(mat4 tform, vec2 uv) {
+	return (tform * vec4(uv, 0.0, 1.0)).xy;
+}
+
+void vertex() {
+	VERTEX *= scale;
+}
+
 void fragment() {
 	vec2 rounded_uv = round_uv(UV, TEXTURE_PIXEL_SIZE);
 	vec2 ratio = scale / TEXTURE_PIXEL_SIZE;
 	vec2 center = (REGION_RECT.xy + (REGION_RECT.zw / 2.0));
 	COLOR = texture(TEXTURE, rotate_uv(rounded_uv, rotation, center, ratio));
+
 	if (apply_palette && COLOR.a > 0.0) {
 		if (COLOR.b > 0.65)
 			COLOR.rgb=light;
@@ -45,8 +51,3 @@ void fragment() {
 			COLOR.rgb=dark;
 	}
 }
-
-//void light() {
-//	// Called for every pixel for every light affecting the CanvasItem.
-//	// Uncomment to replace the default light processing function with this one.
-//}

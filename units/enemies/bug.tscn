@@ -9,11 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://cmrq0ppgwpip2" path="res://units/weapons/esphere.tscn" id="7_870p3"]
 
 [sub_resource type="Resource" id="Resource_pnbvc"]
+resource_local_to_scene = true
 script = ExtResource("3_pghv7")
 interval = 6
-random_offset = true
 require_clear_shot = true
-override_shoota = NodePath("")
 play_area_bounded = true
 metadata/_custom_type_script = "uid://civxpexunlqfi"
 
@@ -34,8 +33,8 @@ behaviours = Array[ExtResource("2_870p3")]([SubResource("Resource_pnbvc")])
 position = Vector2(0, 0.5)
 texture = SubResource("AtlasTexture_1t64g")
 hframes = 2
-animation_rate = 1
 animation_frames = 2
+animation_rate = 1
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("RectangleShape2D_870p3")

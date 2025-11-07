@@ -1,14 +1,15 @@
 extends Behaviour
 class_name Bomber
 
-@export var interval = 10
+@export var interval = 10.0
 @export var random_offset = true
 @export var require_clear_shot = false
 @export var override_shoota: NodePath
 
-var bomb_accum: Dictionary #Behaviours are static so we need to store state in a dictionary
+var cumer: Cumer
 func _initialize(u: Unit):
-	bomb_accum[u] = randf_range(0, interval) if random_offset else 0.0
+	cumer = Cumer.new(1.0/interval, shoot.bind(u))
+	cumer.add(interval * randf())
 
 func get_shoota(u: Unit) -> Shoota:
 	if override_shoota:
@@ -33,16 +34,15 @@ func shot_blocked_by_friendly(shoota: Shoota, u: Unit) -> bool:
 		return true
 	return false
 
-func _process(u: Unit, delta):
-	if u not in bomb_accum:
-		print("%s not set up for %s" % [u, self])
+func shoot(u: Unit):
+	var shoota = get_shoota(u)
+	if shot_blocked_by_friendly(shoota, u):
+		cumer.add(interval * 0.9)
 		return
-	bomb_accum[u] += delta
-	while bomb_accum[u] > interval:
-		var shoota = get_shoota(u)
-		if not shoota:
-			return
-		if shot_blocked_by_friendly(shoota, u):
-			return
-		bomb_accum[u] -= interval
+	if "target" in u and u.target is Node2D:
+		shoota.shoot(u.target)
+	else:
 		shoota.shoot(Vector2.DOWN)
+
+func _process(u: Unit, delta):
+	cumer.add(delta)
