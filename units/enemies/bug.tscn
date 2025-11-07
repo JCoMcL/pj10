@@ -34,8 +34,8 @@ behaviours = Array[ExtResource("2_870p3")]([SubResource("Resource_pnbvc")])
 position = Vector2(0, 0.5)
 texture = SubResource("AtlasTexture_1t64g")
 hframes = 2
-animation_frames = 2
 animation_rate = 1
+animation_frames = 2
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("RectangleShape2D_870p3")

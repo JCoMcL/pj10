@@ -77,6 +77,7 @@ static func add_to_playfield(o: Node2D, from: Node2D):
 		from.add_child(o)
 	o.reparent(parent)
 	o.global_position = from.global_position
+	o.reset_physics_interpolation()
 
 func on_dialogue_finished():
 	dialgoue_screens[0].visible = false

@@ -7,11 +7,20 @@ class_name CharacterSprite2D
 @export var vertical_speed_only = false
 @export var directional_hflip = false
 @export var directional_vflip = false
+@export var directional_rotate = false
 @export_range(0,16) var damage_frames: int = 0
 @export var evil_mode = false:
 	set(b):
 		evil_mode = b
-		material.set_shader_parameter("active", evil_mode)
+		material.set_shader_parameter("apply_palette", evil_mode)
+@export var action_pose_offset = 0
+@export var action_pose = false:
+	set(b):
+		if b and frame < action_pose_offset:
+			frame += action_pose_offset
+		if not b and frame >= action_pose_offset:
+			frame -= action_pose_offset
+		action_pose = b
 
 @onready var unit: Unit = get_parent()
 
@@ -60,6 +69,8 @@ func _process(delta: float):
 			flip_v = initial_vflip
 		elif get_direction().y > 0:
 			flip_v = !initial_vflip
+	if directional_rotate:
+		rotation = get_direction().angle()
 	if speed_frames:
 		set_speed_frame(delta)
 	super(delta)

@@ -40,13 +40,23 @@ func auto_shoot(direction:Vector2 = default_direction, parent:Node=null, mask:in
 	if autoshoot:
 		shoot(direction, parent, mask)
 
+signal winding_up
+signal wound_up
+func windup():
+	winding_up.emit()
+
 var timer: SceneTreeTimer
 func shoot(direction:Vector2, parent:Node=null, mask:int=-1) -> Unit:
 	if timer and timer.time_left:
 		return null
 
+	await windup()
+	wound_up.emit()
+
 	if not parent:
-		parent = Game.get_game(self).new_entity_region
+		var game = Game.get_game(self)
+		if game:
+			parent = game.new_entity_region
 	if not parent:
 		parent = find_first_node_not_under_unit() # yes it really is that complicated
 

@@ -1,0 +1,175 @@
+[gd_scene load_steps=19 format=3 uid="uid://d3xav6ufdmboe"]
+
+[ext_resource type="Script" uid="uid://dy0t0sdbw1h2a" path="res://play_area.gd" id="1_sasra"]
+[ext_resource type="PackedScene" uid="uid://dgyeqcyecu50c" path="res://units/players/dizzy.tscn" id="2_coq8p"]
+[ext_resource type="PackedScene" uid="uid://c1qnfwnlsqvh0" path="res://units/enemies/marten.tscn" id="3_2nij2"]
+[ext_resource type="Script" uid="uid://kbo7yeuuwhwa" path="res://units/behaviours/behaviour.gd" id="4_7cbxl"]
+[ext_resource type="Script" uid="uid://dkywtcocw0jaa" path="res://units/behaviours/oscillate.gd" id="5_8pr8v"]
+[ext_resource type="Script" uid="uid://civxpexunlqfi" path="res://units/behaviours/bomber.gd" id="6_buypi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_njel3"]
+size = Vector2(256, 216)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_vr1i5"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rpuu0"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_oo8pe"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_4gito"]
+
+[sub_resource type="Resource" id="Resource_fbuy2"]
+resource_local_to_scene = true
+script = ExtResource("5_8pr8v")
+x_frequency = 0.645
+amplitude = Vector2(30, 30)
+metadata/_custom_type_script = "uid://dkywtcocw0jaa"
+
+[sub_resource type="Resource" id="Resource_p2nan"]
+script = ExtResource("6_buypi")
+interval = 3
+metadata/_custom_type_script = "uid://civxpexunlqfi"
+
+[sub_resource type="Resource" id="Resource_0k8yu"]
+resource_local_to_scene = true
+script = ExtResource("5_8pr8v")
+x_frequency = 0.645
+amplitude = Vector2(30, 30)
+metadata/_custom_type_script = "uid://dkywtcocw0jaa"
+
+[sub_resource type="Resource" id="Resource_hiucn"]
+resource_local_to_scene = true
+script = ExtResource("5_8pr8v")
+x_frequency = 0.645
+amplitude = Vector2(30, 30)
+metadata/_custom_type_script = "uid://dkywtcocw0jaa"
+
+[sub_resource type="Resource" id="Resource_k6its"]
+resource_local_to_scene = true
+script = ExtResource("5_8pr8v")
+x_frequency = 0.645
+amplitude = Vector2(30, 30)
+metadata/_custom_type_script = "uid://dkywtcocw0jaa"
+
+[sub_resource type="Resource" id="Resource_2dw41"]
+resource_local_to_scene = true
+script = ExtResource("5_8pr8v")
+x_frequency = 0.645
+amplitude = Vector2(30, 30)
+metadata/_custom_type_script = "uid://dkywtcocw0jaa"
+
+[sub_resource type="Resource" id="Resource_ykxp3"]
+resource_local_to_scene = true
+script = ExtResource("5_8pr8v")
+x_frequency = 0.645
+amplitude = Vector2(30, 30)
+metadata/_custom_type_script = "uid://dkywtcocw0jaa"
+
+[node name="PlayArea" type="Area2D"]
+scale = Vector2(2, 2)
+collision_layer = 16
+collision_mask = 32
+script = ExtResource("1_sasra")
+width = 256
+height = 240
+viewable = true
+metadata/_custom_type_script = "uid://dy0t0sdbw1h2a"
+
+[node name="Header" type="Control" parent="."]
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_right = 256.0
+offset_bottom = 24.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(128, 132)
+shape = SubResource("RectangleShape2D_njel3")
+
+[node name="Background" type="ColorRect" parent="."]
+z_index = -1
+offset_top = 24.0
+offset_right = 256.0
+offset_bottom = 240.0
+color = Color(0.056291588, 0.056291603, 0.056291595, 1)
+
+[node name="Foreground" type="Control" parent="."]
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_right = 128.0
+offset_bottom = 120.0
+scale = Vector2(2, 2)
+
+[node name="UpWall" type="StaticBody2D" parent="."]
+position = Vector2(128, 24)
+collision_layer = 129
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpWall"]
+rotation = -3.1415927
+shape = SubResource("WorldBoundaryShape2D_vr1i5")
+one_way_collision = true
+one_way_collision_margin = 50.0
+
+[node name="DownWall" type="StaticBody2D" parent="."]
+position = Vector2(128, 240)
+collision_layer = 129
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DownWall"]
+shape = SubResource("WorldBoundaryShape2D_rpuu0")
+one_way_collision = true
+one_way_collision_margin = 50.0
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+position = Vector2(0, 132)
+collision_layer = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+rotation = 1.5707964
+shape = SubResource("WorldBoundaryShape2D_oo8pe")
+one_way_collision = true
+one_way_collision_margin = 50.0
+
+[node name="RightWall" type="StaticBody2D" parent="."]
+position = Vector2(256, 132)
+collision_layer = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+rotation = -1.5707964
+shape = SubResource("WorldBoundaryShape2D_4gito")
+one_way_collision = true
+one_way_collision_margin = 50.0
+
+[node name="Dizzy" parent="." instance=ExtResource("2_coq8p")]
+position = Vector2(109.5, 219.5)
+
+[node name="Marten" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_2nij2")]
+position = Vector2(172.5, 145)
+target = NodePath("../Dizzy")
+behaviours = Array[ExtResource("4_7cbxl")]([SubResource("Resource_fbuy2"), SubResource("Resource_p2nan")])
+
+[node name="Marten2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_2nij2")]
+position = Vector2(87, 133.5)
+target = NodePath("../Dizzy")
+behaviours = Array[ExtResource("4_7cbxl")]([SubResource("Resource_0k8yu"), SubResource("Resource_p2nan")])
+
+[node name="Marten3" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_2nij2")]
+position = Vector2(131.5, 103)
+target = NodePath("../Dizzy")
+behaviours = Array[ExtResource("4_7cbxl")]([SubResource("Resource_hiucn"), SubResource("Resource_p2nan")])
+
+[node name="Marten4" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_2nij2")]
+position = Vector2(46.5, 159.5)
+target = NodePath("../Dizzy")
+behaviours = Array[ExtResource("4_7cbxl")]([SubResource("Resource_k6its"), SubResource("Resource_p2nan")])
+
+[node name="Marten5" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_2nij2")]
+position = Vector2(132, 144.5)
+target = NodePath("../Dizzy")
+behaviours = Array[ExtResource("4_7cbxl")]([SubResource("Resource_2dw41"), SubResource("Resource_p2nan")])
+
+[node name="Marten6" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_2nij2")]
+position = Vector2(188, 96)
+target = NodePath("../Dizzy")
+behaviours = Array[ExtResource("4_7cbxl")]([SubResource("Resource_ykxp3"), SubResource("Resource_p2nan")])

@@ -28,9 +28,9 @@ func _on_exit_play_area():
 	if alive and expire_outside_play_area:
 		_expire()
 
-static func get_sprite(instance: Unit) -> Sprite2D:
-	for c in instance.get_children():
-		if c is Sprite2D:
+func get_sprite() -> CharacterSprite2D:
+	for c in get_children():
+		if c is CharacterSprite2D:
 			return c
 	return null
 
@@ -116,6 +116,6 @@ func _ready():
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray
-	if not get_sprite(self):
+	if not get_sprite():
 		warnings.append("no Sprite2D")
 	return warnings

@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://do4kgcgelx4o2"]
+[gd_scene load_steps=9 format=3 uid="uid://do4kgcgelx4o2"]
 
 [ext_resource type="Script" uid="uid://xu838nvrsxjk" path="res://units/players/player.gd" id="1_dk4pa"]
 [ext_resource type="Texture2D" uid="uid://poqg1d5e838j" path="res://units/players/dummy.png" id="2_7rm7g"]
 [ext_resource type="Script" uid="uid://uwfp0rlcq3cy" path="res://tools/handy_atlas.gd" id="3_74ma7"]
+[ext_resource type="Script" uid="uid://blu1c4kvb2ite" path="res://units/character_sprite.gd" id="4_7rm7g"]
 [ext_resource type="Script" uid="uid://bbav8weitt8f3" path="res://units/weapons/shoota.gd" id="4_480fu"]
 [ext_resource type="PackedScene" uid="uid://cglfd6h0f8dxb" path="res://units/weapons/_bullet.tscn" id="5_4jue3"]
 
@@ -23,6 +24,7 @@ auto_free = false
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_4rox2")
+script = ExtResource("4_7rm7g")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)

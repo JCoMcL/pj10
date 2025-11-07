@@ -120,7 +120,7 @@ func set_region(w,h):
 		if active_walls[direction]:
 			var wall = get_wall(direction)
 			wall.position = Direction.to_vec(direction) * (center - center_pad) + center + center_pad
-			wall.collision_layer = Utils.combined_layers(["World", "Floor" if direction == Direction.DOWN else "Walls"])
+			wall.collision_layer = Utils.combined_layers(["World", "Floor" if direction <= Direction.DOWN else "Walls"])
 			var wall_collider = get_wall_collider(direction)
 			wall_collider.shape = WorldBoundaryShape2D.new()
 			wall_collider.rotation = Direction.to_radians(direction) - (PI /2)

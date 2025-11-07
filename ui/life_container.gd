@@ -1,4 +1,3 @@
-@tool
 extends TextureRect
 class_name LifeContainer
 
@@ -27,7 +26,7 @@ func setup_life():
 	if not life:
 		texture = null
 		return
-	var sprite = Unit.get_sprite(life)
+	var sprite = life.get_sprite()
 	texture = sprite.texture
 	size = texture.get_size()
 	scale = Vector2.ONE * scaling

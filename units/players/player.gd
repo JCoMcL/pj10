@@ -25,11 +25,16 @@ func _unhandled_input(ev: InputEvent):
 	elif ev.is_action_pressed("commit_self_die"):
 		_hit()
 
-var invulnerable = true
+var invulnerable = false
 func grace_window(seconds=2):
+	var sprite = get_sprite()
 	invulnerable = true
+	sprite.strobe_rate = 8
 	await Utils.delay(seconds)
 	invulnerable = false
+	sprite.strobe_rate = 0
+	sprite.reset()
+	sprite.visible = true
 
 func _hit(damage:int=0) -> int:
 	if not invulnerable:
@@ -59,24 +64,15 @@ func _ready():
 func _expire():
 	super()
 	velocity = Vector2(
-		600 * (1 if get_sprite(self).flip_h else -1),
+		600 * (1 if get_sprite().flip_h else -1),
 		-200
 	)
 	play_sfx(death_sfx)
 
-var flash_accum = 0.0
-var frame_accum = 0.0
+var frame_accum = 0
 func _process(delta):
-	var sprite = get_sprite(self)
+	var sprite = get_sprite()
 	var atlas = sprite.texture as HandyAtlas
-
-	if invulnerable:
-		flash_accum += delta
-		while flash_accum > 0.1:
-			flash_accum -= 0.15
-			sprite.visible = !sprite.visible
-	else:
-		sprite.visible = true
 
 	if alive:
 		direction.x = input_tracker.movement_input.x
@@ -97,7 +93,7 @@ func _process(delta):
 				if frame_accum > frame_threshold:
 					frame_accum -= frame_threshold
 					atlas.cycle_x(1, WALK_FRAME_START, WALK_FRAME_START + WALK_FRAMES -1)
-			get_sprite(self).flip_h = (direction.x < 0)
+			get_sprite().flip_h = (direction.x < 0)
 	else:
 		atlas.set_xy(6,0)
 		direction = Vector2.ZERO
