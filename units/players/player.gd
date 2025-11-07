@@ -23,8 +23,6 @@ func _physics_process(delta):
 var input_tracker = InputTracker.new()
 func _unhandled_input(ev: InputEvent):
 	input_tracker._input(ev)
-	shoota.autoshoot = input_tracker.firing
-
 	if ev.is_action_pressed("fire") or ev.is_action_pressed("up"):
 		shoota.shoot(Vector2.UP)
 	elif ev.is_action_pressed("bomb"):
@@ -52,6 +50,7 @@ func _hit(damage:int=0) -> int:
 func wakeup():
 	grace_window()
 	super()
+	reset_bomb_cooldown()
 	if auto_ground:
 		move_and_collide(Vector2.DOWN * 1000)
 
@@ -62,22 +61,25 @@ func claim_points(points: int):
 		game.add_score(points)
 
 func _ready():
+	super()
 	shoota = $Shoota
 	shoota.points_claimed.connect(claim_points)
-	if bomb_cooldown > 0:
-		bomb_timer = get_tree().create_timer(bomb_cooldown)
 	if can_process():
 		var game = Game.get_game(self)
 		if game:
 			Game.get_game(self).set_active_player(self)
 
-func bomb():
-	if bomb_timer and bomb_timer.time_left:
-		return
-	if has_node("Bomb") and $Bomb is Shoota:
-		$Bomb.shoot()
+func reset_bomb_cooldown():
 	if bomb_cooldown:
 		bomb_timer = get_tree().create_timer(bomb_cooldown)
+
+var active_bomb: Node
+func bomb():
+	if bomb_timer and bomb_timer.time_left:
+		return null
+	if has_node("Bomb") and $Bomb is Shoota:
+		active_bomb = $Bomb.shoot()
+	reset_bomb_cooldown()
 
 func _expire():
 	super()
@@ -92,6 +94,7 @@ func _process(delta):
 	var sprite = get_sprite()
 	var atlas = sprite.texture as HandyAtlas
 
+	shoota.autoshoot=input_tracker.firing and alive
 	if alive:
 		direction.x = input_tracker.movement_input.x
 		if direction.x == 0:

@@ -37,3 +37,13 @@ func _ready():
 		if game.current_player:
 			draw_icons(game.current_player)
 		game.player_changed.connect(set_player)
+
+func _process(delta):
+	if player and player.alive:
+		var ico = get_child(0)
+		var shade: float
+		if player.bomb_timer and player.bomb_timer.time_left:
+			shade = lerp(0.6, 0.3, player.bomb_timer.time_left / player.bomb_cooldown)
+		else:
+			shade = 1.0
+		ico.modulate = Color(shade, shade, shade)

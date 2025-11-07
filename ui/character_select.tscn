@@ -1,16 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://t6vey86s1202"]
+[gd_scene load_steps=9 format=3 uid="uid://t6vey86s1202"]
 
 [ext_resource type="Script" uid="uid://rgdj1bvmqvin" path="res://ui/character_select.gd" id="1_0hgph"]
 [ext_resource type="Theme" uid="uid://bnc4gesw2cmsb" path="res://ui/theme.tres" id="1_00q01"]
 [ext_resource type="Script" uid="uid://bbmwy7avdmqf6" path="res://ui/dialogue_screen.gd" id="1_insa7"]
 [ext_resource type="PackedScene" uid="uid://c787qqqdmbiju" path="res://ui/life_container_large.tscn" id="1_p8qou"]
 [ext_resource type="Script" uid="uid://dyuxpo5xxanxv" path="res://ui/lives.gd" id="2_p8qou"]
-[ext_resource type="PackedScene" uid="uid://rex66rah1v0f" path="res://units/players/jelly.tscn" id="3_insa7"]
-[ext_resource type="PackedScene" uid="uid://bc6lg0ushliyj" path="res://units/players/lumi.tscn" id="4_p8qou"]
-[ext_resource type="PackedScene" uid="uid://dgyeqcyecu50c" path="res://units/players/dizzy.tscn" id="4_u6j12"]
 [ext_resource type="PackedScene" uid="uid://do4kgcgelx4o2" path="res://units/players/player_character.tscn" id="5_00q01"]
 [ext_resource type="PackedScene" uid="uid://drxjk8huytppt" path="res://ui/character_portrait.tscn" id="7_8j5xr"]
-[ext_resource type="PackedScene" uid="uid://dq80wlctowul2" path="res://units/players/ember.tscn" id="9_wa0t1"]
 [ext_resource type="Script" uid="uid://ce5yktvlfqfes" path="res://ui/selectable_control.gd" id="11_0r2wt"]
 
 [node name="CharacterSelectScreen" type="ColorRect" node_paths=PackedStringArray("confirm_button", "initial_focus", "lives")]
@@ -62,7 +58,6 @@ layout_mode = 2
 layout_mode = 2
 alignment = 1
 script = ExtResource("1_0hgph")
-characters = Array[PackedScene]([ExtResource("4_u6j12"), ExtResource("3_insa7"), ExtResource("4_p8qou"), ExtResource("9_wa0t1")])
 dummy = ExtResource("5_00q01")
 
 [node name="TopRow" type="GridContainer" parent="CenterContainer/HSplitContainer/Characters"]

@@ -1,3 +1,4 @@
+@tool
 extends SelectableControl
 class_name CharacterPortrait
 

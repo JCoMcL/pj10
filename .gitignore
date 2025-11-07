@@ -11,3 +11,4 @@ temp/
 *.exr
 export
 audio/sfx/crushed-*
+test_scene.tscn

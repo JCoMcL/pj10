@@ -1,7 +1,6 @@
 @tool
 extends Control
 
-@export var characters: Array[PackedScene]
 @export var dummy: PackedScene
 @export_tool_button("populate") var f = populate
 
@@ -15,9 +14,16 @@ func get_life_containers(root: Node = self) -> Array[LifeContainer]:
 				out.append(lc)
 	return out
 
+func get_characters() -> Array[PackedScene]:
+	var out:Array[PackedScene]
+	for s in ["dizzy", "ember", "jelly", "lumi"]:
+		out.append(load("res://units/players/%s.tscn" % s))
+	return out
+
 func populate():
 	var life_containers = get_life_containers(self)
 	var population: Array[PackedScene]
+	var characters = get_characters()
 	for c in characters:
 		population.append(c)
 	for i in range(life_containers.size() - characters.size()):

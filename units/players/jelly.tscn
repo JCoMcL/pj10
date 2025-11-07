@@ -1,8 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://rex66rah1v0f"]
+[gd_scene load_steps=9 format=3 uid="uid://rex66rah1v0f"]
 
 [ext_resource type="PackedScene" uid="uid://do4kgcgelx4o2" path="res://units/players/player_character.tscn" id="1_5dvry"]
 [ext_resource type="Texture2D" uid="uid://3bs6b0bvfdvj" path="res://units/players/jelly.png" id="2_8i1wf"]
+[ext_resource type="Script" uid="uid://ckukfwmbjjo1q" path="res://units/players/jelly.gd" id="2_gmnjv"]
 [ext_resource type="Script" uid="uid://uwfp0rlcq3cy" path="res://tools/handy_atlas.gd" id="3_mq5pm"]
+[ext_resource type="PackedScene" uid="uid://dool7c70ctjda" path="res://units/weapons/laser.tscn" id="4_xnicf"]
+[ext_resource type="Script" uid="uid://bbav8weitt8f3" path="res://units/weapons/shoota.gd" id="5_gmnjv"]
 [ext_resource type="PackedScene" uid="uid://d0umuuuxuv1ti" path="res://units/weapons/star.tscn" id="5_mq5pm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xnicf"]
@@ -12,13 +15,25 @@ region = Rect2(0, 0, 32, 32)
 script = ExtResource("3_mq5pm")
 metadata/_custom_type_script = "uid://uwfp0rlcq3cy"
 
-[node name="PlayerCharacter" instance=ExtResource("1_5dvry")]
+[node name="Jelly" instance=ExtResource("1_5dvry")]
+script = ExtResource("2_gmnjv")
+bomb_cooldown = 3.0
 
 [node name="Sprite2D" parent="." index="0"]
 texture = SubResource("AtlasTexture_xnicf")
 
 [node name="Shoota" parent="." index="2"]
+ammo = ExtResource("4_xnicf")
+ammo_count = 1
+pool_mode = 0
+interval = 0.6
+shoot_sfx = &"pew"
+run_and_gun = 0.39
+
+[node name="Bomb" type="Node2D" parent="." index="3"]
+script = ExtResource("5_gmnjv")
 ammo = ExtResource("5_mq5pm")
 ammo_count = 1
 pool_mode = 2
 shoot_sfx = &"eeowm"
+metadata/_custom_type_script = "uid://bbav8weitt8f3"
