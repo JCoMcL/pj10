@@ -1,4 +1,3 @@
-@tool
 extends UITextureRect
 
 func refresh(l: LifeContainer):

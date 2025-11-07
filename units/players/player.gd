@@ -1,17 +1,22 @@
 extends Unit
 class_name Player
 
-@export var acceleration = 6
+@export var acceleration = 1800
 @export var speed = 240
 @export var auto_ground = true
 @export var death_sfx: StringName = "beyum"
 
+@export var bomb_cooldown = 0.0
+@export var bomb_count = 1
+@export var bomb_icon = BombIndicator.Icons.STAR
+
 var shoota: Shoota
+var bomb_timer: SceneTreeTimer
 
 func _physics_process(delta):
 	super(delta)
-	var _acceleration = acceleration if alive else 10 if is_on_floor() else 3
-	velocity.x = lerp(velocity.x, direction.x * speed * shoota.get_speed_modifier(delta), _acceleration * delta)
+	var _acceleration = acceleration if alive else 2400 if is_on_floor() else 800
+	velocity.x = move_toward(velocity.x, direction.x * speed * shoota.get_speed_modifier(delta), _acceleration * delta)
 	velocity += get_gravity() * delta
 	move_and_slide()
 
@@ -22,6 +27,8 @@ func _unhandled_input(ev: InputEvent):
 
 	if ev.is_action_pressed("fire") or ev.is_action_pressed("up"):
 		shoota.shoot(Vector2.UP)
+	elif ev.is_action_pressed("bomb"):
+		bomb()
 	elif ev.is_action_pressed("commit_self_die"):
 		_hit()
 
@@ -30,6 +37,7 @@ func grace_window(seconds=2):
 	var sprite = get_sprite()
 	invulnerable = true
 	sprite.strobe_rate = 8
+	sprite.reset()
 	await Utils.delay(seconds)
 	invulnerable = false
 	sprite.strobe_rate = 0
@@ -56,10 +64,20 @@ func claim_points(points: int):
 func _ready():
 	shoota = $Shoota
 	shoota.points_claimed.connect(claim_points)
+	if bomb_cooldown > 0:
+		bomb_timer = get_tree().create_timer(bomb_cooldown)
 	if can_process():
 		var game = Game.get_game(self)
 		if game:
 			Game.get_game(self).set_active_player(self)
+
+func bomb():
+	if bomb_timer and bomb_timer.time_left:
+		return
+	if has_node("Bomb") and $Bomb is Shoota:
+		$Bomb.shoot()
+	if bomb_cooldown:
+		bomb_timer = get_tree().create_timer(bomb_cooldown)
 
 func _expire():
 	super()

@@ -52,6 +52,8 @@ func _ready():
 		confirm_button.pressed.connect(confirm)
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not is_visible_in_tree():
+		return
 	if event.is_action_pressed("bomb"):
 		back()
 		accept_event()

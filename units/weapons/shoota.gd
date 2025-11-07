@@ -46,7 +46,7 @@ func windup():
 	winding_up.emit()
 
 var timer: SceneTreeTimer
-func shoot(towards:Variant, parent:Node=null, mask:int=-1) -> Unit:
+func shoot(towards:Variant = default_direction, parent:Node=null, mask:int=-1) -> Unit:
 	if timer and timer.time_left:
 		return null
 

@@ -1,4 +1,3 @@
-@tool
 extends TextureRect
 class_name UITextureRect
 
@@ -25,7 +24,7 @@ func listen_for_focus():
 func _ready() -> void:
 	if not texture:
 		texture = AtlasTexture.new()
-		texture.atlas = ImageTexture.create_from_image(Image.load_from_file("res://ui/ui.png"))
+		texture.atlas = load("res://ui/ui.png")
 	listen_for_focus()
 
 func create_focus_overlay() -> TextureRect:

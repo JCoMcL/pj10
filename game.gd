@@ -30,10 +30,12 @@ func spawn_player(p: Player):
 		new_entity_region.add_child(p)
 	p.wakeup() # TODO maybe this should always be triggered manually?
 
+signal player_changed(Player)
 func set_active_player(p: Player):
 	current_player = p
 	if not p.expire.is_connected(_on_player_died):
 		p.expire.connect(_on_player_died)
+	player_changed.emit(p)
 
 func on_beat_wave():
 	_win()

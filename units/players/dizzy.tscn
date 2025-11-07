@@ -17,6 +17,7 @@ metadata/_custom_type_script = "uid://uwfp0rlcq3cy"
 size = Vector2(11, 29)
 
 [node name="Dizzy" instance=ExtResource("1_2k1ve")]
+bomb_icon = 0
 
 [node name="Sprite2D" parent="." index="0"]
 texture = SubResource("AtlasTexture_1jacx")

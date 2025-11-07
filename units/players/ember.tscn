@@ -13,6 +13,7 @@ script = ExtResource("3_wmb35")
 metadata/_custom_type_script = "uid://uwfp0rlcq3cy"
 
 [node name="PlayerCharacter" instance=ExtResource("1_srfxa")]
+bomb_icon = 3
 
 [node name="Sprite2D" parent="." index="0"]
 texture = SubResource("AtlasTexture_5p1ay")

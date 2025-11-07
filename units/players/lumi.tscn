@@ -14,8 +14,9 @@ script = ExtResource("3_40uyx")
 metadata/_custom_type_script = "uid://uwfp0rlcq3cy"
 
 [node name="PlayerCharacter" instance=ExtResource("1_7tlug")]
-acceleration = 12
+acceleration = 2400
 speed = 280
+bomb_icon = 2
 
 [node name="Sprite2D" parent="." index="0"]
 texture = SubResource("AtlasTexture_hg30c")
