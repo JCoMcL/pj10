@@ -7,11 +7,12 @@ class_name Player
 @export var death_sfx: StringName = "beyum"
 
 @export var bomb_cooldown = 0.0
-@export var bomb_count = 1
+@export var bomb_count = 1 # not implemented
 @export var bomb_icon = BombIndicator.Icons.STAR
 
 var shoota: Shoota
-var bomb_timer: SceneTreeTimer
+var bomba: Shoota
+var bomb_countdown: float
 
 func _physics_process(delta):
 	super(delta)
@@ -22,6 +23,8 @@ func _physics_process(delta):
 
 var input_tracker = InputTracker.new()
 func _unhandled_input(ev: InputEvent):
+	if not alive:
+		return
 	input_tracker._input(ev)
 	if ev.is_action_pressed("fire") or ev.is_action_pressed("up"):
 		shoota.shoot(Vector2.UP)
@@ -66,19 +69,20 @@ func _ready():
 	for c in get_children():
 		if c is Shoota:
 			c.points_claimed.connect(claim_points)
+			if c.name == "Bomb":
+				bomba = c
 	if can_process():
 		var game = Game.get_game(self)
 		if game:
 			Game.get_game(self).set_active_player(self)
 
 func reset_bomb_cooldown():
-	if bomb_cooldown:
-		bomb_timer = get_tree().create_timer(bomb_cooldown)
+	bomb_countdown = bomb_cooldown
 
 var active_bomb: Node
 func bomb():
-	if bomb_timer and bomb_timer.time_left:
-		return null
+	if bomb_countdown > 0:
+		return
 	if has_node("Bomb") and $Bomb is Shoota:
 		active_bomb = $Bomb.shoot()
 	reset_bomb_cooldown()
@@ -98,6 +102,7 @@ func _process(delta):
 
 	shoota.autoshoot=input_tracker.firing and alive
 	if alive:
+		bomb_countdown = max(0, bomb_countdown - delta)
 		direction.x = input_tracker.movement_input.x
 		if direction.x == 0:
 			atlas.set_xy(0,0)
