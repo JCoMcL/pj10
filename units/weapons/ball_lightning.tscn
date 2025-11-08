@@ -43,9 +43,12 @@ texture = SubResource("AtlasTexture_6svne")
 hframes = 2
 vframes = 3
 directional_vflip = false
-directional_rotate = true
 animation_frames = 6
-animation_rate = 8
+animation_rate = 6
+randomize_frames = 6
+randomize_rate = 1
+random_hflip = true
+random_vflip = true
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("CircleShape2D_2fpl4")

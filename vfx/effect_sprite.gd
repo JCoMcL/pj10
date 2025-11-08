@@ -11,7 +11,9 @@ class_name EffectSprite2D
 
 func randomize_sprite():
 	if randomize_frames:
-		frame = range(randomize_frames).pick_random()
+		var curr_frame = frame
+		while frame == curr_frame:
+			frame = range(randomize_frames).pick_random()
 	if random_hflip:
 		flip_h = randf() > 0.5
 	if random_vflip:
