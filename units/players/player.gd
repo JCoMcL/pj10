@@ -63,7 +63,9 @@ func claim_points(points: int):
 func _ready():
 	super()
 	shoota = $Shoota
-	shoota.points_claimed.connect(claim_points)
+	for c in get_children():
+		if c is Shoota:
+			c.points_claimed.connect(claim_points)
 	if can_process():
 		var game = Game.get_game(self)
 		if game:

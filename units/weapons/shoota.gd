@@ -11,21 +11,26 @@ class_name Shoota
 @export_range(0.0, 10.0) var interval = 0.0
 @export_range(0, 360, 1, "radians_as_degrees") var spread: float = 0
 @export var apply_impulse: float = 0
-@export var autoshoot = false
+@export var autoshoot = false:
+	set(b):
+		if autoshoot != b and run_and_gun_envelope:
+			ragtime = run_and_gun_envelope.create_timer(self, b)
+		autoshoot = b
 @export var oneshot = false
 @export var default_direction = Vector2.UP
 @export var shoot_sfx: StringName = "bew"
 @export_range(0,1) var run_and_gun: float = 1
-@export_range(0,6) var run_and_gun_recovery_time: float = 1
-
-var _rag_rec = 1.0
-func get_speed_modifier(delta: float) -> float:
-	_rag_rec = move_toward(_rag_rec, 1.0, delta / run_and_gun_recovery_time)
-	return lerp(run_and_gun, 1.0, _rag_rec)
-
-@onready var bullet_pool = Pool.new(ammo, ammo_count, pool_mode, true, false)
+@export var run_and_gun_envelope: Envelope
 
 signal points_claimed(int)
+
+var bullet_pool: Pool
+
+var ragtime: SceneTreeTimer
+func get_speed_modifier(delta: float) -> float:
+	if run_and_gun_envelope and ragtime:
+		return 1.0 - run_and_gun_envelope.value_from_timer(ragtime, autoshoot)
+	return run_and_gun if autoshoot else 1.0
 
 func find_first_node_not_under_unit() -> Node:
 	var ancestry = Utils.get_ancestry(self)
@@ -72,7 +77,9 @@ func shoot(towards:Variant = default_direction, parent:Node=null, mask:int=-1) -
 	if mask == -1:
 		mask = Utils.combined_layers(["World", "Friendly", "Enemy"]) & ~get_parent().collision_layer
 
-	var bullet = await bullet_pool.next(parent)
+	var bullet: Unit
+	if bullet_pool:
+		bullet = await bullet_pool.next(parent)
 	if bullet:
 		assert(bullet is Unit)
 		bullet.collision_mask = mask
@@ -86,13 +93,19 @@ func shoot(towards:Variant = default_direction, parent:Node=null, mask:int=-1) -
 
 		bullet.wakeup()
 
-		if not oneshot and interval > 0:
-			timer = get_tree().create_timer(interval)
-			timer.timeout.connect(auto_shoot.bind(direction, parent, mask))
-		SFXPlayer.get_sfx_player(self).play_sfx(shoot_sfx)
-		_rag_rec = 0
-		return bullet
-	return null
+	if not oneshot and interval > 0:
+		timer = get_tree().create_timer(interval)
+		timer.timeout.connect(auto_shoot.bind(direction, parent, mask))
+	SFXPlayer.get_sfx_player(self).play_sfx(shoot_sfx)
+
+	if run_and_gun_envelope and not autoshoot:
+		ragtime = run_and_gun_envelope.create_timer(self, autoshoot)
+
+	return bullet
 
 func _ready():
+	if ammo:
+		bullet_pool = Pool.new(ammo, ammo_count, pool_mode, true, false)
+	if run_and_gun_envelope and autoshoot:
+		ragtime = run_and_gun_envelope.create_timer(self, autoshoot)
 	auto_shoot()
