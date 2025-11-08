@@ -70,10 +70,10 @@ func windup():
 	windup_started.emit()
 
 func shoot(towards:Variant = default_direction, parent:Node=null, mask:int=-1) -> Unit:
-	if cooldown_countdown:
+	if cooldown_countdown > 0:
 		await cooled_down
 	windup()
-	if windup_countdown:
+	if windup_countdown > 0:
 		var status = await windup_ended #pls no race condition
 		if not status:
 			return null
@@ -104,11 +104,12 @@ func shoot(towards:Variant = default_direction, parent:Node=null, mask:int=-1) -
 
 		bullet.wakeup() # call wakeup again once everything's set incase some of it was important
 
-	if oneshot:
-		autoshoot = false
-	SFXPlayer.get_sfx_player(self).play_sfx(shoot_sfx)
+		SFXPlayer.get_sfx_player(self).play_sfx(shoot_sfx)
 
-	cooldown_countdown = interval
+		if oneshot:
+			autoshoot_in_loop = false
+
+		cooldown_countdown = interval
 
 	return bullet
 
@@ -141,3 +142,5 @@ func _process(delta):
 func _ready():
 	if ammo:
 		bullet_pool = Pool.new(ammo, ammo_count, pool_mode, true, false)
+	if not interval:
+		oneshot = true
