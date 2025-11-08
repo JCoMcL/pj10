@@ -1,11 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://bc6lg0ushliyj"]
+[gd_scene load_steps=10 format=3 uid="uid://bc6lg0ushliyj"]
 
 [ext_resource type="PackedScene" uid="uid://do4kgcgelx4o2" path="res://units/players/player_character.tscn" id="1_7tlug"]
 [ext_resource type="Script" uid="uid://brjwqlyiq7c2l" path="res://units/players/lumi.gd" id="2_40uyx"]
 [ext_resource type="Texture2D" uid="uid://c0cbl4qinp5v6" path="res://units/players/lumi.png" id="2_rnep0"]
 [ext_resource type="Script" uid="uid://uwfp0rlcq3cy" path="res://tools/handy_atlas.gd" id="3_40uyx"]
-[ext_resource type="PackedScene" uid="uid://cvr074hn5uj3a" path="res://units/weapons/bolt.tscn" id="4_rnep0"]
+[ext_resource type="Script" uid="uid://g3sb0piig0rh" path="res://units/weapons/sustainer.gd" id="5_vx4pn"]
 [ext_resource type="Script" uid="uid://jug5afl2e6bd" path="res://tools/envelope.gd" id="6_hg30c"]
+[ext_resource type="PackedScene" uid="uid://du58m1l12sjp3" path="res://units/weapons/beam.tscn" id="6_triik"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hg30c"]
 resource_local_to_scene = true
@@ -30,9 +31,11 @@ bomb_icon = 2
 texture = SubResource("AtlasTexture_hg30c")
 
 [node name="Shoota" parent="." index="2"]
-ammo = ExtResource("4_rnep0")
+position = Vector2(0, -20)
+script = ExtResource("5_vx4pn")
+ammo = ExtResource("6_triik")
 ammo_count = 1
 pool_mode = 0
-interval = 0.5
 run_and_gun = 0.0
 run_and_gun_envelope = SubResource("Resource_vx4pn")
+windup_time = 0.5

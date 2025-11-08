@@ -25,6 +25,7 @@ func _ready():
 			payload_instance.points_claimed.connect(claim_points)
 	super()
 
-func setup_team():
+func wakeup():
+	super()
 	if is_on_enemy_team():
 		$Sprite2D.evil_mode = true

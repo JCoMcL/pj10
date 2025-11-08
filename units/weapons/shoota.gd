@@ -13,18 +13,29 @@ class_name Shoota
 @export var apply_impulse: float = 0
 @export var autoshoot = false:
 	set(b):
-		if autoshoot != b and run_and_gun_envelope:
-			ragtime = run_and_gun_envelope.create_timer(self, b)
+		if autoshoot != b:
+			_autoshoot_changed(b)
 		autoshoot = b
 @export var oneshot = false
 @export var default_direction = Vector2.UP
 @export var shoot_sfx: StringName = "bew"
 @export_range(0,1) var run_and_gun: float = 1
 @export var run_and_gun_envelope: Envelope
+@export var windup_time = 0.0
 
 signal points_claimed(int)
 
 var bullet_pool: Pool
+
+signal autoshoot_enabled
+signal autoshoot_disabled
+func _autoshoot_changed(state: bool):
+	if state:
+		autoshoot_enabled.emit()
+	else:
+		autoshoot_disabled.emit()
+	if run_and_gun_envelope:
+		ragtime = run_and_gun_envelope.create_timer(self, state)
 
 var ragtime: SceneTreeTimer
 func get_speed_modifier(delta: float) -> float:
@@ -49,6 +60,7 @@ signal winding_up
 signal wound_up
 func windup():
 	winding_up.emit()
+	await Utils.delay(windup_time)
 
 var timer: SceneTreeTimer
 func shoot(towards:Variant = default_direction, parent:Node=null, mask:int=-1) -> Unit:
@@ -83,10 +95,10 @@ func shoot(towards:Variant = default_direction, parent:Node=null, mask:int=-1) -
 	if bullet:
 		assert(bullet is Unit)
 		bullet.collision_mask = mask
-		bullet.setup_team()
 		bullet.global_position = global_position
 		bullet.direction = direction.normalized().rotated((randf() - 0.5) * spread)
 		bullet.velocity += bullet.direction * apply_impulse
+		bullet.wakeup() # call wakeup again once everything's set incase some of it was important
 
 		if not bullet.points_claimed.is_connected(points_claimed.emit):
 			bullet.points_claimed.connect(points_claimed.emit)

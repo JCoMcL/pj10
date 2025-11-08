@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://d0obuqv1tvpeb"]
-
-[ext_resource type="Script" uid="uid://b8bccgwrucbgf" path="res://units/weapons/orbthrower.gd" id="1_r2ru5"]
-[ext_resource type="PackedScene" uid="uid://bcexupn4fuc53" path="res://units/weapons/orb.tscn" id="2_r2ru5"]
-
-[node name="Shoota" type="Node2D"]
-script = ExtResource("1_r2ru5")
-ammo = ExtResource("2_r2ru5")

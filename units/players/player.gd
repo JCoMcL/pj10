@@ -84,7 +84,7 @@ func bomb():
 	if bomb_countdown > 0:
 		return
 	if has_node("Bomb") and $Bomb is Shoota:
-		active_bomb = $Bomb.shoot()
+		active_bomb = await $Bomb.shoot()
 	reset_bomb_cooldown()
 
 func _expire():
