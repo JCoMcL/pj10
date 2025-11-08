@@ -6,31 +6,19 @@ class_name Envelope
 @export_range(0, 1) var sustain = 1.0
 @export_range(0, 10, 0.01, "suffix:s") var release = 0.0
 
-func value(time: float, active = true) -> float:
-	assert(time >= 0)
-	if active:
-		if time < attack:
+func value(active_time: float, inactive_time:float = -1) -> float:
+	if inactive_time < 0:
+		if active_time < attack:
 			assert(attack > 0)
-			return time/attack
-		time -= attack
-		if time < decay:
+			return active_time/attack
+		active_time -= attack
+		if active_time < decay:
 			assert(decay > 0)
-			return lerp(1.0, sustain, time/decay)
-		time -= decay
+			return lerp(1.0, sustain, active_time/decay)
+		active_time -= decay
 		return sustain
 	else:
-		if time < release:
+		if inactive_time < release:
 			assert(release > 0)
-			return lerp(sustain, 0.0, time/release)
+			return lerp(value(active_time, -1), 0.0, inactive_time/release)
 		return 0
-
-func value_from_timer(t: SceneTreeTimer, active = true) -> float:
-	if active:
-		return value(attack + decay - t.time_left, active)
-	else:
-		return value(release - t.time_left, active)
-
-func create_timer(n: Node, active: bool):
-	if active:
-		return n.get_tree().create_timer(attack + decay)
-	return n.get_tree().create_timer(release)

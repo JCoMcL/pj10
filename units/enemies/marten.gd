@@ -11,7 +11,7 @@ func wakeup():
 
 func windup():
 	get_sprite().action_pose = true
-	await $Shoota.wound_up
+	await $Shoota.windup_ended
 	get_sprite().action_pose = false
 
 func try_acquire_target():
@@ -26,7 +26,7 @@ var _h_dist: float
 func _ready():
 	super()
 	_h_dist = Utils.vary(h_distance, h_distance_variance)
-	$Shoota.winding_up.connect(windup)
+	$Shoota.windup_started.connect(windup)
 	if not target or not target.alive:
 		await try_acquire_target()
 	if target:

@@ -25,6 +25,10 @@ class_name Shoota
 
 signal points_claimed(int)
 
+signal windup_started
+signal windup_ended(bool)
+signal cooled_down
+
 var bullet_pool: Pool
 
 signal autoshoot_enabled
@@ -32,16 +36,15 @@ signal autoshoot_disabled
 func _autoshoot_changed(state: bool):
 	if state:
 		autoshoot_enabled.emit()
+		active_time = 0.0 #NOTE: this allows cancelling rag release. IDK how to fix this
 	else:
 		autoshoot_disabled.emit()
-	if run_and_gun_envelope:
-		ragtime = run_and_gun_envelope.create_timer(self, state)
+		winding_up = false
 
-var ragtime: SceneTreeTimer
 func get_speed_modifier(delta: float) -> float:
-	if run_and_gun_envelope and ragtime:
-		return 1.0 - run_and_gun_envelope.value_from_timer(ragtime, autoshoot)
-	return run_and_gun if autoshoot else 1.0
+	if run_and_gun_envelope:
+		return 1.0 - run_and_gun_envelope.value(active_time, inactive_time)
+	return run_and_gun if autoshoot or winding_up else 1.0
 
 func find_first_node_not_under_unit() -> Node:
 	var ancestry = Utils.get_ancestry(self)
@@ -52,16 +55,6 @@ func find_first_node_not_under_unit() -> Node:
 		candidate = n
 	return candidate
 
-func auto_shoot(direction:Vector2 = default_direction, parent:Node=null, mask:int=-1):
-	if autoshoot:
-		shoot(direction, parent, mask)
-
-signal winding_up
-signal wound_up
-func windup():
-	winding_up.emit()
-	await Utils.delay(windup_time)
-
 func resolve_direction(towards:Variant) -> Vector2:
 	if towards is Vector2:
 		return towards.normalized()
@@ -70,13 +63,20 @@ func resolve_direction(towards:Variant) -> Vector2:
 	assert(false)
 	return default_direction
 
-var timer: SceneTreeTimer
-func shoot(towards:Variant = default_direction, parent:Node=null, mask:int=-1) -> Unit:
-	if timer and timer.time_left:
-		return null
+var winding_up = false
+func windup():
+	windup_countdown = windup_time
+	winding_up = true
+	windup_started.emit()
 
-	await windup()
-	wound_up.emit()
+func shoot(towards:Variant = default_direction, parent:Node=null, mask:int=-1) -> Unit:
+	if cooldown_countdown:
+		await cooled_down
+	windup()
+	if windup_countdown:
+		var status = await windup_ended #pls no race condition
+		if not status:
+			return null
 
 	var direction = resolve_direction(towards)
 
@@ -99,26 +99,45 @@ func shoot(towards:Variant = default_direction, parent:Node=null, mask:int=-1) -
 		bullet.global_position = global_position
 		bullet.direction = direction.normalized().rotated((randf() - 0.5) * spread)
 		bullet.velocity += bullet.direction * apply_impulse
-		bullet.wakeup() # call wakeup again once everything's set incase some of it was important
-
 		if not bullet.points_claimed.is_connected(points_claimed.emit):
 			bullet.points_claimed.connect(points_claimed.emit)
 
-		bullet.wakeup()
+		bullet.wakeup() # call wakeup again once everything's set incase some of it was important
 
-	if not oneshot and interval > 0:
-		timer = get_tree().create_timer(interval)
-		timer.timeout.connect(auto_shoot.bind(direction, parent, mask))
+	if oneshot:
+		autoshoot = false
 	SFXPlayer.get_sfx_player(self).play_sfx(shoot_sfx)
 
-	if run_and_gun_envelope and not autoshoot:
-		ragtime = run_and_gun_envelope.create_timer(self, autoshoot)
+	cooldown_countdown = interval
 
 	return bullet
+
+var windup_countdown: float
+var cooldown_countdown: float
+var active_time: float
+var inactive_time: float
+var autoshoot_in_loop = true
+func _process(delta):
+	if cooldown_countdown > 0:
+		cooldown_countdown -= delta
+		if cooldown_countdown <= 0:
+			cooled_down.emit()
+	elif windup_countdown > 0:
+		if winding_up:
+			windup_countdown -= delta
+			if windup_countdown <= 0:
+				windup_ended.emit(true)
+		else:
+			windup_ended.emit(false) #windup cancelled
+	elif autoshoot and autoshoot_in_loop:
+		shoot()
+
+	if autoshoot or winding_up:
+		active_time += delta
+		inactive_time = 0.0
+	else:
+		inactive_time += delta
 
 func _ready():
 	if ammo:
 		bullet_pool = Pool.new(ammo, ammo_count, pool_mode, true, false)
-	if run_and_gun_envelope and autoshoot:
-		ragtime = run_and_gun_envelope.create_timer(self, autoshoot)
-	auto_shoot()

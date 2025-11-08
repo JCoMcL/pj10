@@ -45,5 +45,6 @@ func spawn_bullet():
 
 func _ready() -> void:
 	super()
+	autoshoot_in_loop = false
 	for i in range(ammo_count):
 		await spawn_bullet()
