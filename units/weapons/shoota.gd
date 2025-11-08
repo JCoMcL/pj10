@@ -62,6 +62,14 @@ func windup():
 	winding_up.emit()
 	await Utils.delay(windup_time)
 
+func resolve_direction(towards:Variant) -> Vector2:
+	if towards is Vector2:
+		return towards.normalized()
+	elif towards is Node2D:
+		return (towards.global_position - global_position).normalized()
+	assert(false)
+	return default_direction
+
 var timer: SceneTreeTimer
 func shoot(towards:Variant = default_direction, parent:Node=null, mask:int=-1) -> Unit:
 	if timer and timer.time_left:
@@ -70,14 +78,7 @@ func shoot(towards:Variant = default_direction, parent:Node=null, mask:int=-1) -
 	await windup()
 	wound_up.emit()
 
-	var direction: Vector2
-	if towards is Vector2:
-		direction = towards.normalized()
-	elif towards is Node2D:
-		direction = (towards.global_position - global_position).normalized()
-	else:
-		assert(false)
-		direction = default_direction
+	var direction = resolve_direction(towards)
 
 	if not parent:
 		var game = Game.get_game(self)

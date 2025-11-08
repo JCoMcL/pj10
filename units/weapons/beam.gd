@@ -1,6 +1,6 @@
 extends Unit
 
-@export var max_range = 100
+@export var max_range = 1000
 @export_range(0.001, 20, 0.1, "suffix:Hz") var hitrate = 1.0 #NOTE: limited by physics tick rate
 
 var line: Line2D
