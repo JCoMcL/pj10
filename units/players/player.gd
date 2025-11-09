@@ -9,6 +9,7 @@ class_name Player
 @export var bomb_cooldown = 0.0
 @export var bomb_count = 1 # not implemented
 @export var bomb_icon = BombIndicator.Icons.STAR
+@export var animation_threshold = 30
 
 var shoota: Shoota
 var bomba: Shoota
@@ -113,15 +114,14 @@ func _process(delta):
 			else:
 				const WALK_FRAME_START = 2
 				const WALK_FRAMES = 4
-				const frame_threshold = 30
 
 				# make sure we are on one of the walk frames
-				atlas.cycle_x(0, WALK_FRAME_START, WALK_FRAME_START + WALK_FRAMES -1)
+				atlas.cycle_x(0, WALK_FRAME_START-1, WALK_FRAME_START + WALK_FRAMES -1)
 
 				frame_accum += delta * abs(velocity.x)
-				if frame_accum > frame_threshold:
-					frame_accum -= frame_threshold
-					atlas.cycle_x(1, WALK_FRAME_START, WALK_FRAME_START + WALK_FRAMES -1)
+				if frame_accum > animation_threshold:
+					frame_accum -= animation_threshold
+					atlas.cycle_x(1, WALK_FRAME_START-1, WALK_FRAME_START + WALK_FRAMES -1)
 			get_sprite().flip_h = (direction.x < 0)
 	else:
 		atlas.set_xy(6,0)
