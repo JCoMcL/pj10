@@ -69,11 +69,12 @@ static func get_game(from: Node) -> Game:
 static func add_to_playfield(o: Node2D, from: Node2D):
 	var parent: Node2D
 	var game = get_game(from)
-	if not game.is_node_ready():
-		await game.ready
-	if game and game.new_entity_region:
-		parent = game.new_entity_region
-	else:
+	if game:
+		if not game.is_node_ready():
+			await game.ready
+		if game.new_entity_region:
+			parent = game.new_entity_region
+	if not parent:
 		parent = from.get_parent()
 	if not o.get_parent():
 		from.add_child(o)

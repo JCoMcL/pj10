@@ -21,7 +21,9 @@ func try_acquire_target():
 	if not target or not target.alive:
 		await Utils.delay(1)
 		try_acquire_target()
-		
+	else:
+		target.expire.connect(try_acquire_target)
+
 var _h_dist: float
 func _ready():
 	super()
@@ -29,8 +31,7 @@ func _ready():
 	$Shoota.windup_started.connect(windup)
 	if not target or not target.alive:
 		await try_acquire_target()
-	if target:
-		target.expire.connect(try_acquire_target)
+
 
 func harrying_position(to: Vector2, horizontal_distance:float =40) -> Vector2:
 	return Vector2	(

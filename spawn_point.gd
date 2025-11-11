@@ -29,7 +29,7 @@ func setup_mirror():
 		get_parent().add_child.call_deferred(mirror)
 	mirror.x = 100 -x
 	mirror.y = y
-	
+
 func get_play_area_rect():
 	var game = Game.get_game(self)
 	if game:

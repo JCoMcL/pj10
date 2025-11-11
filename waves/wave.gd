@@ -81,5 +81,5 @@ func start():
 	spawn_at(marten, "PincerSpawn")
 	await Utils.delay(1)
 	spawn_at(marten, "PincerSpawn_M")
-	
+
 	finish_up()
