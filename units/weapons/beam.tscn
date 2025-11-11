@@ -30,7 +30,7 @@ region = Rect2(103, 0, 20, 30)
 [node name="Beam" instance=ExtResource("1_owcm1")]
 collision_mask = 23
 script = ExtResource("2_5vwdh")
-hitrate = 6.401000000000001
+hitrate = 6.4
 behaviours = Array[ExtResource("3_5vwdh")]([SubResource("Resource_qa05e")])
 
 [node name="Sprite2D" parent="." index="0"]
@@ -44,7 +44,7 @@ randomize_frames = 6
 randomize_rate = 1
 
 [node name="CollisionShape2D" parent="." index="1"]
-shape = null
+disabled = true
 
 [node name="Line2D" type="Line2D" parent="." index="2"]
 width = 4.0

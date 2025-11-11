@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://do4kgcgelx4o2" path="res://units/players/player_character.tscn" id="1_7tlug"]
 [ext_resource type="Script" uid="uid://brjwqlyiq7c2l" path="res://units/players/lumi.gd" id="2_40uyx"]
 [ext_resource type="Texture2D" uid="uid://c0cbl4qinp5v6" path="res://units/players/lumi.png" id="3_vx4pn"]
-[ext_resource type="Script" path="res://units/weapons/sustainer.gd" id="5_vx4pn"]
-[ext_resource type="Script" path="res://tools/envelope.gd" id="6_hg30c"]
+[ext_resource type="Script" uid="uid://g3sb0piig0rh" path="res://units/weapons/sustainer.gd" id="5_vx4pn"]
+[ext_resource type="Script" uid="uid://jug5afl2e6bd" path="res://tools/envelope.gd" id="6_hg30c"]
 [ext_resource type="PackedScene" uid="uid://du58m1l12sjp3" path="res://units/weapons/beam.tscn" id="6_triik"]
 
 [sub_resource type="Resource" id="Resource_vx4pn"]

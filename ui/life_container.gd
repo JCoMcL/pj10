@@ -34,7 +34,9 @@ func setup_life():
 	texture.region.size = sprite_size
 
 	scale = Vector2.ONE * scaling
-	life.get_sprite().frame_changed.connect(_on_life_sprite_change.bind(life), Node.CONNECT_ONE_SHOT)
+	var f = _on_life_sprite_change.bind(life)
+	if not sprite.frame_changed.is_connected(f):
+		sprite.frame_changed.connect(f, Node.CONNECT_ONE_SHOT)
 
 func _on_life_sprite_change(p: Player):
 	if p != life:

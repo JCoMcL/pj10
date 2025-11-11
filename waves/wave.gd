@@ -75,7 +75,7 @@ func start():
 	spawn_left_interceptors()
 	await Utils.delay(6)
 	await spawn_right_interceptors()
-	await Utils.delay(10)
+	await Utils.delay(15)
 	await spawn_chain(marten, "CenterSpawn", 2, 2.0, spread)
 	await Utils.delay(5)
 	spawn_at(marten, "PincerSpawn")
