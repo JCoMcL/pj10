@@ -39,11 +39,12 @@ func _autoshoot_changed(state: bool):
 		active_time = 0.0 #NOTE: this allows cancelling rag release. IDK how to fix this
 	else:
 		autoshoot_disabled.emit()
+		winding_up = false
 
 func get_speed_modifier() -> float:
 	if run_and_gun_envelope:
 		return 1.0 - run_and_gun_envelope.value(active_time, inactive_time)
-	return run_and_gun if autoshoot else 1.0
+	return run_and_gun if autoshoot or winding_up else 1.0
 
 func find_first_node_not_under_unit() -> Node:
 	var ancestry = Utils.get_ancestry(self)
@@ -62,18 +63,20 @@ func resolve_direction(towards:Variant) -> Vector2:
 	assert(false)
 	return default_direction
 
+var winding_up = false
 func windup():
 	windup_countdown = windup_time
+	winding_up = true
 	windup_started.emit()
 
 func shoot(towards:Variant = default_direction, parent:Node=null, mask:int=-1) -> Unit:
 	if cooldown_countdown > 0:
 		return null
-		await cooled_down
 	windup()
 	if windup_countdown > 0:
 		var status = await windup_ended #pls no race condition
 		if not status:
+			print("windup cancelled")
 			return null
 
 	var direction = resolve_direction(towards)
@@ -111,9 +114,6 @@ func shoot(towards:Variant = default_direction, parent:Node=null, mask:int=-1) -
 
 	return bullet
 
-func is_autoshooting():
-	return autoshoot and autoshoot_in_loop
-
 var windup_countdown: float
 var cooldown_countdown: float
 var active_time: float
@@ -125,17 +125,17 @@ func _process(delta):
 		if cooldown_countdown <= 0:
 			cooled_down.emit()
 	elif windup_countdown > 0:
-		if is_autoshooting():
+		if winding_up:
 			windup_countdown -= delta
 			if windup_countdown <= 0:
 				windup_ended.emit(true)
 		else:
 			windup_ended.emit(false) #windup cancelled
+			windup_countdown = 0
 	elif autoshoot and autoshoot_in_loop:
-		print("shooting")
 		shoot()
 
-	if autoshoot:
+	if autoshoot or winding_up:
 		active_time += delta
 		inactive_time = 0.0
 	else:
