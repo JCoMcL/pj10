@@ -1,35 +1,27 @@
-[gd_scene load_steps=10 format=3 uid="uid://bc6lg0ushliyj"]
+[gd_scene load_steps=8 format=3 uid="uid://bc6lg0ushliyj"]
 
 [ext_resource type="PackedScene" uid="uid://do4kgcgelx4o2" path="res://units/players/player_character.tscn" id="1_7tlug"]
 [ext_resource type="Script" uid="uid://brjwqlyiq7c2l" path="res://units/players/lumi.gd" id="2_40uyx"]
-[ext_resource type="Script" uid="uid://uwfp0rlcq3cy" path="res://tools/handy_atlas.gd" id="3_40uyx"]
 [ext_resource type="Texture2D" uid="uid://c0cbl4qinp5v6" path="res://units/players/lumi.png" id="3_vx4pn"]
-[ext_resource type="Script" uid="uid://g3sb0piig0rh" path="res://units/weapons/sustainer.gd" id="5_vx4pn"]
-[ext_resource type="Script" uid="uid://jug5afl2e6bd" path="res://tools/envelope.gd" id="6_hg30c"]
+[ext_resource type="Script" path="res://units/weapons/sustainer.gd" id="5_vx4pn"]
+[ext_resource type="Script" path="res://tools/envelope.gd" id="6_hg30c"]
 [ext_resource type="PackedScene" uid="uid://du58m1l12sjp3" path="res://units/weapons/beam.tscn" id="6_triik"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hg30c"]
-resource_local_to_scene = true
-atlas = ExtResource("3_vx4pn")
-region = Rect2(0, 0, 32, 32)
-margin = Rect2(-1, 0, 0, 0)
-script = ExtResource("3_40uyx")
-metadata/_custom_type_script = "uid://uwfp0rlcq3cy"
 
 [sub_resource type="Resource" id="Resource_vx4pn"]
 script = ExtResource("6_hg30c")
 attack = 0.5
-release = 0.97
+release = 0.5
 metadata/_custom_type_script = "uid://jug5afl2e6bd"
 
 [node name="Lumi" instance=ExtResource("1_7tlug")]
 script = ExtResource("2_40uyx")
 speed = 280
+bomb_cooldown = 0.5
 bomb_icon = 2
-animation_threshold = 50
+walk_rate = 0.0157
 
 [node name="Sprite2D" parent="." index="0"]
-texture = SubResource("AtlasTexture_hg30c")
+texture = ExtResource("3_vx4pn")
 
 [node name="Shoota" parent="." index="2"]
 position = Vector2(0, -20)
@@ -39,4 +31,4 @@ ammo_count = 1
 pool_mode = 0
 run_and_gun = 0.0
 run_and_gun_envelope = SubResource("Resource_vx4pn")
-windup_time = 0.5
+windup_time = 0.8

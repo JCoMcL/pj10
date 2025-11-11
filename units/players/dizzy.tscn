@@ -1,28 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://dgyeqcyecu50c"]
+[gd_scene load_steps=6 format=3 uid="uid://dgyeqcyecu50c"]
 
 [ext_resource type="PackedScene" uid="uid://do4kgcgelx4o2" path="res://units/players/player_character.tscn" id="1_2k1ve"]
 [ext_resource type="Texture2D" uid="uid://cks4j15y8ely7" path="res://units/players/dizzy.png" id="2_l7ykn"]
-[ext_resource type="Script" uid="uid://uwfp0rlcq3cy" path="res://tools/handy_atlas.gd" id="3_0nkv5"]
 [ext_resource type="Script" uid="uid://b8bccgwrucbgf" path="res://units/weapons/orbthrower.gd" id="4_0nkv5"]
 [ext_resource type="PackedScene" uid="uid://bcexupn4fuc53" path="res://units/weapons/orb.tscn" id="5_1jacx"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1jacx"]
-resource_local_to_scene = true
-atlas = ExtResource("2_l7ykn")
-region = Rect2(0, 0, 32, 32)
-script = ExtResource("3_0nkv5")
-metadata/_custom_type_script = "uid://uwfp0rlcq3cy"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ko4n6"]
 size = Vector2(11, 29)
 
 [node name="Dizzy" instance=ExtResource("1_2k1ve")]
-acceleration = 1500
+acceleration = 800
 speed = 200
+bomb_cooldown = 40.0
 bomb_icon = 0
+walk_rate = 0.035
 
 [node name="Sprite2D" parent="." index="0"]
-texture = SubResource("AtlasTexture_1jacx")
+texture = ExtResource("2_l7ykn")
 
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2(-0.5, 1.5)

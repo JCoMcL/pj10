@@ -9,18 +9,31 @@ class_name Player
 @export var bomb_cooldown = 0.0
 @export var bomb_count = 1 # not implemented
 @export var bomb_icon = BombIndicator.Icons.STAR
-@export var animation_threshold = 30
+@export_range(0.0001, 0.1, 0.0001, "suffix:f/px") var walk_rate = 0.03:
+	set(f):
+		walk_rate = f
+		walk_cumer = Cumer.new(walk_rate)
 
 var shoota: Shoota
 var bomba: Shoota
 var bomb_countdown: float
 
+func get_speed_modifiers() -> float:
+	var out = 1.0
+	if shoota:
+		out *= shoota.get_speed_modifier()
+	if bomba:
+		out *= bomba.get_speed_modifier()
+	return out
+
 func _physics_process(delta):
 	super(delta)
 	var _acceleration = acceleration if alive else 2400 if is_on_floor() else 800
-	velocity.x = move_toward(velocity.x, direction.x * speed * shoota.get_speed_modifier(delta), _acceleration * delta)
+	velocity.x = move_toward(velocity.x, direction.x * speed * get_speed_modifiers(), _acceleration * delta)
 	velocity += get_gravity() * delta
 	move_and_slide()
+	if sign(direction.x) == sign(velocity.x):
+			get_sprite().flip_h = (direction.x < 0)
 
 var input_tracker = InputTracker.new()
 func _unhandled_input(ev: InputEvent):
@@ -35,7 +48,7 @@ func _unhandled_input(ev: InputEvent):
 		_hit()
 
 var invulnerable = false
-func grace_window(seconds=2):
+func grace_window(seconds:float=2):
 	var sprite = get_sprite()
 	invulnerable = true
 	sprite.strobe_rate = 8
@@ -77,6 +90,8 @@ func _ready():
 		if game:
 			Game.get_game(self).set_active_player(self)
 
+func bomb_active_time():
+	return bomb_cooldown - bomb_countdown
 func reset_bomb_cooldown():
 	bomb_countdown = bomb_cooldown
 
@@ -97,39 +112,48 @@ func _expire():
 	)
 	play_sfx(death_sfx)
 
+enum Frames {
+	PORTRAIT, PROFILE, WALK0, WALK2, WALK3, WALK_END, SKID, REEL, GRAVE, SPECIAL
+}
+func on_frame_changed(frame: int):
+	if frame == Frames.GRAVE:
+		play_sfx("crunch")
+		process_mode = Node.PROCESS_MODE_DISABLED
+
+func walk_frame(i: int) -> int:
+	if i >= Frames.WALK0 and i <= Frames.WALK_END:
+		return i
+	return Frames.WALK0
+
+var walk_cumer = Cumer.new(walk_rate)
+func choose_frame(delta: float) -> int:
+	var spd = abs(velocity.x)
+	if not alive:
+		if spd > 50 or not is_on_floor():
+			return Frames.REEL
+		return Frames.GRAVE
+
+	if sign(direction.x) != sign(velocity.x) and spd > 0:
+		return Frames.SKID
+	if spd > speed * 0.5:
+		var wlk = walk_frame(get_sprite().frame)
+		walk_cumer.add(spd * delta)
+		for i in walk_cumer.cycles_accumulated():
+			wlk = walk_frame(wlk + 1)
+		return wlk
+	if spd > 1:
+		return Frames.PROFILE
+	return Frames.PORTRAIT
+
 var frame_accum = 0
 func _process(delta):
-	var sprite = get_sprite()
-	var atlas = sprite.texture as HandyAtlas
-
 	shoota.autoshoot=input_tracker.firing and alive
 	if alive:
 		bomb_countdown = max(0, bomb_countdown - delta)
 		direction.x = input_tracker.movement_input.x
-		if direction.x == 0:
-			atlas.set_xy(0,0)
-		else:
-			if is_zero_approx(velocity.x):
-				atlas.set_xy(1,0)
-			else:
-				const WALK_FRAME_START = 2
-				const WALK_FRAMES = 4
-
-				# make sure we are on one of the walk frames
-				atlas.cycle_x(0, WALK_FRAME_START-1, WALK_FRAME_START + WALK_FRAMES -1)
-
-				frame_accum += delta * abs(velocity.x)
-				if frame_accum > animation_threshold:
-					frame_accum -= animation_threshold
-					atlas.cycle_x(1, WALK_FRAME_START-1, WALK_FRAME_START + WALK_FRAMES -1)
-			get_sprite().flip_h = (direction.x < 0)
 	else:
-		atlas.set_xy(6,0)
 		direction = Vector2.ZERO
-		if abs(velocity.x) < 50 and is_on_floor():
-			play_sfx("crunch")
-			atlas.set_xy(7,0)
-			process_mode = Node.PROCESS_MODE_DISABLED
+	get_sprite().frame = choose_frame(delta)
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings = super()

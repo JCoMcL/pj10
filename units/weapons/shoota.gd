@@ -41,7 +41,7 @@ func _autoshoot_changed(state: bool):
 		autoshoot_disabled.emit()
 		winding_up = false
 
-func get_speed_modifier(delta: float) -> float:
+func get_speed_modifier() -> float:
 	if run_and_gun_envelope:
 		return 1.0 - run_and_gun_envelope.value(active_time, inactive_time)
 	return run_and_gun if autoshoot or winding_up else 1.0
@@ -71,6 +71,7 @@ func windup():
 
 func shoot(towards:Variant = default_direction, parent:Node=null, mask:int=-1) -> Unit:
 	if cooldown_countdown > 0:
+		return null
 		await cooled_down
 	windup()
 	if windup_countdown > 0:

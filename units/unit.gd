@@ -110,8 +110,15 @@ func is_on_enemy_team() -> bool:
 		return true
 	return false
 
+func on_frame_changed(frame: int):
+	pass
+
+func _on_frame_changed():
+	on_frame_changed(get_sprite().frame)
+
 func _ready():
 	wakeup()
+	get_sprite().frame_changed.connect(_on_frame_changed)
 	monitoring_play_area = monitoring_play_area or expire_outside_play_area
 
 func _get_configuration_warnings() -> PackedStringArray:

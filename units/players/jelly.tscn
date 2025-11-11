@@ -1,26 +1,33 @@
-[gd_scene load_steps=9 format=3 uid="uid://rex66rah1v0f"]
+[gd_scene load_steps=10 format=3 uid="uid://rex66rah1v0f"]
 
 [ext_resource type="PackedScene" uid="uid://do4kgcgelx4o2" path="res://units/players/player_character.tscn" id="1_5dvry"]
 [ext_resource type="Texture2D" uid="uid://3bs6b0bvfdvj" path="res://units/players/jelly.png" id="2_8i1wf"]
-[ext_resource type="Script" uid="uid://ckukfwmbjjo1q" path="res://units/players/jelly.gd" id="2_gmnjv"]
-[ext_resource type="Script" uid="uid://uwfp0rlcq3cy" path="res://tools/handy_atlas.gd" id="3_mq5pm"]
+[ext_resource type="Script" path="res://units/players/jelly.gd" id="2_gmnjv"]
 [ext_resource type="PackedScene" uid="uid://dool7c70ctjda" path="res://units/weapons/laser.tscn" id="4_xnicf"]
 [ext_resource type="Script" uid="uid://bbav8weitt8f3" path="res://units/weapons/shoota.gd" id="5_gmnjv"]
+[ext_resource type="Script" path="res://tools/envelope.gd" id="5_i1cal"]
 [ext_resource type="PackedScene" uid="uid://d0umuuuxuv1ti" path="res://units/weapons/star.tscn" id="5_mq5pm"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xnicf"]
-resource_local_to_scene = true
-atlas = ExtResource("2_8i1wf")
-region = Rect2(0, 0, 32, 32)
-script = ExtResource("3_mq5pm")
-metadata/_custom_type_script = "uid://uwfp0rlcq3cy"
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gmnjv"]
+size = Vector2(8, 23)
+
+[sub_resource type="Resource" id="Resource_0hvdp"]
+script = ExtResource("5_i1cal")
+sustain = 0.4
+release = 0.2
+metadata/_custom_type_script = "uid://jug5afl2e6bd"
 
 [node name="Jelly" instance=ExtResource("1_5dvry")]
 script = ExtResource("2_gmnjv")
+acceleration = 1800
 bomb_cooldown = 3.0
 
 [node name="Sprite2D" parent="." index="0"]
-texture = SubResource("AtlasTexture_xnicf")
+texture = ExtResource("2_8i1wf")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_gmnjv")
 
 [node name="Shoota" parent="." index="2"]
 ammo = ExtResource("4_xnicf")
@@ -29,6 +36,7 @@ pool_mode = 0
 interval = 0.6
 shoot_sfx = &"pew"
 run_and_gun = 0.39
+run_and_gun_envelope = SubResource("Resource_0hvdp")
 
 [node name="Bomb" type="Node2D" parent="." index="3"]
 script = ExtResource("5_gmnjv")

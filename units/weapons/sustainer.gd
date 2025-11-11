@@ -10,3 +10,7 @@ func shoot(towards:Variant = default_direction, parent:Node=null, mask:int=-1) -
 		return null
 	autoshoot_disabled.connect(sustained_bullet._expire, Node.CONNECT_ONE_SHOT)
 	return sustained_bullet
+
+func _ready():
+	super()
+	oneshot=false
