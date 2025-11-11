@@ -1,6 +1,11 @@
 extends Player
 
-func bomb():
+func be_invulernerable_for(seconds: float):
+	invulnerable = true
+	await Utils.delay(seconds)
+	invulnerable = false
+
+func bomb() -> bool:
 	if await super():
 		var dash_direction = sign(direction.x)
 		if not dash_direction:
@@ -8,16 +13,20 @@ func bomb():
 		velocity.x = 1200 * dash_direction
 		get_sprite().visible = false
 		play_sfx("swish")
-		grace_window(0.3)
+		be_invulernerable_for(0.4)
+		await Utils.delay(0.1)
+		get_sprite().visible = true
+
 		return true
 	return false
 
 func choose_frame(delta) -> int:
-	if abs(velocity.x) > 800:
+	if alive and abs(velocity.x) > 800:
 		return Frames.SPECIAL
 	return super(delta)
 
 func _process(delta):
 	super(delta)
-	if bomb_active_time() < 0.4:
+	if bomb_active_time() < 0.1:
+		print("shooting inhibited")
 		shoota.autoshoot = false
