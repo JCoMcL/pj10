@@ -8,7 +8,6 @@ var timer: SceneTreeTimer
 func _initialize(u: Unit):
 	if timer and timer.timeout.is_connected(u._hit):
 		timer.timeout.disconnect(u._hit)
-		print("Fixie wixie")
 	timer = u.get_tree().create_timer(
 		fuse_time + randf_range(fuse_time*variability*0.5, fuse_time*variability*-0.5)
 	)
