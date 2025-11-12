@@ -21,6 +21,9 @@ func nudge(n: Node2D, x=0.0, y=0.0):
 	n.position += Vector2(x,y)
 	n.reset_physics_interpolation()
 
+func splash(n: Node2D):
+	Vfx.play("pulse", n)
+
 # --- Spawning ---
 
 func get_spawnpoint(s: StringName) -> SpawnPoint:
@@ -76,10 +79,13 @@ func start():
 	await Utils.delay(6)
 	await spawn_right_interceptors()
 	await Utils.delay(15)
-	await spawn_chain(marten, "CenterSpawn", 2, 2.0, spread)
+	var f = func(n:Node2D):
+		spread(n)
+		splash(n)
+	await spawn_chain(marten, "CenterSpawn", 2, 2.0, f)
 	await Utils.delay(5)
-	spawn_at(marten, "PincerSpawn")
+	spawn_at(marten, "PincerSpawn", f)
 	await Utils.delay(1)
-	spawn_at(marten, "PincerSpawn_M")
+	spawn_at(marten, "PincerSpawn_M", f)
 
 	finish_up()

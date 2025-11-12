@@ -5,6 +5,5 @@
 
 [node name="VEffect" type="Sprite2D"]
 texture = ExtResource("1_kb015")
-hframes = 7
 script = ExtResource("2_kb015")
 metadata/_custom_type_script = "uid://dfdmh2caox5my"

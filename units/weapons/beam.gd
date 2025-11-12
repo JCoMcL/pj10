@@ -1,11 +1,11 @@
 extends Unit
 
 @export var max_range = 1000
-@export_range(0.001, 20, 0.1, "suffix:Hz") var hitrate = 1.0 #NOTE: limited by physics tick rate
+@export_range(0.001, 20, 0.1, "suffix:Hz") var hitrate = 1.0
 
 var line: Line2D
 var pq: PhysicsRayQueryParameters2D
-var timer: SceneTreeTimer
+var contact_effect: VFXSprite
 func _ready():
 	super()
 	pq = PhysicsRayQueryParameters2D.new()
@@ -15,6 +15,19 @@ func _ready():
 	line.add_point(Vector2.ZERO)
 	line.add_point(Vector2.ZERO)
 
+func wakeup():
+	super()
+	if not contact_effect:
+		contact_effect = Vfx.play_looping("scorch", self)
+		contact_effect.flip_v = true
+
+func _expire():
+	if contact_effect:
+		contact_effect.stop()
+		contact_effect = null
+	super()
+
+@onready var damage_cumer: Cumer = Cumer.new(hitrate)
 func _physics_process(delta: float) -> void:
 	super(delta)
 	pq.from = global_position
@@ -24,10 +37,15 @@ func _physics_process(delta: float) -> void:
 	var result = get_world_2d().direct_space_state.intersect_ray(pq)
 	if result:
 		endpoint = result.position - global_position
-		if not (timer and timer.time_left):
+		damage_cumer.add(delta)
+		for i in range(damage_cumer.cycles_accumulated()):
 			handle_collision(result.collider)
-			timer = get_tree().create_timer(1.0/hitrate)
+	else:
+		damage_cumer.reset()
+
+			#await Vfx.play("pop", self, line.get_point_position(1))
 	line.set_point_position(1, endpoint / global_scale)
+	contact_effect.global_position = global_position + (line.get_point_position(1) * global_scale)
 
 func _get_configuration_warnings():
 	var out = super()

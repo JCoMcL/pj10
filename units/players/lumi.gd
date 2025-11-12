@@ -28,5 +28,4 @@ func choose_frame(delta) -> int:
 func _process(delta):
 	super(delta)
 	if bomb_active_time() < 0.1:
-		print("shooting inhibited")
 		shoota.autoshoot = false

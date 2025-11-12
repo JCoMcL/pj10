@@ -21,6 +21,7 @@ Utils="*res://tools/utils.gd"
 Direction="*res://tools/direction.gd"
 GlobalSFXPlayer="*res://audio/sound_effects.gd"
 Fuckit="*res://tools/fuckit_bucket.gd"
+Vfx="*res://vfx/vfx.gd"
 
 [debug]
 
@@ -121,6 +122,7 @@ bomb={
 
 [physics]
 
+common/physics_ticks_per_second=20
 common/physics_interpolation=true
 
 [rendering]

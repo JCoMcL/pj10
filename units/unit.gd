@@ -61,6 +61,9 @@ func _expire():
 
 signal hit
 func _hit(damage: int = 1) -> int:
+	if not alive:
+		print("Warning: hit after death")
+		return 0
 	current_health -= damage
 	hit.emit()
 	if current_health <= 0:
