@@ -9,8 +9,8 @@
 
 [sub_resource type="Resource" id="Resource_vx4pn"]
 script = ExtResource("6_hg30c")
-attack = 0.5
-release = 0.5
+attack = 0.7
+release = 0.7
 metadata/_custom_type_script = "uid://jug5afl2e6bd"
 
 [node name="Lumi" instance=ExtResource("1_7tlug")]
@@ -28,7 +28,7 @@ position = Vector2(0, -20)
 script = ExtResource("5_vx4pn")
 ammo = ExtResource("6_triik")
 ammo_count = 1
-pool_mode = 0
+pool_mode = 2
 run_and_gun = 0.0
 run_and_gun_envelope = SubResource("Resource_vx4pn")
 windup_time = 0.8

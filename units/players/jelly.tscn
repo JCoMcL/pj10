@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://do4kgcgelx4o2" path="res://units/players/player_character.tscn" id="1_5dvry"]
 [ext_resource type="Texture2D" uid="uid://3bs6b0bvfdvj" path="res://units/players/jelly.png" id="2_8i1wf"]
-[ext_resource type="Script" path="res://units/players/jelly.gd" id="2_gmnjv"]
+[ext_resource type="Script" uid="uid://ckukfwmbjjo1q" path="res://units/players/jelly.gd" id="2_gmnjv"]
 [ext_resource type="PackedScene" uid="uid://dool7c70ctjda" path="res://units/weapons/laser.tscn" id="4_xnicf"]
 [ext_resource type="Script" uid="uid://bbav8weitt8f3" path="res://units/weapons/shoota.gd" id="5_gmnjv"]
-[ext_resource type="Script" path="res://tools/envelope.gd" id="5_i1cal"]
+[ext_resource type="Script" uid="uid://jug5afl2e6bd" path="res://tools/envelope.gd" id="5_i1cal"]
 [ext_resource type="PackedScene" uid="uid://d0umuuuxuv1ti" path="res://units/weapons/star.tscn" id="5_mq5pm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gmnjv"]
@@ -42,6 +42,6 @@ run_and_gun_envelope = SubResource("Resource_0hvdp")
 script = ExtResource("5_gmnjv")
 ammo = ExtResource("5_mq5pm")
 ammo_count = 1
-pool_mode = 2
+pool_mode = 1
 shoot_sfx = &"eeowm"
 metadata/_custom_type_script = "uid://bbav8weitt8f3"

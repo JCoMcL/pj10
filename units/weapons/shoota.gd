@@ -76,7 +76,6 @@ func shoot(towards:Variant = default_direction, parent:Node=null, mask:int=-1) -
 	if windup_countdown > 0:
 		var status = await windup_ended #pls no race condition
 		if not status:
-			print("windup cancelled")
 			return null
 
 	var direction = resolve_direction(towards)
@@ -93,7 +92,7 @@ func shoot(towards:Variant = default_direction, parent:Node=null, mask:int=-1) -
 
 	var bullet: Unit
 	if bullet_pool:
-		bullet = await bullet_pool.next(parent)
+		bullet = bullet_pool.next(parent)
 	if bullet:
 		assert(bullet is Unit)
 		bullet.collision_mask = mask
