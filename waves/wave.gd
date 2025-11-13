@@ -22,7 +22,7 @@ func nudge(n: Node2D, x=0.0, y=0.0):
 	n.reset_physics_interpolation()
 
 func splash(n: Node2D):
-	Vfx.play("pulse", n)
+	Vfx.play("flash", n)
 
 # --- Spawning ---
 
