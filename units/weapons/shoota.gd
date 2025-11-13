@@ -22,6 +22,8 @@ class_name Shoota
 @export_range(0,1) var run_and_gun: float = 1
 @export var run_and_gun_envelope: Envelope
 @export var windup_time = 0.0
+@export var windup_sfx = ""
+@export var windup_sfx_envelope: Envelope
 
 signal points_claimed(int)
 
@@ -48,7 +50,7 @@ func get_speed_modifier() -> float:
 
 func find_first_node_not_under_unit() -> Node:
 	var ancestry = Utils.get_ancestry(self)
-	var candidate: Node
+	var candidate: Node = null
 	for n in ancestry:
 		if n is Unit or n is FauxUnit:
 			return candidate
@@ -63,9 +65,12 @@ func resolve_direction(towards:Variant) -> Vector2:
 	assert(false)
 	return default_direction
 
+var windup_sfx_control: SFXPlayer.SFXControl
 var winding_up = false
 func windup():
 	windup_countdown = windup_time
+	if windup_sfx and windup_countdown:
+		windup_sfx_control = SFXPlayer.get_sfx_player(self).play_sfx(windup_sfx)
 	winding_up = true
 	windup_started.emit()
 
@@ -75,6 +80,9 @@ func shoot(towards:Variant = default_direction, parent:Node=null, mask:int=-1) -
 	windup()
 	if windup_countdown > 0:
 		var status = await windup_ended #pls no race condition
+		if windup_sfx_control:
+			windup_sfx_control.stop()
+			windup_sfx_control = null
 		if not status:
 			return null
 

@@ -22,20 +22,45 @@ func get_playback(audio_player: Node) -> AudioStreamPlayback:
 	plays_back[audio_player] = audio_player.get_stream_playback()
 	return get_playback(audio_player)
 
+class SFXControl:
+	var master
+	var id
+	var label
+	func _init(master:AudioStreamPlaybackPolyphonic , id: int, label: String):
+		#assert(id != AudioStreamPlaybackPolyphonic.INVALID_ID)
+		self.master = master
+		self.id = id
+		self.label = label
+
+	func valid() -> bool:
+		return master.is_stream_playing(id)
+
+	func set_volume(volume_db: float) -> bool:
+		if not valid():
+			return false
+		master.set_stream_volume(id, volume_db)
+		return true
+
+	func stop():
+		master.stop_stream(id)
+
 var playback:AudioStreamPlaybackPolyphonic
 var relay_playback: AudioStreamPlaybackPolyphonic
-func play_sfx(effect_name: String) -> bool:
+func play_sfx(effect_name: String) -> SFXControl:
 	if not sfx:
 		_build_sfx_table()
 	if not sfx.has(effect_name):
-		return false
+		return null
 
-	get_playback(self).play_stream(sfx[effect_name])
+	var id: int
+	var pb = get_playback(self)
+	id = pb.play_stream(sfx[effect_name])
 	if Fuckit.audio_relays.has(self):
 		var relay = Fuckit.audio_relays[self]
 		if is_instance_valid(relay):
-			get_playback(relay).play_stream(sfx[effect_name])
-	return true
+			pb = get_playback(relay)
+			id = pb.play_stream(sfx[effect_name])
+	return SFXControl.new(pb, id, effect_name)
 
 static func get_sfx_player(from: Node) -> SFXPlayer:
 	if "_sfx_player" in from and from._sfx_player is SFXPlayer:

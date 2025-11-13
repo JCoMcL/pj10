@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://civ3r62diebkh"]
+[gd_scene load_steps=21 format=3 uid="uid://civ3r62diebkh"]
 
 [ext_resource type="Script" uid="uid://hmnb8xcddo0d" path="res://game.gd" id="1_2u8fv"]
 [ext_resource type="Script" uid="uid://dy0t0sdbw1h2a" path="res://play_area.gd" id="2_2u8fv"]
@@ -16,14 +16,16 @@
 [ext_resource type="Script" uid="uid://c2rurlqhkqaou" path="res://audio/sound_effects.gd" id="13_3pn3u"]
 [ext_resource type="Script" uid="uid://dwgcxwg7bm3vr" path="res://audio/soundtrack.gd" id="16_r0y7k"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_f1sqh"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_847uq"]
 size = Vector2(512, 445)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r0y7k"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_f1sqh"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rq143"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kxb8h"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_jn53l"]
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("play_area", "new_entity_region", "lives", "player_spawn_point", "sfx_player", "dialgoue_screens")]
 script = ExtResource("1_2u8fv")
@@ -41,7 +43,6 @@ collision_layer = 16
 collision_mask = 32
 script = ExtResource("2_2u8fv")
 top_padding = 35
-ceiling = false
 viewable = true
 metadata/_custom_type_script = "uid://dy0t0sdbw1h2a"
 
@@ -62,7 +63,7 @@ script = ExtResource("8_f1sqh")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea"]
 visible = false
 position = Vector2(256, 257.5)
-shape = SubResource("RectangleShape2D_f1sqh")
+shape = SubResource("RectangleShape2D_847uq")
 
 [node name="Background" type="ColorRect" parent="PlayArea"]
 z_index = -1
@@ -109,7 +110,7 @@ position = Vector2(256, 480)
 collision_layer = 129
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/DownWall"]
-shape = SubResource("WorldBoundaryShape2D_rq143")
+shape = SubResource("WorldBoundaryShape2D_r0y7k")
 one_way_collision = true
 one_way_collision_margin = 50.0
 
@@ -120,7 +121,7 @@ collision_layer = 9
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/LeftWall"]
 position = Vector2(-2, -1.5)
 rotation = 1.5707964
-shape = SubResource("WorldBoundaryShape2D_kxb8h")
+shape = SubResource("WorldBoundaryShape2D_f1sqh")
 one_way_collision = true
 one_way_collision_margin = 50.0
 
@@ -130,7 +131,17 @@ collision_layer = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/RightWall"]
 rotation = -1.5707964
-shape = SubResource("WorldBoundaryShape2D_jn53l")
+shape = SubResource("WorldBoundaryShape2D_rq143")
+one_way_collision = true
+one_way_collision_margin = 50.0
+
+[node name="UpWall" type="StaticBody2D" parent="PlayArea"]
+position = Vector2(256, 35)
+collision_layer = 257
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/UpWall"]
+rotation = -3.1415927
+shape = SubResource("WorldBoundaryShape2D_kxb8h")
 one_way_collision = true
 one_way_collision_margin = 50.0
 
