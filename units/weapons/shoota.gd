@@ -18,7 +18,7 @@ class_name Shoota
 		autoshoot = b
 @export var oneshot = false
 @export var default_direction = Vector2.UP
-@export var shoot_sfx: StringName = "bew"
+@export var shoot_fx: Array[FXID]
 @export_range(0,1) var run_and_gun: float = 1
 @export var run_and_gun_envelope: Envelope
 @export var windup_time = 0.0
@@ -111,8 +111,8 @@ func shoot(towards:Variant = default_direction, parent:Node=null, mask:int=-1) -
 			bullet.points_claimed.connect(points_claimed.emit)
 
 		bullet.wakeup() # call wakeup again once everything's set incase some of it was important
-
-		SFXPlayer.get_sfx_player(self).play_sfx(shoot_sfx)
+		for fx in shoot_fx:
+			fx.play(self)
 
 		if oneshot:
 			autoshoot_in_loop = false

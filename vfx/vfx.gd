@@ -18,8 +18,11 @@ func get_animation(id: StringName) -> Subframes:
 
 func play(id: StringName, at:Node2D, offset: Vector2=Vector2.ZERO) -> VFXSprite:
 	var vs:VFXSprite = acquire(at, offset)
+	if has_method(id):
+		self[id].call(vs)
 	vs.play(get_animation(id))
 	return vs
+
 
 func play_looping(id: StringName, at:Node2D, offset: Vector2=Vector2.ZERO) -> VFXSprite:
 	var vs:VFXSprite = acquire(at, offset)
@@ -30,10 +33,12 @@ class Subframes:
 	var start: int
 	var end: int
 	var rate: int
-	func _init(start, end, rate=20):
+	var label: StringName
+	func _init(start, end, rate, label):
 		self.start = start
 		self.end = end
 		self.rate = rate
+		self.label = label
 
 var json = preload("res://vfx/vfx.json")
 var effects: Dictionary
@@ -48,7 +53,8 @@ func _ready():
 		var v = Subframes.new(
 			int(tag.from),
 			int(tag.to),
-			tag.data if tag.has("data") else 20
+			tag.data if tag.has("data") else 20,
+			tag.name
 		)
 		if k != tag.name: # contains numbers and is therefore part of a group
 			if effects.has(k):

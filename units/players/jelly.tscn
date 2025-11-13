@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://rex66rah1v0f"]
+[gd_scene load_steps=14 format=3 uid="uid://rex66rah1v0f"]
 
 [ext_resource type="PackedScene" uid="uid://do4kgcgelx4o2" path="res://units/players/player_character.tscn" id="1_5dvry"]
 [ext_resource type="Texture2D" uid="uid://3bs6b0bvfdvj" path="res://units/players/jelly.png" id="2_8i1wf"]
@@ -7,15 +7,27 @@
 [ext_resource type="Script" uid="uid://bbav8weitt8f3" path="res://units/weapons/shoota.gd" id="5_gmnjv"]
 [ext_resource type="Script" uid="uid://jug5afl2e6bd" path="res://tools/envelope.gd" id="5_i1cal"]
 [ext_resource type="PackedScene" uid="uid://d0umuuuxuv1ti" path="res://units/weapons/star.tscn" id="5_mq5pm"]
+[ext_resource type="Script" uid="uid://odvv521nnvfb" path="res://vfx/fxid/fxid.gd" id="8_0hvdp"]
+[ext_resource type="Script" uid="uid://b1ydwg3kwttbo" path="res://vfx/fxid/sfxid.gd" id="9_qfekx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gmnjv"]
 size = Vector2(8, 23)
+
+[sub_resource type="Resource" id="Resource_qfekx"]
+script = ExtResource("9_qfekx")
+id = &"pew"
+metadata/_custom_type_script = "uid://b1ydwg3kwttbo"
 
 [sub_resource type="Resource" id="Resource_0hvdp"]
 script = ExtResource("5_i1cal")
 sustain = 0.4
 release = 0.2
 metadata/_custom_type_script = "uid://jug5afl2e6bd"
+
+[sub_resource type="Resource" id="Resource_tqof4"]
+script = ExtResource("9_qfekx")
+id = &"eeowm"
+metadata/_custom_type_script = "uid://b1ydwg3kwttbo"
 
 [node name="Jelly" instance=ExtResource("1_5dvry")]
 script = ExtResource("2_gmnjv")
@@ -34,7 +46,7 @@ ammo = ExtResource("4_xnicf")
 ammo_count = 1
 pool_mode = 0
 interval = 0.6
-shoot_sfx = &"pew"
+shoot_fx = Array[ExtResource("8_0hvdp")]([SubResource("Resource_qfekx")])
 run_and_gun = 0.39
 run_and_gun_envelope = SubResource("Resource_0hvdp")
 
@@ -43,5 +55,5 @@ script = ExtResource("5_gmnjv")
 ammo = ExtResource("5_mq5pm")
 ammo_count = 1
 pool_mode = 1
-shoot_sfx = &"eeowm"
+shoot_fx = Array[ExtResource("8_0hvdp")]([SubResource("Resource_tqof4")])
 metadata/_custom_type_script = "uid://bbav8weitt8f3"

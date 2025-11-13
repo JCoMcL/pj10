@@ -149,7 +149,11 @@ var frame_accum = 0
 func _process(delta):
 	shoota.autoshoot=input_tracker.firing and alive
 	if alive:
-		bomb_countdown = max(0, bomb_countdown - delta)
+		if bomb_countdown > 0:
+			bomb_countdown = bomb_countdown - delta
+		if bomb_countdown < 0: #rare case where it's exactly zero and this doesn't trigger
+			play_sfx("blip")
+			bomb_countdown = 0
 		direction.x = input_tracker.movement_input.x
 	else:
 		direction = Vector2.ZERO

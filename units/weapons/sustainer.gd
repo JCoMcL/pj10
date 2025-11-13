@@ -18,6 +18,7 @@ func shoot(towards:Variant = default_direction, parent:Node=null, mask:int=-1) -
 	sustained_bullet = await super(towards, self, mask)
 	if not sustained_bullet:
 		return null
+	SFXPlayer.get_sfx_player(self).play_sfx(sustain_sfx)
 	return sustained_bullet
 
 func set_sfx_cumer():

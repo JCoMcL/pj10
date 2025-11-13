@@ -2,14 +2,8 @@ extends Unit
 class_name Bullet
 
 @export var payload: PackedScene
-@export var hit_sfx = "pip"
-@export var hit_vfx = "snap"
 
 func _expire():
-	if hit_sfx:
-		play_sfx(hit_sfx)
-	if hit_vfx:
-		Vfx.play(hit_vfx, self)
 	if not alive:
 		return
 	if payload_instance:

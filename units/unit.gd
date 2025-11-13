@@ -6,6 +6,7 @@ extends CharacterBody2D
 @export var auto_free = true
 @export var points_worth = 0
 @export var expire_outside_play_area = false
+@export var expire_fx: Array[FXID]
 
 signal expire
 @onready var current_health:int  = health
@@ -55,6 +56,8 @@ func _expire():
 		return
 	alive = false
 	velocity = Vector2.ZERO
+	for fx in expire_fx:
+		fx.play(self)
 	expire.emit()
 	if auto_free:
 		queue_free()
