@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bc6lg0ushliyj"]
+[gd_scene load_steps=11 format=3 uid="uid://bc6lg0ushliyj"]
 
 [ext_resource type="PackedScene" uid="uid://do4kgcgelx4o2" path="res://units/players/player_character.tscn" id="1_7tlug"]
 [ext_resource type="Script" uid="uid://brjwqlyiq7c2l" path="res://units/players/lumi.gd" id="2_40uyx"]
@@ -6,6 +6,13 @@
 [ext_resource type="Script" uid="uid://g3sb0piig0rh" path="res://units/weapons/sustainer.gd" id="5_vx4pn"]
 [ext_resource type="Script" uid="uid://jug5afl2e6bd" path="res://tools/envelope.gd" id="6_hg30c"]
 [ext_resource type="PackedScene" uid="uid://du58m1l12sjp3" path="res://units/weapons/beam.tscn" id="6_triik"]
+[ext_resource type="Script" uid="uid://odvv521nnvfb" path="res://vfx/fxid/fxid.gd" id="6_ul16y"]
+[ext_resource type="Script" uid="uid://b1ydwg3kwttbo" path="res://vfx/fxid/sfxid.gd" id="7_5tc3g"]
+
+[sub_resource type="Resource" id="Resource_i2hi7"]
+script = ExtResource("7_5tc3g")
+id = &"bew1"
+metadata/_custom_type_script = "uid://b1ydwg3kwttbo"
 
 [sub_resource type="Resource" id="Resource_vx4pn"]
 script = ExtResource("6_hg30c")
@@ -31,7 +38,7 @@ sustain_sfx_rate = 8.135
 ammo = ExtResource("6_triik")
 ammo_count = 1
 pool_mode = 2
-shoot_sfx = &"bew1"
+shoot_fx = Array[ExtResource("6_ul16y")]([SubResource("Resource_i2hi7")])
 run_and_gun = 0.0
 run_and_gun_envelope = SubResource("Resource_vx4pn")
 windup_time = 0.8
