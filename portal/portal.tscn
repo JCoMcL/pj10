@@ -228,17 +228,14 @@ animations = [{
 
 [node name="Body" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_21lw5")
-animation = &"closing"
 autoplay = "opening"
 script = ExtResource("2_grrij")
 
 [node name="Swirl" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_pbp66")
 autoplay = "default"
-frame_progress = 0.0152203
 
 [node name="Sheen" type="AnimatedSprite2D" parent="."]
 position = Vector2(-0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_rby5x")
 autoplay = "default"
-frame_progress = 0.11646

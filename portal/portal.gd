@@ -25,11 +25,8 @@ func opening_anim():
 	var sfx = SFXPlayer.get_sfx_player(self)
 	sfx.play_sfx("kshrum")
 	animation_finished.connect(idle_anim, CONNECT_ONE_SHOT)
-	
+
 func _ready():
 	visible=false
-	await Utils.delay(3)
 	opening_anim.call_deferred()
-	await Utils.delay(3)
-	closing_anim()
-	
+
