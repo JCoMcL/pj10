@@ -20,7 +20,10 @@ func warn(s):
 		push_warning("Warning: " + s)
 
 func return_to_pool(n: Node):
-	n.get_parent().remove_child(n)
+	if n.get_parent():
+		n.get_parent().remove_child(n)
+	else:
+		print("Warn: While returning %s to pool, %s has no parent!")
 
 func add(n: Node) -> Node:
 	assert("expire" in n and n.expire is Signal)
