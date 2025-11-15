@@ -9,11 +9,12 @@ class_name EffectSprite2D
 @export var random_hflip = false
 @export var random_vflip = false
 
-func randomize_sprite():
+func randomize_sprite(forbid_same_frame=false):
 	if randomize_frames:
-		var curr_frame = frame
-		while frame == curr_frame:
-			frame = range(randomize_frames).pick_random()
+		var new_frame = -1
+		while new_frame == -1 or (frame == new_frame and forbid_same_frame):
+			new_frame = range(randomize_frames).pick_random()
+		frame = new_frame
 	if random_hflip:
 		flip_h = randf() > 0.5
 	if random_vflip:
@@ -41,7 +42,7 @@ func reset() -> void:
 func _ready() -> void:
 	randomize_sprite()
 	if randomize_rate > 0:
-		cumers.append(Cumer.new(randomize_rate, randomize_sprite))
+		cumers.append(Cumer.new(randomize_rate, randomize_sprite.bind(true)))
 	if animation_frames and animation_rate > 0:
 		cumers.append(Cumer.new(animation_rate, advance_animation))
 	if strobe_rate:

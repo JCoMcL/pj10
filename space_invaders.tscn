@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://civ3r62diebkh"]
+[gd_scene load_steps=23 format=3 uid="uid://civ3r62diebkh"]
 
 [ext_resource type="Script" uid="uid://hmnb8xcddo0d" path="res://game.gd" id="1_2u8fv"]
 [ext_resource type="Script" uid="uid://dy0t0sdbw1h2a" path="res://play_area.gd" id="2_2u8fv"]
@@ -6,8 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://cepq07bhxard5" path="res://ui/header.tscn" id="3_hm1og"]
 [ext_resource type="Theme" uid="uid://bnc4gesw2cmsb" path="res://ui/theme.tres" id="3_hu1xn"]
 [ext_resource type="Script" uid="uid://c1xo8svguvebh" path="res://ui/status_label.gd" id="4_ep106"]
+[ext_resource type="Texture2D" uid="uid://dlcuolwxlbrkn" path="res://gravestones.png" id="6_f1sqh"]
 [ext_resource type="PackedScene" uid="uid://t6vey86s1202" path="res://ui/character_select.tscn" id="6_jn53l"]
 [ext_resource type="Script" uid="uid://1dgxw6sw6l6f" path="res://ui/bomb_indicator.gd" id="8_f1sqh"]
+[ext_resource type="Texture2D" uid="uid://bb45cto4i7ru" path="res://environment.png" id="9_r0y7k"]
 [ext_resource type="Texture2D" uid="uid://7t10nkvoqex0" path="res://arcade/level/moon.png" id="10_uxjvs"]
 [ext_resource type="Script" uid="uid://dfdmh2caox5my" path="res://vfx/effect_sprite.gd" id="11_3pn3u"]
 [ext_resource type="Script" uid="uid://b2wj6hdp3fpmf" path="res://player_spawn.gd" id="11_150to"]
@@ -16,16 +18,16 @@
 [ext_resource type="Script" uid="uid://c2rurlqhkqaou" path="res://audio/sound_effects.gd" id="13_3pn3u"]
 [ext_resource type="Script" uid="uid://dwgcxwg7bm3vr" path="res://audio/soundtrack.gd" id="16_r0y7k"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_847uq"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r0y7k"]
 size = Vector2(512, 445)
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r0y7k"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_f1sqh"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rq143"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kxb8h"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_jn53l"]
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("play_area", "new_entity_region", "lives", "player_spawn_point", "sfx_player", "dialgoue_screens")]
 script = ExtResource("1_2u8fv")
@@ -63,14 +65,91 @@ script = ExtResource("8_f1sqh")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea"]
 visible = false
 position = Vector2(256, 257.5)
-shape = SubResource("RectangleShape2D_847uq")
+shape = SubResource("RectangleShape2D_r0y7k")
 
 [node name="Background" type="ColorRect" parent="PlayArea"]
 z_index = -1
 offset_top = 35.0
-offset_right = 512.0
-offset_bottom = 480.0
-color = Color(0.0431373, 0.0470588, 0.0862745, 1)
+offset_right = 256.0
+offset_bottom = 257.5
+scale = Vector2(2, 2)
+color = Color(0.011764706, 0.015686275, 0.03529412, 1)
+
+[node name="Floor" type="TextureRect" parent="PlayArea/Background"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("9_r0y7k")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Gravestone" type="Sprite2D" parent="PlayArea/Background/Floor"]
+show_behind_parent = true
+position = Vector2(28, 11.5)
+texture = ExtResource("6_f1sqh")
+vframes = 4
+script = ExtResource("11_3pn3u")
+randomize_frames = 4
+random_hflip = true
+
+[node name="Gravestone2" type="Sprite2D" parent="PlayArea/Background/Floor"]
+show_behind_parent = true
+position = Vector2(60.5, 11.5)
+texture = ExtResource("6_f1sqh")
+vframes = 4
+script = ExtResource("11_3pn3u")
+randomize_frames = 4
+random_hflip = true
+
+[node name="Gravestone3" type="Sprite2D" parent="PlayArea/Background/Floor"]
+show_behind_parent = true
+position = Vector2(80.5, 14.5)
+texture = ExtResource("6_f1sqh")
+vframes = 4
+script = ExtResource("11_3pn3u")
+randomize_frames = 4
+random_hflip = true
+
+[node name="Gravestone4" type="Sprite2D" parent="PlayArea/Background/Floor"]
+show_behind_parent = true
+position = Vector2(117, 16)
+texture = ExtResource("6_f1sqh")
+vframes = 4
+script = ExtResource("11_3pn3u")
+randomize_frames = 4
+random_hflip = true
+
+[node name="Gravestone5" type="Sprite2D" parent="PlayArea/Background/Floor"]
+show_behind_parent = true
+position = Vector2(184.5, 11.5)
+texture = ExtResource("6_f1sqh")
+vframes = 4
+script = ExtResource("11_3pn3u")
+randomize_frames = 4
+random_hflip = true
+
+[node name="Gravestone6" type="Sprite2D" parent="PlayArea/Background/Floor"]
+show_behind_parent = true
+position = Vector2(229, 12.5)
+texture = ExtResource("6_f1sqh")
+vframes = 4
+script = ExtResource("11_3pn3u")
+randomize_frames = 4
+random_hflip = true
+
+[node name="Gravestone7" type="Sprite2D" parent="PlayArea/Background/Floor"]
+show_behind_parent = true
+position = Vector2(249, 13)
+texture = ExtResource("6_f1sqh")
+vframes = 4
+script = ExtResource("11_3pn3u")
+randomize_frames = 4
+random_hflip = true
 
 [node name="Foreground" type="Control" parent="PlayArea"]
 z_index = 1
@@ -106,11 +185,11 @@ offset_right = 0.0
 offset_bottom = 0.0
 
 [node name="DownWall" type="StaticBody2D" parent="PlayArea"]
-position = Vector2(256, 480)
+position = Vector2(256, 468)
 collision_layer = 129
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/DownWall"]
-shape = SubResource("WorldBoundaryShape2D_r0y7k")
+shape = SubResource("WorldBoundaryShape2D_f1sqh")
 one_way_collision = true
 one_way_collision_margin = 50.0
 
@@ -121,7 +200,7 @@ collision_layer = 9
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/LeftWall"]
 position = Vector2(-2, -1.5)
 rotation = 1.5707964
-shape = SubResource("WorldBoundaryShape2D_f1sqh")
+shape = SubResource("WorldBoundaryShape2D_rq143")
 one_way_collision = true
 one_way_collision_margin = 50.0
 
@@ -131,7 +210,7 @@ collision_layer = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/RightWall"]
 rotation = -1.5707964
-shape = SubResource("WorldBoundaryShape2D_rq143")
+shape = SubResource("WorldBoundaryShape2D_kxb8h")
 one_way_collision = true
 one_way_collision_margin = 50.0
 
@@ -141,7 +220,7 @@ collision_layer = 257
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/UpWall"]
 rotation = -3.1415927
-shape = SubResource("WorldBoundaryShape2D_kxb8h")
+shape = SubResource("WorldBoundaryShape2D_jn53l")
 one_way_collision = true
 one_way_collision_margin = 50.0
 
@@ -171,9 +250,10 @@ metadata/_custom_type_script = "uid://bn8bpshcm5u4k"
 
 [node name="Moon" type="Sprite2D" parent="Scaling"]
 position = Vector2(60, 71)
+rotation = 0.011099183
 texture = ExtResource("10_uxjvs")
 hframes = 6
-frame = 5
+frame = 3
 script = ExtResource("11_3pn3u")
 
 [node name="CenterSpawn" type="Marker2D" parent="Scaling"]
@@ -196,7 +276,6 @@ script = ExtResource("13_3pn3u")
 
 [node name="Soundtrack" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_uxjvs")
-volume_db = -14.4
 autoplay = true
 bus = &"2D"
 script = ExtResource("16_r0y7k")

@@ -14,9 +14,12 @@ class_name PlayArea
 
 @export_range(0, 480) var top_padding = 24:
 	set(p):
-		top_padding = min(p, height-24)
+		top_padding = min(p, height-bottom_padding-24)
 		refresh()
 
+@export var bottom_padding = 12:
+	set(p):
+		bottom_padding = min(p, height-top_padding-12)
 @export var ceiling = true:
 	set(b):
 		if not b and has_node("UpWall"):
@@ -105,7 +108,8 @@ func set_region(w,h):
 	shape.visible = false
 
 	var background = get_background()
-	background.size = end - end_pad
+	background.size = (end - end_pad) / 2
+	background.scale = Vector2.ONE * 2
 	background.z_index = -1
 	background.position.y = top_padding
 
@@ -126,6 +130,9 @@ func set_region(w,h):
 			wall_collider.rotation = Direction.to_radians(direction) - (PI /2)
 			wall_collider.one_way_collision = true
 			wall_collider.one_way_collision_margin = 50
+	
+	var floor = get_wall(Direction.DOWN)
+	floor.position.y -= bottom_padding
 
 func setup_region():
 	set_region(width, height)
