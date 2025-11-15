@@ -29,7 +29,7 @@ func relay(a2d: AudioStreamPlayer2D) -> AudioStreamPlayer3D:
 	a.playing = a2d.playing
 	a.stream = a2d.stream
 	a.stream_paused = a2d.stream_paused
-	a.volume_db = a2d.volume_db
+	a.volume_db = a2d.volume_db + speaker.volume_db
 
 	a.attenuation_model = speaker.attenuation_model
 	a.panning_strength = speaker.panning_strength
