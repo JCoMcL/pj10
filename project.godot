@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="pj10"
-run/main_scene="uid://dn73q1c7tasit"
+run/main_scene="uid://s0lx8ss7i715"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -29,17 +29,17 @@ gdscript/warnings/unused_parameter=0
 
 [display]
 
-window/size/viewport_width=512
-window/size/viewport_height=480
 window/size/resizable=false
 
 [editor]
 
+movie_writer/video_quality=1.0
 movie_writer/movie_file="/home/jcomcl/src/pj10/export/movie.mp4.avi"
 
 [file_customization]
 
 folder_colors={
+"res://arcade/": "red",
 "res://ui/": "green",
 "res://units/": "blue",
 "res://units/enemies/": "teal",

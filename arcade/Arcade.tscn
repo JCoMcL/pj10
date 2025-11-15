@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://pgkw6db8mrc" path="res://arcade/level/level.glb" id="2_vciaq"]
 [ext_resource type="PackedScene" uid="uid://c2vmgj4mex45g" path="res://arcade/arcade_cabinet.tscn" id="3_og5px"]
 [ext_resource type="PackedScene" uid="uid://c4lccs8l5darl" path="res://addons/godot4.3_fps_character_controller/Player/player.tscn" id="4_tey2p"]
-[ext_resource type="Script" uid="uid://bc47ccwfqefpq" path="res://sub_viewport.gd" id="5_5ah18"]
-[ext_resource type="PackedScene" uid="uid://dn73q1c7tasit" path="res://main.tscn" id="6_w05ub"]
+[ext_resource type="PackedScene" uid="uid://ba1wgpi1qcq0e" path="res://arcade/game_viewport.tscn" id="5_aablb"]
+[ext_resource type="PackedScene" uid="uid://civ3r62diebkh" path="res://space_invaders.tscn" id="6_vciaq"]
 [ext_resource type="Script" uid="uid://dyryi34waf0fr" path="res://arcade/break_switch.gd" id="7_xs0yj"]
 [ext_resource type="AudioStream" uid="uid://dwa1rb7rh7rho" path="res://audio/sfx/breaker_switch.wav" id="8_dw2wl"]
 [ext_resource type="LightmapGIData" uid="uid://c81vafbkddtla" path="res://arcade/Arcade.lmbake" id="9_vciaq"]
@@ -73,14 +73,9 @@ subviewport = NodePath("../SubViewport")
 [node name="Player" parent="." instance=ExtResource("4_tey2p")]
 transform = Transform3D(-0.0192672, 0, -0.999814, 0, 1, 0, 0.999814, 0, -0.0192672, -9.88607, 0, 5.721)
 
-[node name="SubViewport" type="SubViewport" parent="."]
-transparent_bg = true
-handle_input_locally = false
-anisotropic_filtering_level = 0
-canvas_item_default_texture_filter = 0
-size = Vector2i(512, 480)
-script = ExtResource("5_5ah18")
-scene = ExtResource("6_w05ub")
+[node name="SubViewport" parent="." instance=ExtResource("5_aablb")]
+game_scene = ExtResource("6_vciaq")
+default_on = false
 
 [node name="Emergency light" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.73625, 0.736423, 1.14226)

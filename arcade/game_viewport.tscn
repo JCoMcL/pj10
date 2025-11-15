@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://ba1wgpi1qcq0e"]
+
+[ext_resource type="Script" uid="uid://bc47ccwfqefpq" path="res://arcade/game_screen.gd" id="1_7gew2"]
+[ext_resource type="PackedScene" uid="uid://dn73q1c7tasit" path="res://crt_layer.tscn" id="2_r1tqs"]
+
+[node name="SubViewport" type="SubViewport"]
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+script = ExtResource("1_7gew2")
+
+[node name="CRTLayer" parent="." instance=ExtResource("2_r1tqs")]
+layer = 8

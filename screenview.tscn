@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://s0lx8ss7i715"]
+
+[ext_resource type="Script" uid="uid://dkwsi2lqffojm" path="res://screenview.gd" id="1_om12t"]
+[ext_resource type="PackedScene" uid="uid://ba1wgpi1qcq0e" path="res://arcade/game_viewport.tscn" id="1_qgckd"]
+[ext_resource type="PackedScene" uid="uid://civ3r62diebkh" path="res://space_invaders.tscn" id="2_om12t"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_kf8um"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Screenview" type="TextureRect"]
+texture = SubResource("ViewportTexture_kf8um")
+stretch_mode = 2
+script = ExtResource("1_om12t")
+
+[node name="SubViewport" parent="." instance=ExtResource("1_qgckd")]
+audio_listener_enable_2d = true
+game_scene = ExtResource("2_om12t")
