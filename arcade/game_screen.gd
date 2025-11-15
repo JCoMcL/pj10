@@ -1,5 +1,6 @@
 extends SubViewport
 
+@export var resolution_scale = 1.0
 @export var game_scene: PackedScene
 @export var default_on = true
 var layer_scene = preload("res://crt_layer.tscn")
@@ -25,7 +26,7 @@ func on_power_on():
 			size = Vector2i(game.play_area.width, game.play_area.height)
 		if not game.lose.is_connected(restart_game):
 			game.lose.connect(restart_game)
-	crt.resolution = size
+	crt.resolution = size * resolution_scale
 
 func _ready():
 	Fuckit.power_on.connect(on_power_on)

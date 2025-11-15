@@ -23,7 +23,7 @@ func return_to_pool(n: Node):
 	if n.get_parent():
 		n.get_parent().remove_child(n)
 	else:
-		print("Warn: While returning %s to pool, %s has no parent!")
+		print("Warn: While returning %s to pool, %s has no parent!" % n)
 
 func add(n: Node) -> Node:
 	assert("expire" in n and n.expire is Signal)

@@ -8,8 +8,8 @@
 [ext_resource type="Script" uid="uid://c1xo8svguvebh" path="res://ui/status_label.gd" id="4_ep106"]
 [ext_resource type="Texture2D" uid="uid://dlcuolwxlbrkn" path="res://gravestones.png" id="6_f1sqh"]
 [ext_resource type="PackedScene" uid="uid://t6vey86s1202" path="res://ui/character_select.tscn" id="6_jn53l"]
+[ext_resource type="Texture2D" uid="uid://di2ijs4liu8jk" path="res://ground.png" id="6_rq143"]
 [ext_resource type="Script" uid="uid://1dgxw6sw6l6f" path="res://ui/bomb_indicator.gd" id="8_f1sqh"]
-[ext_resource type="Texture2D" uid="uid://bb45cto4i7ru" path="res://environment.png" id="9_r0y7k"]
 [ext_resource type="Texture2D" uid="uid://7t10nkvoqex0" path="res://arcade/level/moon.png" id="10_uxjvs"]
 [ext_resource type="Script" uid="uid://dfdmh2caox5my" path="res://vfx/effect_sprite.gd" id="11_3pn3u"]
 [ext_resource type="Script" uid="uid://b2wj6hdp3fpmf" path="res://player_spawn.gd" id="11_150to"]
@@ -84,7 +84,7 @@ anchor_bottom = 1.0
 offset_top = -32.0
 grow_horizontal = 2
 grow_vertical = 0
-texture = ExtResource("9_r0y7k")
+texture = ExtResource("6_rq143")
 expand_mode = 1
 stretch_mode = 1
 
@@ -253,7 +253,7 @@ position = Vector2(60, 71)
 rotation = 0.011099183
 texture = ExtResource("10_uxjvs")
 hframes = 6
-frame = 3
+frame = 5
 script = ExtResource("11_3pn3u")
 
 [node name="CenterSpawn" type="Marker2D" parent="Scaling"]
