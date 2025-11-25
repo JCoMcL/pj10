@@ -24,8 +24,7 @@ func _on_player_died():
 
 func spawn_player(p: Player):
 	if player_spawn_point:
-		player_spawn_point.add_child(p)
-		p.reparent(new_entity_region)
+		add_to_playfield(p, player_spawn_point)
 	else:
 		new_entity_region.add_child(p)
 	p.wakeup() # TODO maybe this should always be triggered manually?
@@ -66,7 +65,7 @@ static func get_game(from: Node) -> Game:
 		from = from.get_parent()
 	return from
 
-static func add_to_playfield(o: Node2D, from: Node2D):
+static func add_to_playfield(o: Node2D, from: Node2D): #FIXME why is this static? I hate it
 	var parent: Node2D
 	var game = get_game(from)
 	if game:

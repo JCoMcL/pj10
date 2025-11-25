@@ -10,6 +10,19 @@ var _input_down: float
 
 var firing: bool
 
+func sanity_check():
+	if not Input.is_action_pressed("left"):
+		_input_left = 0.0
+	if not Input.is_action_pressed("right"):
+		_input_right = 0.0
+	if not Input.is_action_pressed("up"):
+		_input_up = 0.0
+	if not Input.is_action_pressed("down"):
+		_input_down = 0.0
+
+	if not Input.is_action_pressed("fire"):
+		firing = false
+
 func _input(ev: InputEvent) -> void:
 	if ev.is_action("left"):
 		_input_left = ev.get_action_strength("left")

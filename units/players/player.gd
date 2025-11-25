@@ -40,6 +40,7 @@ func _unhandled_input(ev: InputEvent):
 	if not alive:
 		return
 	input_tracker._input(ev)
+	input_tracker.sanity_check()
 	if ev.is_action_pressed("fire") or ev.is_action_pressed("up"):
 		shoota.shoot(Vector2.UP)
 	elif ev.is_action_pressed("bomb"):
@@ -70,6 +71,7 @@ func wakeup():
 	reset_bomb_cooldown()
 	if auto_ground:
 		move_and_collide(Vector2.DOWN * 1000)
+		reset_physics_interpolation()
 
 func claim_points(points: int):
 	super(points)
