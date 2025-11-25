@@ -38,12 +38,18 @@ func setup_life():
 	if not sprite.frame_changed.is_connected(f):
 		sprite.frame_changed.connect(f, Node.CONNECT_ONE_SHOT)
 
+func revive():
+	if life and not life.alive:
+		life.alive = true
+		texture.set_xy(0,0)
+
 func _on_life_sprite_change(p: Player):
 	if p != life:
 		return
 	var sp:Sprite2D = p.get_sprite()
 	sp.frame_changed.connect(_on_life_sprite_change.bind(life), Node.CONNECT_ONE_SHOT)
-	if texture and texture is HandyAtlas:
+	if texture:
+		assert(texture is HandyAtlas)
 		if sp.frame == Player.Frames.GRAVE:
 			texture.set_xy(Player.Frames.GRAVE, 0)
 		else:

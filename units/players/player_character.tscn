@@ -10,6 +10,7 @@
 size = Vector2(12, 28)
 
 [node name="PlayerCharacter" type="CharacterBody2D"]
+disable_mode = 1
 collision_layer = 2
 script = ExtResource("1_dk4pa")
 acceleration = 2400

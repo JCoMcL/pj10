@@ -88,19 +88,20 @@ func shoot(towards:Variant = default_direction, parent:Node=null, mask:int=-1) -
 
 	var direction = resolve_direction(towards)
 
-	if not parent:
-		var game = Game.get_game(self)
-		if game:
-			parent = game.new_entity_region
-	if not parent:
-		parent = find_first_node_not_under_unit() # yes it really is that complicated
-
 	if mask == -1:
 		mask = Utils.combined_layers(["World", "Friendly", "Enemy"]) & ~get_parent().collision_layer
 
 	var bullet: Unit
 	if bullet_pool:
-		bullet = bullet_pool.next(parent)
+		if parent:
+			bullet = bullet_pool.next(parent)
+		else:
+			var game = Game.get_game(self)
+			if game:
+				bullet = bullet_pool.next(null)
+				Game.add_to_playfield(bullet, self)
+			else:
+				bullet = bullet_pool.next(find_first_node_not_under_unit())
 	if bullet:
 		assert(bullet is Unit)
 		bullet.collision_mask = mask

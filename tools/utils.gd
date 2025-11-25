@@ -27,17 +27,38 @@ func seperate_layers(i: int) -> Array[String]:
 	return out
 
 enum {AREAS, BODIES, AREAS_AND_BODIES}
-func get_objects_at(where: Vector2, mask=65535, collider_type=AREAS_AND_BODIES, world: World2D=null):
-	var pq := PhysicsPointQueryParameters2D.new()
+func configure_query_parameters(pq: Object, mask, collider_type):
 	pq.collide_with_areas = (collider_type == AREAS || collider_type == AREAS_AND_BODIES)
 	pq.collide_with_bodies = (collider_type == BODIES || collider_type == AREAS_AND_BODIES)
 	pq.collision_mask = layers[mask] if mask is String else mask
-	pq.position = where
 
+func get_objects_at(where: Vector2, mask=65535, collider_type=AREAS_AND_BODIES, world: World2D=null) -> Array:
+	var pq := PhysicsPointQueryParameters2D.new()
+	configure_query_parameters(pq, mask, collider_type)
+	pq.position = where
 	if ! world:
 		world=get_viewport().get_world_2d()
 
 	return world.direct_space_state.intersect_point(pq).map(func (d): return d.collider)
+
+func get_objects_under_body(what: Node2D, mask=65532, collider_type=AREAS_AND_BODIES, world: World2D=null) -> Array[Node2D]:
+	var out: Array[Node2D]
+	if what is CollisionObject2D:
+		for c in what.get_children():
+			if c is CollisionShape2D:
+				for result in get_objects_under_body(c, mask, collider_type, world):
+					out.append(result) # This code is not very wheelchair accessible
+	elif what is CollisionShape2D and what.shape:
+		var pq := PhysicsShapeQueryParameters2D.new()
+		pq.shape = what.shape
+		pq.transform = what.global_transform
+		configure_query_parameters(pq, mask, collider_type)
+		if ! world:
+			world=get_viewport().get_world_2d()
+		var result = world.direct_space_state.intersect_shape(pq)
+		for o in result:
+			out.append(o.collider)
+	return out
 
 # --- coordinates ---
 

@@ -23,6 +23,15 @@ func add_life(life: Unit) -> LifeContainer:
 			return c
 	return null
 
+func reclaim_life(dead_life: Unit) -> LifeContainer:
+	for c in get_life_containers():
+		if c.life == dead_life:
+			if dead_life.get_parent():
+				dead_life.get_parent().remove_child(dead_life)
+			c.revive()
+			return c
+	return null
+
 func clear_lives():
 	for c in get_life_containers():
 		c.life = null
