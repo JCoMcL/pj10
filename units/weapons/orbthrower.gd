@@ -34,6 +34,10 @@ func _physics_process(delta: float) -> void:
 					bullet_state[b] = PASSIVE
 
 func spawn_bullet():
+	var p = get_parent()
+	if p and p is Unit and not p.alive:
+		return #cancel if our owner is dead
+
 	await Utils.delay(0.4)
 	var b = await super.shoot()
 	if not is_instance_valid(b): #This occurs when the game is quitting
