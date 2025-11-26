@@ -99,7 +99,8 @@ func shoot(towards:Variant = default_direction, parent:Node=null, mask:int=-1) -
 			var game = Game.get_game(self)
 			if game:
 				bullet = bullet_pool.next(null)
-				Game.add_to_playfield(bullet, self)
+				if bullet:
+					Game.add_to_playfield(bullet, self)
 			else:
 				bullet = bullet_pool.next(find_first_node_not_under_unit())
 	if bullet:

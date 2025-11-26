@@ -82,6 +82,9 @@ func claim_points(points: int):
 
 # May be called multiple times, use wisely
 func wakeup():
+	if not is_inside_tree():
+		print("Warn: %s: attempt wakeup while still outside tree" % self)
+		return
 	alive = true
 	process_mode = Node.PROCESS_MODE_INHERIT
 	current_health = health

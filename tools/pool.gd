@@ -23,7 +23,7 @@ func return_to_pool(n: Node):
 	if n.get_parent():
 		n.get_parent().remove_child(n)
 	else:
-		print("Warn: While returning %s to pool, %s has no parent!" % n)
+		print("Warn: While returning %s to pool, no parent!" % n)
 
 func add(n: Node) -> Node:
 	assert("expire" in n and n.expire is Signal)
@@ -43,6 +43,8 @@ func _init(scn: PackedScene, count: int=2, overdraft_behaviour=Poolmode.EXPAND, 
 		add(n)
 	_default_search = store.size() if use_search else 0
 
+## Attempt to get an item from the pool. Depending on the [param overdraft_behaviour], this may not return a result.
+## If [param parent] is null, the item is returned without being initialized and the caller must initialize it themselves
 func next(parent: Node, search=_default_search) -> Node:
 	var n = store[counter] if store else null
 	if not is_instance_valid(n):
@@ -73,6 +75,7 @@ func next(parent: Node, search=_default_search) -> Node:
 			n.reparent(parent)
 		else:
 			parent.add_child(n)
-	if n.has_method("wakeup"):
-		n.wakeup()
+		if n.has_method("wakeup"):
+			n.wakeup()
+	#else: you have to handle it yourself
 	return n

@@ -147,7 +147,6 @@ func choose_frame(delta: float) -> int:
 		return Frames.PROFILE
 	return Frames.PORTRAIT
 
-var frame_accum = 0
 func _process(delta):
 	shoota.autoshoot=input_tracker.firing and alive
 	if alive:

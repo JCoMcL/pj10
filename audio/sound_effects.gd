@@ -50,6 +50,7 @@ func play_sfx(effect_name: String) -> SFXControl:
 	if not sfx:
 		_build_sfx_table()
 	if not sfx.has(effect_name):
+		print("Warn: no sfx named %s" % effect_name)
 		return null
 
 	var id: int
