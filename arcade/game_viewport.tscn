@@ -9,4 +9,3 @@ canvas_item_default_texture_filter = 0
 script = ExtResource("1_7gew2")
 
 [node name="CRTLayer" parent="." instance=ExtResource("2_r1tqs")]
-layer = 8

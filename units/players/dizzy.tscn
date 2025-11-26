@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://dgyeqcyecu50c"]
+[gd_scene load_steps=14 format=3 uid="uid://dgyeqcyecu50c"]
 
 [ext_resource type="PackedScene" uid="uid://do4kgcgelx4o2" path="res://units/players/player_character.tscn" id="1_2k1ve"]
 [ext_resource type="Texture2D" uid="uid://cks4j15y8ely7" path="res://units/players/dizzy.png" id="2_l7ykn"]
+[ext_resource type="Script" uid="uid://bhia8xj5gcylw" path="res://units/players/dizzy.gd" id="2_tb46d"]
 [ext_resource type="Script" uid="uid://b8bccgwrucbgf" path="res://units/weapons/orbthrower.gd" id="4_0nkv5"]
 [ext_resource type="PackedScene" uid="uid://bcexupn4fuc53" path="res://units/weapons/orb.tscn" id="5_1jacx"]
 [ext_resource type="Script" uid="uid://odvv521nnvfb" path="res://vfx/fxid/fxid.gd" id="5_ko4n6"]
@@ -25,6 +26,7 @@ id = &"form"
 metadata/_custom_type_script = "uid://36fnhkqw2isw"
 
 [node name="Dizzy" instance=ExtResource("1_2k1ve")]
+script = ExtResource("2_tb46d")
 acceleration = 800
 speed = 200
 bomb_icon = 0

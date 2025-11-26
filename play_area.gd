@@ -110,7 +110,7 @@ func set_region(w,h):
 	var background = get_background()
 	background.size = (end - end_pad) / 2
 	background.scale = Vector2.ONE * 2
-	background.z_index = -1
+	background.z_index = -10
 	background.position.y = top_padding
 
 	var foreground = get_foreground()

@@ -18,16 +18,16 @@
 [ext_resource type="Script" uid="uid://c2rurlqhkqaou" path="res://audio/sound_effects.gd" id="13_3pn3u"]
 [ext_resource type="Script" uid="uid://dwgcxwg7bm3vr" path="res://audio/soundtrack.gd" id="16_r0y7k"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_r0y7k"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f1sqh"]
 size = Vector2(512, 445)
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_f1sqh"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rq143"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kxb8h"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_jn53l"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_wveso"]
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("play_area", "new_entity_region", "lives", "player_spawn_point", "sfx_player", "dialgoue_screens")]
 script = ExtResource("1_2u8fv")
@@ -65,10 +65,10 @@ script = ExtResource("8_f1sqh")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea"]
 visible = false
 position = Vector2(256, 257.5)
-shape = SubResource("RectangleShape2D_r0y7k")
+shape = SubResource("RectangleShape2D_f1sqh")
 
 [node name="Background" type="ColorRect" parent="PlayArea"]
-z_index = -1
+z_index = -10
 offset_top = 35.0
 offset_right = 256.0
 offset_bottom = 257.5
@@ -76,6 +76,8 @@ scale = Vector2(2, 2)
 color = Color(0.011764706, 0.015686275, 0.03529412, 1)
 
 [node name="Floor" type="TextureRect" parent="PlayArea/Background"]
+z_index = -1
+z_as_relative = false
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -90,6 +92,7 @@ stretch_mode = 1
 
 [node name="Gravestone" type="Sprite2D" parent="PlayArea/Background/Floor"]
 show_behind_parent = true
+z_index = -2
 position = Vector2(28, 11.5)
 texture = ExtResource("6_f1sqh")
 vframes = 4
@@ -99,6 +102,7 @@ random_hflip = true
 
 [node name="Gravestone2" type="Sprite2D" parent="PlayArea/Background/Floor"]
 show_behind_parent = true
+z_index = -2
 position = Vector2(60.5, 11.5)
 texture = ExtResource("6_f1sqh")
 vframes = 4
@@ -108,6 +112,7 @@ random_hflip = true
 
 [node name="Gravestone3" type="Sprite2D" parent="PlayArea/Background/Floor"]
 show_behind_parent = true
+z_index = -2
 position = Vector2(80.5, 14.5)
 texture = ExtResource("6_f1sqh")
 vframes = 4
@@ -117,6 +122,7 @@ random_hflip = true
 
 [node name="Gravestone4" type="Sprite2D" parent="PlayArea/Background/Floor"]
 show_behind_parent = true
+z_index = -2
 position = Vector2(117, 16)
 texture = ExtResource("6_f1sqh")
 vframes = 4
@@ -126,6 +132,7 @@ random_hflip = true
 
 [node name="Gravestone5" type="Sprite2D" parent="PlayArea/Background/Floor"]
 show_behind_parent = true
+z_index = -2
 position = Vector2(184.5, 11.5)
 texture = ExtResource("6_f1sqh")
 vframes = 4
@@ -135,6 +142,7 @@ random_hflip = true
 
 [node name="Gravestone6" type="Sprite2D" parent="PlayArea/Background/Floor"]
 show_behind_parent = true
+z_index = -2
 position = Vector2(229, 12.5)
 texture = ExtResource("6_f1sqh")
 vframes = 4
@@ -144,6 +152,7 @@ random_hflip = true
 
 [node name="Gravestone7" type="Sprite2D" parent="PlayArea/Background/Floor"]
 show_behind_parent = true
+z_index = -2
 position = Vector2(249, 13)
 texture = ExtResource("6_f1sqh")
 vframes = 4
@@ -189,7 +198,7 @@ position = Vector2(256, 468)
 collision_layer = 129
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/DownWall"]
-shape = SubResource("WorldBoundaryShape2D_f1sqh")
+shape = SubResource("WorldBoundaryShape2D_rq143")
 one_way_collision = true
 one_way_collision_margin = 50.0
 
@@ -200,7 +209,7 @@ collision_layer = 9
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/LeftWall"]
 position = Vector2(-2, -1.5)
 rotation = 1.5707964
-shape = SubResource("WorldBoundaryShape2D_rq143")
+shape = SubResource("WorldBoundaryShape2D_kxb8h")
 one_way_collision = true
 one_way_collision_margin = 50.0
 
@@ -210,7 +219,7 @@ collision_layer = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/RightWall"]
 rotation = -1.5707964
-shape = SubResource("WorldBoundaryShape2D_kxb8h")
+shape = SubResource("WorldBoundaryShape2D_jn53l")
 one_way_collision = true
 one_way_collision_margin = 50.0
 
@@ -220,7 +229,7 @@ collision_layer = 257
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/UpWall"]
 rotation = -3.1415927
-shape = SubResource("WorldBoundaryShape2D_jn53l")
+shape = SubResource("WorldBoundaryShape2D_wveso")
 one_way_collision = true
 one_way_collision_margin = 50.0
 
@@ -276,6 +285,7 @@ script = ExtResource("13_3pn3u")
 
 [node name="Soundtrack" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_uxjvs")
+volume_db = -6.42
 autoplay = true
 bus = &"2D"
 script = ExtResource("16_r0y7k")
