@@ -12,4 +12,4 @@ func play(n: Node) -> Variant:
 		fx.randomize_sprite()
 	if invert:
 		fx.flip_v = true
-	return 
+	return

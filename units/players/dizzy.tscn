@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dgyeqcyecu50c"]
+[gd_scene load_steps=15 format=3 uid="uid://dgyeqcyecu50c"]
 
 [ext_resource type="PackedScene" uid="uid://do4kgcgelx4o2" path="res://units/players/player_character.tscn" id="1_2k1ve"]
 [ext_resource type="Texture2D" uid="uid://cks4j15y8ely7" path="res://units/players/dizzy.png" id="2_l7ykn"]
@@ -25,10 +25,16 @@ random_flip = true
 id = &"form"
 metadata/_custom_type_script = "uid://36fnhkqw2isw"
 
+[sub_resource type="Resource" id="Resource_38xts"]
+script = ExtResource("6_xy5ri")
+id = &"oewow"
+metadata/_custom_type_script = "uid://b1ydwg3kwttbo"
+
 [node name="Dizzy" instance=ExtResource("1_2k1ve")]
 script = ExtResource("2_tb46d")
 acceleration = 800
 speed = 200
+bomb_cooldown = 40.0
 bomb_icon = 0
 walk_rate = 0.035
 
@@ -51,4 +57,5 @@ script = ExtResource("8_xy5ri")
 ammo = ExtResource("9_fam8i")
 ammo_count = 1
 pool_mode = 0
+shoot_fx = Array[ExtResource("5_ko4n6")]([SubResource("Resource_38xts")])
 metadata/_custom_type_script = "uid://bbav8weitt8f3"

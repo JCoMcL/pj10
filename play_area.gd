@@ -130,7 +130,7 @@ func set_region(w,h):
 			wall_collider.rotation = Direction.to_radians(direction) - (PI /2)
 			wall_collider.one_way_collision = true
 			wall_collider.one_way_collision_margin = 50
-	
+
 	var floor = get_wall(Direction.DOWN)
 	floor.position.y -= bottom_padding
 

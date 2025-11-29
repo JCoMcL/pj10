@@ -29,10 +29,46 @@ func advance_animation():
 func strobe():
 	visible = !visible
 
+class _Animation:
+	var start:int
+	var frames:int
+	var rate:float
+	var accum:float
+	var sprite:Sprite2D
+	signal done
+
+	func _init(start:int, frames:int, rate:float, sprite:Sprite2D):
+		self.start = start
+		self.frames = frames
+		self.rate = rate
+		self.sprite = sprite
+
+	func add_time(delta: float):
+		accum += delta
+		sprite.frame = start + min(
+			frames - 1,
+			floor(accum * rate)
+		)
+		if accum >= frames / rate:
+			done.emit()
+
+var current_animation: _Animation = null
 var cumers: Array[Cumer]
 func _process(delta: float) -> void:
-	for c in cumers:
-		c.add(delta)
+	if current_animation:
+		current_animation.add_time(delta)
+	else:
+		for c in cumers:
+			c.add(delta)
+
+func reset_current_animation():
+	current_animation = null
+
+func play_animation(start:int, frames:int, rate:int) -> Signal:
+	visible = true
+	current_animation = _Animation.new(start, frames, rate, self)
+	current_animation.done.connect(reset_current_animation)
+	return current_animation.done
 
 func reset() -> void:
 	cumers.clear()
