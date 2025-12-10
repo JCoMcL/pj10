@@ -46,9 +46,9 @@ func _process(delta: float) -> void:
 				animation_stage += 1
 		2:
 			play_sfx("boom")
-			for result in Utils.get_objects_under_body(self, "Friendly", Utils.BODIES, get_world_2d()):
-				if result is Player and not result.alive:
-					revive(result)
+			for result in Utils.get_objects_under_body(self, "Dead", Utils.BODIES, get_world_2d()):
+				assert(result is Player and not result.alive)
+				revive(result)
 			animation_stage += 1
 		3:
 			pass

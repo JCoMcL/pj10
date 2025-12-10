@@ -66,6 +66,7 @@ static func get_game(from: Node) -> Game:
 	return from
 
 static func add_to_playfield(o: Node2D, from: Node2D): #FIXME why is this static? I hate it
+	assert(o and from)
 	var parent: Node2D
 	var game = get_game(from)
 	if game:
