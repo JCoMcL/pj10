@@ -50,6 +50,7 @@ position = Vector2(-9, -15)
 script = ExtResource("4_0nkv5")
 ammo = ExtResource("5_1jacx")
 ammo_count = 2
+interval = 0.2
 shoot_fx = Array[ExtResource("5_ko4n6")]([SubResource("Resource_tb46d"), SubResource("Resource_ol4hu")])
 
 [node name="Bomb" type="Node2D" parent="." index="3"]

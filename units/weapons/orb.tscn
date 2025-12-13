@@ -14,7 +14,7 @@
 
 [sub_resource type="Resource" id="Resource_6ol1o"]
 script = ExtResource("5_lg6bi")
-ignore_layers = 9
+ignore_layers = 137
 damage = 2
 metadata/_custom_type_script = "uid://32qn5elehj72"
 

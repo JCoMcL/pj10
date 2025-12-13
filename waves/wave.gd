@@ -10,7 +10,7 @@ class_name Wave
 func nothing(n: Node2D):
 	pass
 
-func spread(n: Node2D, amount = 32.0):
+func spread(n: Node2D, amount = 64.0):
 	n.position += Vector2(
 		randf() - 0.5,
 		randf() - 0.5
@@ -70,10 +70,7 @@ func finish_up():
 
 var done_spawning = false
 func start():
-	var current: Node
-	current = await spawn_at(starting_formation, "FormationCorner")
-	current.position.y += 40
-	current.reset_physics_interpolation()
+	await spawn_at(starting_formation, "FormationCorner", nudge.bind(0,40))
 	await Utils.delay(15)
 	spawn_left_interceptors()
 	await Utils.delay(6)
@@ -82,10 +79,10 @@ func start():
 	var f = func(n:Node2D):
 		spread(n)
 		splash(n)
-	await spawn_chain(marten, "CenterSpawn", 2, 2.0, f)
-	await Utils.delay(20)
-	await spawn_chain(marten, "PincerSpawn", 3, 1.0, f)
-	Utils.delay(1.5)
-	await spawn_chain(marten, "PincerSpawn_M", 3, 1.0, f)
+	await spawn_chain(marten, "CenterSpawn", 2, 4.0, f)
+	await Utils.delay(10)
+	spawn_chain(marten, "PincerSpawn", 2, 3.0, f)
+	await Utils.delay(1.5)
+	await spawn_chain(marten, "PincerSpawn_M", 2, 3.0, f)
 
 	finish_up()
