@@ -1,11 +1,7 @@
 extends Node2D
 class_name Shoota
 
-@export var ammo: PackedScene:
-	set(scn):
-		assert(scn.instantiate() is Unit)
-		ammo = scn
-
+@export var ammo: PackedScene
 @export_range(1,64,1) var ammo_count = 3
 @export var pool_mode: Pool.Poolmode = Pool.Poolmode.PASS
 @export_range(0.0, 10.0) var interval = 0.0
@@ -14,7 +10,7 @@ class_name Shoota
 @export var autoshoot = false:
 	set(b):
 		if autoshoot != b:
-			_autoshoot_changed(b)
+			_autoshoot_changed(bool(b))
 		autoshoot = b
 @export var oneshot = false
 @export var default_direction = Vector2.UP
@@ -32,6 +28,7 @@ signal windup_ended(bool)
 signal cooled_down
 
 var bullet_pool: Pool
+var parent: Unit
 
 signal autoshoot_enabled
 signal autoshoot_disabled
@@ -74,7 +71,7 @@ func windup():
 	winding_up = true
 	windup_started.emit()
 
-func shoot(towards:Variant = default_direction, parent:Node=null, mask:int=-1) -> Unit:
+func shoot(towards:Variant = default_direction, parent_to:Node=null, mask:int=-1) -> Unit:
 	if cooldown_countdown > 0:
 		return null
 	windup()
@@ -89,36 +86,32 @@ func shoot(towards:Variant = default_direction, parent:Node=null, mask:int=-1) -
 	var direction = resolve_direction(towards)
 
 	if mask == -1:
-		mask = Utils.combined_layers(["World", "Friendly", "Enemy"]) & ~get_parent().collision_layer
-
-	var bullet: Unit
-	if bullet_pool:
+		mask = Utils.combined_layers(["World", "Friendly", "Enemy"])
 		if parent:
-			bullet = bullet_pool.next(parent)
-		else:
-			var game = Game.get_game(self)
-			if game:
-				bullet = bullet_pool.next(null)
-				if bullet:
-					Game.add_to_playfield(bullet, self)
-			else:
-				bullet = bullet_pool.next(find_first_node_not_under_unit())
+			if not parent.is_node_ready():
+				await parent.ready
+			mask &= ~get_parent().collision_layer # don't collide with parent
+
+	var bullet: Unit = bullet_pool.next(null)
 	if bullet:
 		assert(bullet is Unit)
 		bullet.collision_mask = mask
-		bullet.global_position = global_position
 		bullet.direction = direction.normalized().rotated((randf() - 0.5) * spread)
 		bullet.velocity += bullet.direction * apply_impulse
 		if not bullet.points_claimed.is_connected(points_claimed.emit):
 			bullet.points_claimed.connect(points_claimed.emit)
-
-		bullet.wakeup() # call wakeup again once everything's set incase some of it was important
 		for fx in shoot_fx:
 			fx.play(self)
 
+		var game = Game.get_game(self)
+		if game:
+			Game.add_to_playfield(bullet, parent_to if parent_to else self)
+		else:
+			bullet = bullet_pool.next(find_first_node_not_under_unit())
+		bullet.wakeup()
+
 		if oneshot:
 			autoshoot_in_loop = false
-
 		cooldown_countdown = interval
 
 	return bullet
@@ -155,3 +148,5 @@ func _ready():
 		bullet_pool = Pool.new(ammo, ammo_count, pool_mode, true, false)
 	if not interval:
 		oneshot = true
+	if get_parent() and get_parent() is Unit:
+		parent = get_parent()

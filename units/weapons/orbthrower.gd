@@ -9,7 +9,7 @@ func _on_bullet_expire(b: Unit):
 	await spawn_bullet() #this is probably the same bullet
 	assert(bullet_state.size() == ammo_count)
 
-func shoot(towards:Variant=default_direction, parent:Node=null, mask:int=-1) -> Unit:
+func shoot(towards:Variant=default_direction, parent_to:Node=null, mask:int=-1) -> Unit:
 	for b in bullet_state.keys():
 		if bullet_state[b] == ORBITING:
 			bullet_state[b] = WIND_UP
@@ -34,11 +34,11 @@ func _physics_process(delta: float) -> void:
 					bullet_state[b] = PASSIVE
 
 func spawn_bullet():
-	var p = get_parent()
-	if p and p is Unit and not p.alive:
+	if parent and not parent.alive:
 		return #cancel if our owner is dead
 
-	await Utils.delay(0.4)
+	if cooldown_countdown > 0:
+		await cooled_down
 	var b = await super.shoot()
 	if not is_instance_valid(b): #This occurs when the game is quitting
 		return

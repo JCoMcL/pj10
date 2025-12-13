@@ -11,7 +11,7 @@ extends Shoota
 
 var sfx_cumer: Cumer
 var sustained_bullet: Unit
-func shoot(towards:Variant = default_direction, parent:Node=null, mask:int=-1) -> Unit:
+func shoot(towards:Variant = default_direction, parent_to:Node=null, mask:int=-1) -> Unit:
 	if sustained_bullet and sustained_bullet.alive:
 		sustained_bullet.direction = resolve_direction(towards)
 		return sustained_bullet
