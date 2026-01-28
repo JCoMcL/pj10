@@ -19,7 +19,7 @@ volume_db = -38.189
 panning_strength = 0.5
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(-2.48721e-09, -0.0234086, 0.0569006, -1.02322e-09, 0.0569006, 0.0234086, -0.0615275, 0, -2.68946e-09, 0.406176, 1.20964, 0)
+transform = Transform3D(-2.6914937e-09, -0.027773371, 0.06751029, -1.2140109e-09, 0.06751029, 0.027773371, -0.073, -9.871748e-11, -2.9509688e-09, 0.406176, 1.20964, 0)
 gi_mode = 2
 texture = ExtResource("2_2saxt")
 
@@ -34,9 +34,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0184631, -0.00158691, -0.0
 shape = SubResource("BoxShape3D_2os1j")
 
 [node name="ObservationPoint" type="Marker3D" parent="Sprite3D"]
-transform = Transform3D(10.6844, 0, -8.81073e-13, 0, 10.6844, 0, 8.81073e-13, 0, 10.6844, -2.34217e-07, 0, 5.35827)
+transform = Transform3D(10.68439, -1.13686804e-13, -9.379164e-13, -1.0599215e-14, 10.684399, -3.3385698e-20, 5.400125e-13, -4.348239e-21, 10.684399, 0.056, -2.312, 7.865)
 
 [node name="Camera3D" type="Camera3D" parent="Sprite3D/ObservationPoint"]
+transform = Transform3D(1.5211812, -8.67745e-14, 1.2079227e-13, -3.2681716e-15, 1.5211784, 5.9604645e-08, 0, -5.9604645e-08, 1.5211784, 0, 0, 0)
 current = true
 
 [node name="arcade_cabinet" parent="." instance=ExtResource("4_mriux")]
