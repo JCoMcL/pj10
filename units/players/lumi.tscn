@@ -23,7 +23,7 @@ metadata/_custom_type_script = "uid://jug5afl2e6bd"
 [node name="Lumi" instance=ExtResource("1_7tlug")]
 script = ExtResource("2_40uyx")
 speed = 320
-bomb_cooldown = 0.5
+bomb_cooldown = 2.0
 bomb_icon = 2
 walk_rate = 0.0157
 
