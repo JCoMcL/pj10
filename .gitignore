@@ -7,6 +7,7 @@ temp/
 .cursorindexingignore
 .specstory
 *.png~
+*.kra~
 *.blend1
 *.exr
 export
