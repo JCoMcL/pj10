@@ -1,6 +1,7 @@
 extends Shoota
 class_name OrbThrower
 
+@export_range(0.0, 10.0, 0.01, "suffix:s") var respawn_delay = 0.2
 enum {ORBITING, WIND_UP, LAUNCHING, PASSIVE}
 var bullet_state: Dictionary
 
@@ -39,6 +40,8 @@ func spawn_bullet():
 
 	if cooldown_countdown > 0:
 		await cooled_down
+	if respawn_delay > 0:
+		await Utils.delay(respawn_delay)
 	var b = await super.shoot()
 	if not is_instance_valid(b): #This occurs when the game is quitting
 		return

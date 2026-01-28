@@ -62,7 +62,7 @@ atlas = ExtResource("7_lypa5")
 region = Rect2(16, 0, 16, 9)
 
 [node name="Orb" instance=ExtResource("1_mi1cs")]
-collision_mask = 152
+collision_mask = 24
 behaviours = Array[ExtResource("3_35w50")]([SubResource("Resource_6ol1o"), SubResource("Resource_pcxav"), SubResource("Resource_lypa5"), SubResource("Resource_y2yfs")])
 expire_fx = Array[ExtResource("7_vuopu")]([SubResource("Resource_u8hrw"), SubResource("Resource_vuopu")])
 
