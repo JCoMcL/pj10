@@ -28,5 +28,7 @@ func opening_anim():
 
 func _ready():
 	visible=false
+	await Utils.delay(0.5)
 	opening_anim.call_deferred()
-
+	await Utils.delay(4)
+	closing_anim()

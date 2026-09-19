@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://c2wcbus1mucv5"]
+[gd_scene format=3 uid="uid://c2wcbus1mucv5"]
 
 [ext_resource type="Texture2D" uid="uid://b36hudn01kmqf" path="res://portal/portal_layers.png" id="1_ef3v5"]
 [ext_resource type="Script" uid="uid://fyyk2jp0u5yv" path="res://portal/portal.gd" id="2_grrij"]
@@ -226,16 +226,16 @@ animations = [{
 "speed": 18.0
 }]
 
-[node name="Body" type="AnimatedSprite2D"]
+[node name="Body" type="AnimatedSprite2D" unique_id=1563837608]
 sprite_frames = SubResource("SpriteFrames_21lw5")
 autoplay = "opening"
 script = ExtResource("2_grrij")
 
-[node name="Swirl" type="AnimatedSprite2D" parent="."]
+[node name="Swirl" type="AnimatedSprite2D" parent="." unique_id=446664860]
 sprite_frames = SubResource("SpriteFrames_pbp66")
 autoplay = "default"
 
-[node name="Sheen" type="AnimatedSprite2D" parent="."]
+[node name="Sheen" type="AnimatedSprite2D" parent="." unique_id=368962571]
 position = Vector2(-0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_rby5x")
 autoplay = "default"
