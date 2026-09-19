@@ -9,7 +9,6 @@ temp/
 *.png~
 *.kra~
 *.blend1
-*.exr
 export
 audio/sfx/crushed-*
 test_scene.tscn
