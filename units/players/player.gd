@@ -72,7 +72,7 @@ func wakeup():
 	if auto_ground:
 		move_and_collide(Vector2.DOWN * 1000)
 		reset_physics_interpolation()
-	collision_layer = Utils.layers["Friendly"]
+	collision_layer = Layers.layers["Friendly"]
 
 func claim_points(points: int):
 	super(points)
@@ -114,7 +114,7 @@ func _expire():
 		-200
 	)
 	play_sfx(death_sfx)
-	collision_layer = Utils.layers["Dead"]
+	collision_layer = Layers.layers["Dead"]
 
 enum Frames {
 	PORTRAIT, PROFILE, WALK0, WALK2, WALK3, WALK_END, SKID, REEL, GRAVE, SPECIAL

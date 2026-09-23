@@ -124,7 +124,7 @@ func set_region(w,h):
 		if active_walls[direction]:
 			var wall = get_wall(direction)
 			wall.position = Direction.to_vec(direction) * (center - center_pad) + center + center_pad
-			wall.collision_layer = Utils.combined_layers(["World", ["Ceiling", "Floor", "Walls", "Walls"][direction]])
+			wall.collision_layer = Layers.combined_layers(["World", ["Ceiling", "Floor", "Walls", "Walls"][direction]])
 			var wall_collider = get_wall_collider(direction)
 			wall_collider.shape = WorldBoundaryShape2D.new()
 			wall_collider.rotation = Direction.to_radians(direction) - (PI /2)
@@ -149,8 +149,8 @@ var _set_up = false
 func _ready():
 	setup_region()
 	_set_up = true
-	collision_layer = Utils.layers["PlayArea"]
-	collision_mask = Utils.layers["AreaBounded"]
+	collision_layer = Layers.layers["PlayArea"]
+	collision_mask = Layers.layers["AreaBounded"]
 	monitoring = true
 	if not Engine.is_editor_hint():
 		body_exited.connect(_on_body_exited)

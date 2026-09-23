@@ -86,7 +86,7 @@ func shoot(towards:Variant = default_direction, parent_to:Node=null, mask:int=-1
 	var direction = resolve_direction(towards)
 
 	if mask == -1:
-		mask = Utils.combined_layers(["World", "Friendly", "Enemy"])
+		mask = Layers.combined_layers(["World", "Friendly", "Enemy"])
 		if parent:
 			if not parent.is_node_ready():
 				await parent.ready

@@ -15,9 +15,9 @@ var monitoring_play_area = false:
 	set(b):
 		monitoring_play_area = b
 		if b:
-			collision_layer |= Utils.layers["AreaBounded"]
+			collision_layer |= Layers.layers["AreaBounded"]
 		else:
-			collision_layer &= ~Utils.layers["AreaBounded"]
+			collision_layer &= ~Layers.layers["AreaBounded"]
 var inside_play_area: bool
 
 func _on_enter_play_area():
@@ -111,11 +111,11 @@ func init_behaviours():
 				print("Warning: %s: behaviours not set up properly!" % self)
 
 func is_on_enemy_team() -> bool:
-	if collision_layer & Utils.layers["Friendly"]:
+	if collision_layer & Layers.layers["Friendly"]:
 		return false
-	if collision_layer & Utils.layers["Enemy"]:
+	if collision_layer & Layers.layers["Enemy"]:
 		return true
-	if collision_mask & Utils.layers["Friendly"]:
+	if collision_mask & Layers.layers["Friendly"]:
 		return true
 	return false
 
